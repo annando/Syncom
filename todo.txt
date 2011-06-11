@@ -1,11 +1,12 @@
-Prio 1
-======
-- Loeschen mit Lesen der Cancel-Newsgroup
+Prio 1 
+====== 
+- Löschen mit Lesen der Cancel-Newsgroup 
 
 Prio 2
 ======
-- Anhaenge (beidseitig)
+- Anhänge (beidseitig)
 - Ausgabe als "format-flowed"
+- bessere BBCode2Plain-Formatierungsroutine
 
 Prio 3
 ======
@@ -13,10 +14,9 @@ Prio 3
   und geschaut wird, ob diese Zeile im verknüpften Beitrag zu finden ist
 - Zuordnung mehrerer Mailadressen und in Anspruch nehmen von bestehenden
   Posts anonymer User
-- Pruefung von Usernamen auf Gueltigkeit (Illegale Zeichen)
 
-Bugs
-====
-- Bei einem Supersede aus dem Forum heraus, fuehrt er das Supersede auch mit
-  dem Originalbeitrag im Forum aus. (Ist das noch der Fall?)
+Bugs 
+==== 
+- In synctonews.php gibt es einen Bug, der gelegentlich den 
+  PHP-Prozess in eine Endlosschleife bringt
 - [hr] erzeugt keinen Umbruch bei BBCode2Plain
