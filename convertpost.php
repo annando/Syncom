@@ -9,8 +9,6 @@ include_once "htmlconvert.php";
 
 function to_utf8($string)
 {
-	//if ($string != utf8_encode(utf8_decode($string)))
-
 	if ($string != html_entity_decode(mb_convert_encoding($string, 'HTML-ENTITIES', "UTF-8"), ENT_QUOTES, 'UTF-8'))
 		$string = utf8_encode($string);
 	return($string);
@@ -28,13 +26,7 @@ $decoder = new Mail_mimeDecode($email);
 $structure = $decoder->decode($params);
 $charset = $structure->ctype_parameters['charset'];
 
-//if ($charset != '') {
-//	// Ein Quickhack, denn es kann auch sein, dass die Kodierung im From und im Subject anders ist als im Rest der Nachricht
-//	$structure->headers['from'] = iconv($charset, 'UTF-8', $structure->headers['from']);
-//	$structure->headers['subject'] = iconv($charset, 'UTF-8', $structure->headers['subject']);
-//}
-
-// Noch böserer Quickhack
+// Böser Quickhack
 // Hier wird davon ausgegangen, dass der Text entweder in 8859-1 oder UTF-8 vorliegt
 $structure->headers['from'] = to_utf8($structure->headers['from']);
 $structure->headers['subject'] = to_utf8($structure->headers['subject']);
@@ -52,7 +44,7 @@ if ($bodyhtml != '')
 	$message['body'] = htmlconvert($bodyhtml);
 else {
 	$message['body'] = get_body_plain($structure,$params);
-	
+
 	if (trim($message['body']) == '')
 		$message['body'] = '(Kein Text)';
 }
@@ -108,22 +100,4 @@ $message['control'] = $structure->headers['control'];
 
 return($message);
 }
-/*
-$message = file_get_contents('sample/klima/klima5.eml');
-//$message = file_get_contents('sample/klima/klima-a.eml');
-//$message = file_get_contents('sample/badoo.msg');
-//$message = file_get_contents('sample/tofu8.msg');
-//$message = file_get_contents('sample/footer.msg');
-$struct = convertpost($message);
-//echo $struct['subject']."\n";
-echo $struct['body'];
-echo "\n--------------------\n";
-//print_r($struct);
-*/
-//file_put_contents('test.msg', $struct['body']);
-
-//$body = explode("\n", $struct['body']);
-//foreach ($body as $line)
-//	echo "\n*".$line."*";
-
 ?>

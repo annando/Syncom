@@ -31,7 +31,6 @@ function postarticle($message)
 	$ret = $nntp->connect($syncom['newsserver'], false, '119', 3);
 	if(PEAR::isError($ret)) {
 		echo $ret->message."\r\n".$ret->userinfo."\r\n";
-		//print_r($ret);
 		return(false);
 	}
 
@@ -39,7 +38,6 @@ function postarticle($message)
 		$ret = $nntp->authenticate($syncom['user'], $syncom['password']);
 		if(PEAR::isError($ret)) {
 			echo $ret->message."\r\n".$ret->userinfo."\r\n";
-			//print_r($ret);
 			return(false);
 		}
 	}
@@ -112,7 +110,6 @@ function postarticle($message)
 	$ret = $nntp->mail($message['newsgroups'], $subject, $body, $additional);
 	if(PEAR::isError($ret)) {
 		echo $ret->message."\r\n".$ret->userinfo."\r\n";
-		//print_r($ret);
 		return(false);
 	}
 
@@ -159,20 +156,13 @@ function bbcode2html($post)
 
 	$parsed = str_replace('<cite>'.$lang->quote.'</cite>', '', $parsed);
 
-	$parsed = preg_replace('=(.*?)<blockquote><cite>(.*?)</cite>(.*?)=i', 
+	$parsed = preg_replace('=(.*?)<blockquote><cite>(.*?)</cite>(.*?)=i',
 				'$1<br />$2<br /><blockquote>$3', $parsed);
 
-	//$parsed = str_replace('</cite>', '</cite><br />', $parsed);
-
-	$parsed = str_replace('<blockquote>', 
+	$parsed = str_replace('<blockquote>',
 				'<blockquote type="cite" class="gmail_quote" style="margin:0 0 0 .8ex;border-left:1px #ccc solid;padding-left:1ex;">',
 				$parsed);
 
-//	$parsed = '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">'."\n".
-//			'<html><head><title></title></head>'."\n".
-//			'<body bgcolor="#ffffff" text="#000000">'."\n".$parsed.
-//			'</body></html>';
-//die($parsed);
 	return($parsed);
 }
 

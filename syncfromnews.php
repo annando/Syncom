@@ -22,21 +22,6 @@ function fetcharticles($nntp, $newsgroup, $start, $end = -1)
 {
 	global $syncom;
 
-	//$nntp = new Net_NNTP_Client();
-	//$ret = $nntp->connect($syncom['newsserver'], false, '119', 3);
-	//if(PEAR::isError($ret)) {
-	//	echo $ret->message."\r\n".$ret->userinfo."\r\n";
-	//	return(false);
-	//}
-
-	//if ($syncom['user'] != '') {
-	//	$ret = $nntp->authenticate($syncom['user'], $syncom['password']);
-	//	if(PEAR::isError($ret)) {
-	//		echo $ret->message."\r\n".$ret->userinfo."\r\n";
-	//		return(false);
-	//	}
-	//}
-
 	$ret = $nntp->selectGroup($newsgroup);
 	if(PEAR::isError($ret)) {
 		echo $ret->message."\r\n".$ret->userinfo."\r\n";
@@ -69,29 +54,24 @@ function processarticle($api, $fid, $article, $articlenumber)
 {
 	global $db, $syncom;
 
-	//echo $fid."\r\n";
 	// Zerlegen der Nachricht
 	$struct = convertpost($article);
 
 	// x-no-archive wird nicht uebertragen
 	if (strtolower($struct['x-no-archive']) == 'yes') {
 		echo "X-No-Archive\r\n";
-		//$struct['subject'] = '(X-No-Archive)';
 		$struct['body'] = '(X-No-Archive)';
 		$struct['from']['mailbox'] = 'nobody';
 		$struct['from']['host'] = 'nowhere.tld';
 		$struct['from']['personal'] = 'nobody';
-		//return(true);
 	}
 
 	if (strtolower(substr($struct['body'],0,17)) == 'x-no-archive: yes') {
 		echo "X-No-Archive\r\n";
-		//$struct['subject'] = '(X-No-Archive)';
 		$struct['body'] = '(X-No-Archive)';
 		$struct['from']['mailbox'] = 'nobody';
 		$struct['from']['host'] = 'nowhere.tld';
 		$struct['from']['personal'] = 'nobody';
-		//return(true);
 	}
 
 	// Erkennen eines Supersedes
@@ -105,7 +85,6 @@ function processarticle($api, $fid, $article, $articlenumber)
 
 	// wurde die Nachricht bereits gepostet?
 
-	//echo $struct['message-id']."\r\n";
 	$post = $api->getidbymessageid($struct['message-id'], $fid);
 
 	// Pruefung, ob der Artikel bereits ohne Nummer existiert
@@ -154,7 +133,6 @@ function processarticle($api, $fid, $article, $articlenumber)
 	if ($post['pid'] == 0)
 		if (strtolower(substr($struct['subject'],0,3)) == 're:') 
 			$struct['subject'] = ltrim(substr($struct['subject'], 3));
-			//die($struct['message-id']);
 
 	$user = $struct['from']['personal'];
 
