@@ -297,39 +297,4 @@ class mybbapi
 		return($user);
 	}
 }
-
-/*if (!$api->login('icarus', 'testtest'))
-	die('Nee');
-print_r($api->getidbymessageid('test@syncom.piratenÃpartei.de'));
-*/
-/*
-$forum = 253;
-$topic = 2413;
-$pid = 15533;
-$reply = 15532;
-$subject = 'Re: irgendwas';
-$text = "Ein Text der geaendert wurde";
-$uid = 1;
-$username = '';
-//$date = 1283540380;
-$date = 0;
-
-$messageid = '<test@syncom.piratenpartei.de>';
-$articlenumber = -1;
-
-//$api->post($forum, $topic, $reply, $subject, $text, $uid, $username, $date, $messageid);
-
-$api->edit($topic, $pid, $reply, $subject, $text, $uid, $username, $date, $messageid, $articlenumber);
-$api->logout();
-*/
-/*
-$api = new mybbapi;
-//$data['subject'] = 'Re: Antragsbuch mit ProgrammvorschlÃ¤gen zum LPT 2010.2';
-$data['subject'] = 'Re: Gib STASI 3.0 keine Chance';
-//$fid = 258;
-$fid = 261;
-print_r($api->getidbysubject($data, $fid));
-*/
-//$api = new mybbapi;
-//$api->delete(2426, 15619);
 ?>

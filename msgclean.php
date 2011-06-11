@@ -34,8 +34,6 @@ function unifyattributionline($message)
 		$message = savereplace('/Am (.*?) schrieb <(.*?)>:\s*\['.$quote.'\]/i', "[".$quote."='$2']\n", $message);
 		$message = savereplace('/Am (.*?) schrieb (.*?):\s*\['.$quote.'\]/i', "[".$quote."='$2']\n", $message);
 		$message = savereplace('/Am (.*?) schrieb (.*?)\n(.*?):\s*\['.$quote.'\]/i', "[".$quote."='$2']\n", $message);
-//Am 02.04.2011 18:38, schrieb brugger.burg@googlemail.com: 
-//wird zu: brugger.burg@googlemail.com schrieb:
 
 		$message = savereplace('/(\d+)\/(\d+)\/(\d+) ([^<"].*?) <(.*?)>\s*\['.$quote.'\]/i', "[".$quote."='$4']\n", $message);
 
@@ -94,7 +92,7 @@ function unifyattributionline($message)
 
 function removegpg($message)
 {
-	
+
 	$pattern = '/(.*)\s*-----BEGIN PGP SIGNED MESSAGE-----\s*[\r\n].*Hash:.*?[\r\n](.*)'.
 		'[\r\n]\s*-----BEGIN PGP SIGNATURE-----\s*[\r\n].*'.
 		'[\r\n]\s*-----END PGP SIGNATURE-----(.*)/is';
@@ -209,7 +207,7 @@ function removelinebreak($message)
 
 				$line = ltrim(substr($line, 1));
 			}
-			
+
 		}
 		//else
 		//	$lines[$lineno] = $quotelevel.'-'.$len.'-'.$firstword.'-';

@@ -8,13 +8,13 @@ function convertquote($body, $reply)
 	for ($i = 0; $i < count($arrbody); $i++) {
 		$quotelevel = 0;
 		$quoteline = $arrbody[$i];
-		
+
 		while ((strlen($quoteline)>0) and ((substr($quoteline, 0, 1) == '>')
 			or (substr($quoteline, 0, 1) == ' '))) {
 			if (substr($quoteline, 0, 1) == '>')
 				$quotelevel++;
 
-			$quoteline = ltrim(substr($quoteline, 1));			
+			$quoteline = ltrim(substr($quoteline, 1));
 		}
 
 		//echo $quotelevel.'*'.$quoteline."\r\n";
@@ -32,7 +32,7 @@ function convertquote($body, $reply)
 		$previousquote = $quotelevel;
 		$quotelevel = $arrlevel[$i];
 		$currline = $arrbody[$i];
-		
+
 		while ($previousquote < $quotelevel) {
 			if ($sender != '') {
 				$quote = "[quote title=$sender]";
