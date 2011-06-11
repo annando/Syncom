@@ -1,5 +1,11 @@
-Syncom ist ein MyBB-Plugin, um Beiträge mit einem NNTP-Server zu synchronisieren. Es wurde für die Piratenpartei entwickelt und hier auch eingesetzt.
+Syncom ist ein MyBB-Plugin, um Beiträge mit einem NNTP-Server zu 
+synchronisieren. Es wurde für die Piratenpartei entwickelt und hier auch 
+eingesetzt.
 
-Eine Installationsanleitung existiert im Moment leider noch nicht. Genauso sind noch (wenige) hartverdrahtete Stellen im Sourcecode vorhanden. Außerdem ist es eines Plugins eigentlich unwürdig, dass es eine Config-Datei gibt. Das wird hoffentlich in Zukunft geändert.
+Eine Installationsanleitung existiert im Moment leider noch nicht. 
+Genauso sind noch (wenige) hartverdrahtete Stellen im Sourcecode 
+vorhanden. Außerdem ist es eines Plugins eigentlich unwürdig, dass es 
+eine Config-Datei gibt. Das wird hoffentlich in Zukunft geändert.
 
-Damit Syncom auch mit Mailinglisten synchronisieren kann, wird SynFU benötigt: https://github.com/Shirk/SynFU
+Damit Syncom auch mit Mailinglisten synchronisieren kann, wird SynFU 
+benötigt: https://github.com/Shirk/SynFU
