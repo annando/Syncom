@@ -1,0 +1,17 @@
+<?php
+/**
+ *
+ */
+//		'hostname' => php_uname("n"),
+
+$syncom = array('outgoing-spool' => '/var/spool/syncom/outgoing',
+		'incoming-spool' => '/var/spool/syncom/incoming',
+		'syncuser' => 'syncuser@domain.tld',
+		'newsrc' => '/var/spool/syncom/newsrc',
+		'mailhostname' => 'mail.domain.tld',
+		'hostname' => 'news.domain.tld',
+		'newsserver' => "news.domain.tld",
+		'user' => "",
+		'password' => ""
+		);
+?>
