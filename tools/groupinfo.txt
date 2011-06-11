@@ -1,0 +1,1665 @@
+{| class="wikitable sortable"
+! Forum !! Newsgroup !! Mailingliste !! Öffentlich !! Haltezeit
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=21 Forum]
+| pirates.de.talk.politik.kernthemen.urheberrecht
+| ag-urheberrecht@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=309 Forum]
+| pirates.de.region.sl.ag.technik
+| ag-technik@saar.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=22 Forum]
+| pirates.de.talk.politik.kernthemen.buergerrechte
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=23 Forum]
+| pirates.de.talk.politik.kernthemen.patentrecht
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=24 Forum]
+| pirates.de.talk.politik.kernthemen.bildung
+| ag-bildung@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=28 Forum]
+| pirates.de.talk.politik.etc.aussenpolitik
+| ag-aussenpolitik@lists.piratenpartei.de
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=276 Forum]
+| pirates.de.region.hh.ag.gesellschaft
+| ag-gesellschaft@piratenpartei-hamburg.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=41 Forum]
+| pirates.de.region.bw.misc
+| baden-wuerttemberg@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=42 Forum]
+| pirates.de.region.by.misc
+| by-misc@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=43 Forum]
+| pirates.de.region.be.misc
+| berlin@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=44 Forum]
+| pirates.de.region.bb
+| brandenburg-sync@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=45 Forum]
+| pirates.de.region.hb.misc
+| bremen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=46 Forum]
+| pirates.de.region.mv.misc
+| mecklenburg-vorpommern@lists.piratenpartei.de
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=47 Forum]
+| pirates.de.region.ni.misc
+| aktive-nds@lists.piraten-nds.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=48 Forum]
+| pirates.de.region.nw.misc
+| nordrhein-westfalen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=49 Forum]
+| pirates.de.region.hh.misc
+| aktive@piratenpartei-hamburg.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=50 Forum]
+| pirates.de.region.he.misc
+| liste@piratenpartei-hessen.de
+|  
+| 14
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=51 Forum]
+| pirates.de.region.rp.misc
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=52 Forum]
+| pirates.de.region.sl.misc
+| saarland@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=53 Forum]
+| pirates.de.region.sn.misc
+| sachsen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=54 Forum]
+| pirates.de.region.st.misc
+| sachsen-anhalt_aktive@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=55 Forum]
+| pirates.de.region.sh.misc
+| diskurs@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=56 Forum]
+| pirates.de.region.th.misc
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=58 Forum]
+| pirates.de.etc.syncom.etc
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=59 Forum]
+| pirates.de.etc.syncom.complaints
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=61 Forum]
+| pirates.de.test
+| 
+|  
+| 10
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=62 Forum]
+| pirates.de.region.ni.braunschweig
+| bs-piraten@gomex.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=63 Forum]
+| pirates.de.region.ni.buchholz
+| nds-buchholz@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=64 Forum]
+| pirates.de.region.ni.goettingen
+| nds-goettingen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=65 Forum]
+| pirates.de.region.ni.hildesheim
+| nds-hildesheim@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=66 Forum]
+| pirates.de.region.ni.oldenburg
+| nds-oldenburg@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=67 Forum]
+| pirates.de.region.ni.osnabrueck
+| nds-osnabrueck@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=68 Forum]
+| pirates.de.region.by.oberfranken
+| oberfranken@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=69 Forum]
+| pirates.de.region.by.test
+| test@lists.piratenpartei-bayern.de
+|  
+| 10
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=73 Forum]
+| pirates.de.region.sh.pinneberg
+| pinneberg@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=74 Forum]
+| pirates.de.region.hb.marketing
+| bremen-marketing@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=75 Forum]
+| pirates.de.region.by.diskussion
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=76 Forum]
+| pirates.de.region.bw.rastatt-baden-baden
+| rastatt_baden-baden@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=77 Forum]
+| pirates.de.region.hb.infrastruktur
+| bremen-infrastruktur@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=78 Forum]
+| pirates.de.region.hb.bildung
+| bremen-bildung@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=79 Forum]
+| pirates.de.region.bw.ag.material
+| bw-ag-material@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=80 Forum]
+| pirates.de.region.bw.karlsruhe.misc
+| karlsruhe@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=82 Forum]
+| pirates.de.region.by.schwaben.allgaeu
+| allgaeu@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=83 Forum]
+| pirates.de.region.ni.orga
+| nds-ag-orga@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=84 Forum]
+| pirates.de.region.rp.neustadt
+| rlp-neustadt@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=85 Forum]
+| pirates.de.region.mv.rostock
+| mv-rostock@lists.piratenpartei.de
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=86 Forum]
+| pirates.de.region.mv.schwerin
+| mv-schwerin@lists.piratenpartei.de
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=87 Forum]
+| pirates.de.region.mv.presse
+| mv-presse@lists.piratenpartei.de
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=88 Forum]
+| pirates.de.talk.politik.etc.bauen-verkehr
+| ag-bauen-verkehr@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=89 Forum]
+| pirates.de.region.by.oberbayern
+| oberbayern@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=90 Forum]
+| pirates.de.region.nw.oberhausen
+| oberhausen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=91 Forum]
+| pirates.de.region.sh.test
+| 
+|  
+| 10
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=92 Forum]
+| pirates.de.region.bw.heilbronn
+| heilbronn@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=93 Forum]
+| pirates.de.etc.syncom.technik
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=94 Forum]
+| pirates.de.etc.syncom.rechtliches
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=95 Forum]
+| pirates.de.talk.partei.neu
+| neu@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=96 Forum]
+| pirates.de.region.by.ag.wanninger
+| by-ag-wanninger@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=97 Forum]
+| pirates.de.region.ni.alle
+| nds-alle-listen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=98 Forum]
+| pirates.de.region.bw.gruppe.offenburg
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=99 Forum]
+| pirates.de.region.by.unterfranken
+| unterfranken@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=100 Forum]
+| pirates.de.region.hb.orga
+| bremen-orga@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=102 Forum]
+| pirates.de.region.by.orga
+| by-orga@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=103 Forum]
+| pirates.de.region.bw.ag.landtagswahl
+| bw-ag-landtagswahl@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=104 Forum]
+| pirates.de.region.hb.ak-presse
+| bremen-ak-presse@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=105 Forum]
+| pirates.de.region.mv.bildung
+| mv-bildung@lists.piratenpartei.de
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=106 Forum]
+| pirates.de.region.by.announce
+| by-announce@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=107 Forum]
+| pirates.de.region.hh.test
+| test@piratenpartei-hamburg.de
+|  
+| 10
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=108 Forum]
+| pirates.de.region.by.politik
+| by-politik@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=109 Forum]
+| pirates.de.region.by.ag.it
+| by-ag-it@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=110 Forum]
+| pirates.de.region.by.ag.urheberrecht
+| by-ag-urheberrecht@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=111 Forum]
+| pirates.de.region.by.ag.buendnis
+| by-ag-buendnis@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=112 Forum]
+| pirates.de.region.bw.ag.landespolitik
+| ag-landespolitik-bw@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=113 Forum]
+| pirates.de.region.by.oberbayern.muenchen
+| muenchen@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=114 Forum]
+| pirates.de.region.bw.konstanz
+| konstanz@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=115 Forum]
+| pirates.de.region.bw.aalen
+| aalen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=116 Forum]
+| pirates.de.region.bw.gruppe.boeblingen
+| boeblingen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=117 Forum]
+| pirates.de.region.bw.gruppe.bretten
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=118 Forum]
+| pirates.de.region.bw.gruppe.bruchsal
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=119 Forum]
+| pirates.de.region.bw.freiburg
+| freiburg@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=120 Forum]
+| pirates.de.region.bw.goeppingen
+| goeppingen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=121 Forum]
+| pirates.de.region.bw.gruppe.loerrach
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=122 Forum]
+| pirates.de.region.bw.ludwigsburg
+| bw-ludwigsburg@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=123 Forum]
+| pirates.de.region.bw.pforzheim
+| pforzheim@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=124 Forum]
+| pirates.de.region.bw.ravensburg
+| ravensburg@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=125 Forum]
+| pirates.de.region.bw.gruppe.rems-murr-kreis
+| rems-murr-kreis@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=126 Forum]
+| pirates.de.region.bw.reutlingen-tuebingen
+| reutlingen-tuebingen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=322 Forum]
+| pirates.de.public.gruene-bucht
+| 
+| X
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=127 Forum]
+| pirates.de.region.bw.ulm
+| ulm@lists.piratenpartei.de
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=128 Forum]
+| pirates.de.region.bw.gruppe.rhein-neckar
+| rhein-neckar@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=129 Forum]
+| pirates.de.region.bw.sw-baar-heuberg
+| villingenschwenningen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=130 Forum]
+| pirates.de.region.by.oberbayern.landsberg
+| by-obb-landsberg@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=132 Forum]
+| pirates.de.region.by.oberbayern.ingolstadt
+| ingolstadt@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=133 Forum]
+| pirates.de.region.by.oberbayern.rosenheim
+| rosenheim@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=134 Forum]
+| pirates.de.region.by.oberbayern.altoetting-muehldorf
+| altoetting_muehldorf@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=135 Forum]
+| pirates.de.region.by.oberbayern.bgl
+| bgl@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=136 Forum]
+| pirates.de.region.by.oberbayern.dachau
+| dachau@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=137 Forum]
+| pirates.de.region.by.oberbayern.ebersberg
+| ebersberg@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=138 Forum]
+| pirates.de.region.by.oberbayern.erding
+| erding@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=139 Forum]
+| pirates.de.region.by.oberbayern.ffb
+| ffb@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=140 Forum]
+| pirates.de.region.by.oberbayern.freising
+| freising@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=141 Forum]
+| pirates.de.region.by.oberbayern.pfaffenhofen
+| pfaffenhofen@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=142 Forum]
+| pirates.de.region.by.oberbayern.starnberg
+| starnberg@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=143 Forum]
+| pirates.de.region.by.oberbayern.weilheim-schongau
+| wm-sog@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=144 Forum]
+| pirates.de.talk.politik.kernthemen.open-access
+| ag_open_access@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=145 Forum]
+| pirates.de.region.mv.greifswald
+| ovp-hgw-dm@lists.piratenpartei.de
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=146 Forum]
+| pirates.de.edu.magdeburg.ovgu
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=147 Forum]
+| pirates.de.region.rp.ludwigshafen
+| ludwigshafen@lists.piratenpartei.de
+|  
+| 14
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=148 Forum]
+| pirates.de.region.by.mittelfranken.fuerth.orga-kv
+| kv-fuerth-orga@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=149 Forum]
+| pirates.de.region.be.squad.piratenfreifunk
+| berlin-freifunk@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=151 Forum]
+| pirates.de.region.by.oberpfalz.misc
+| oberpfalz@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=336 Forum]
+| pirates.de.region.he.kassel.misc
+| kassel@piratenpartei-hessen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=153 Forum]
+| pirates.de.edu.muenchen.lmu
+| lmu@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=154 Forum]
+| pirates.de.talk.politik.europa
+| ag-europa@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=155 Forum]
+| pirates.de.region.bw.announce
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=157 Forum]
+| pirates.de.talk.politik.etc.pflege
+| ag-pflege@lists.piratenpartei.de
+|  
+| 365
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=158 Forum]
+| pirates.de.region.ni.hannover
+| nds-hannover@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=159 Forum]
+| pirates.de.region.hb.nord+bhv
+| bremerhaven@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=160 Forum]
+| pirates.de.region.by.oberpfalz.cham
+| cham@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=161 Forum]
+| pirates.de.talk.technik
+| techtalk@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=162 Forum]
+| pirates.de.region.sh.herzogtum-lauenburg
+| herzogtum.lauenburg@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=163 Forum]
+| pirates.de.region.by.oberbayern.miesbach
+| by-obb-miesbach@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=164 Forum]
+| pirates.de.region.by.oberbayern.toelz
+| by-obb-toel@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=165 Forum]
+| pirates.de.region.by.mittelfranken.misc
+| mfr-aktive@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=166 Forum]
+| pirates.de.region.nw.duisburg
+| nrw-duisburg@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=167 Forum]
+| pirates.de.region.sh.announce
+| ankuendigungen@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=168 Forum]
+| pirates.de.region.by.mittelfranken.erlangen
+| erlangen@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=169 Forum]
+| pirates.de.region.nw.bochum
+| bochum@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=170 Forum]
+| pirates.de.region.st.announce
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=171 Forum]
+| pirates.de.region.st.magdeburg
+| magdeburg@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=172 Forum]
+| pirates.de.region.st.crews
+| sachsen-anhalt-crews@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=173 Forum]
+| pirates.de.region.st.landtagswahl
+| sachsen-anhalt-pg-ltw-2011@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=175 Forum]
+| pirates.de.region.bw.bzv.tuebingen.misc
+| bzv-tuebingen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=176 Forum]
+| pirates.de.region.bw.bzv.stuttgart.misc
+| bzv-stuttgart@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=177 Forum]
+| pirates.de.region.bw.bzv.tuebingen.announce
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=178 Forum]
+| pirates.de.region.bw.bzv.stuttgart.announce
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=179 Forum]
+| pirates.de.region.by.mittelfranken.nuernberg.kv.misc
+| kv-nbg-aktive@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=180 Forum]
+| pirates.de.region.by.oberbayern.ag.programm
+| by-obb-ag-programm@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=181 Forum]
+| pirates.de.region.by.oberpfalz.neumarkt
+| neumarkt@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=182 Forum]
+| pirates.de.region.he.darmstadt
+| darmstadt@piratenpartei-hessen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=183 Forum]
+| pirates.de.announce.lqfb
+| 
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=184 Forum]
+| pirates.de.orga.it.mailinglisten
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=185 Forum]
+| pirates.de.region.bw.bzv.freiburg.misc
+| bzv-freiburg@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=186 Forum]
+| pirates.de.region.ni.wilhelmshaven
+| nds-wilhelmshaven@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=187 Forum]
+| pirates.de.region.bw.bzv.karlsruhe.misc
+| bw-bzv-karlsruhe@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=188 Forum]
+| pirates.de.region.bw.bzv.freiburg.announce
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=189 Forum]
+| pirates.de.region.bw.bzv.karlsruhe.announce
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=190 Forum]
+| pirates.de.region.bw.gruppe.biberach
+| bw-biberach@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=191 Forum]
+| pirates.de.region.bw.gruppe.heidenheim
+| bw-heidenheim@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=317 Forum]
+| pirates.de.region.bw.gruppe.emmendingen
+| bw-emmendingen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=192 Forum]
+| pirates.de.region.bw.gruppe.lauda
+| bw-lauda@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=193 Forum]
+| pirates.de.region.by.mittelfranken.nbgland
+| mfr-stammtisch-nbgland@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=194 Forum]
+| pirates.de.region.by.oberbayern.ag.energiepolitik
+| by-obb-ag-energiepolitik@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=195 Forum]
+| pirates.de.region.by.schwaben.misc
+| schwaben@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=196 Forum]
+| pirates.de.region.by.oberbayern.ag.oearb
+| by-obb-ag-oearb@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=197 Forum]
+| pirates.de.region.bw.ag.kommunikation
+| bw-ag-kommunikation@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=198 Forum]
+| pirates.de.region.bw.gruppe.zollernalb
+| bw-zollernalbkreis@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=200 Forum]
+| pirates.de.orga.parteitag
+| bundesparteitag@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=201 Forum]
+| pirates.de.orga.ag.dezentraler-parteitag
+| ag-dezentraler-parteitag@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=326 Forum]
+| pirates.de.talk.politik.barrierefreiheit
+| ag-barrierefreiheit@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=202 Forum]
+| pirates.de.talk.politik.etc.gesundheit
+| ag-gesundheitswesen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=203 Forum]
+| pirates.de.region.nw.info
+| nrw-info@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=204 Forum]
+| pirates.de.region.nw.crewsprecher
+| crewsprecher@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=206 Forum]
+| pirates.de.region.by.mittelfranken.nuernberg
+| mfr-stammtisch-nuernberg@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=207 Forum]
+| pirates.de.region.nw.paderborn
+| paderborn@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=208 Forum]
+| pirates.de.orga.it.liquidfeedback
+| bundesliquid@lists.piratenpartei.de
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=209 Forum]
+| pirates.de.region.nw.essen
+| nrw-essen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=210 Forum]
+| pirates.de.region.nw.ak.gesundheit
+| nrw-ak-gesundheit@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=212 Forum]
+| pirates.de.jupis.region.by
+| jupis@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=213 Forum]
+| pirates.de.region.hh.announce
+| infoliste@piratenpartei-hamburg.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=214 Forum]
+| pirates.de.region.sh.luebeck
+| luebeck@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=215 Forum]
+| pirates.de.orga.it.openid
+| orga-it-openid@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=216 Forum]
+| pirates.de.region.sh.flensburg
+| flensburg@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=217 Forum]
+| pirates.de.region.bw.bzv.tuebingen.ag.starterkit
+| bzv-tuebingen-ag-starterkit@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=218 Forum]
+| pirates.de.region.bw.gruppe.noerdliche-hardt
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=219 Forum]
+| pirates.de.region.bw.gruppe.esslingen
+| bw-esslingen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=220 Forum]
+| pirates.de.region.bw.ag.design
+| bw-ag-design@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=221 Forum]
+| pirates.de.talk.partei.lqfb
+| lqfb-talk@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=222 Forum]
+| pirates.de.region.sh.husum
+| husum@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=223 Forum]
+| pirates.de.region.bw.ag.programmkommission
+| bw-programmkommission@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=224 Forum]
+| pirates.de.region.nw.moers
+| moers@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=225 Forum]
+| pirates.de.talk.partei.satzung
+| satzung-verteiler@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=226 Forum]
+| pirates.de.region.bw.ag.presse
+| bw-pressearbeit@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=227 Forum]
+| pirates.de.region.by.schwaben.augsburg
+| augsburg@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=228 Forum]
+| pirates.de.region.by.niederbayern.misc
+| niederbayern@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=229 Forum]
+| pirates.de.region.by.fg.innen
+| by-fg-innen@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=230 Forum]
+| pirates.de.region.by.ag.elsa
+| by-ag-elsa@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=231 Forum]
+| pirates.de.region.sh.kiel
+| kiel@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=232 Forum]
+| pirates.de.region.sh.segeberg
+| segeberg@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=233 Forum]
+| pirates.de.region.sh.stormarn
+| stormarn@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=234 Forum]
+| pirates.de.region.st.halle
+| sachsen-anhalt_halle@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=235 Forum]
+| pirates.de.region.ni.vechta
+| nds-vechta@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=236 Forum]
+| pirates.de.announce.it
+| 
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=237 Forum]
+| pirates.de.region.by.mittelfranken.fuerth
+| by-mfr-kv-fuerth@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=238 Forum]
+| pirates.de.region.by.oberpfalz.amberg-sulzbach
+| amberg-sulzbach@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=239 Forum]
+| pirates.de.region.hh.lf-announce
+| lf-info@piratenpartei-hamburg.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=240 Forum]
+| pirates.de.region.by.mittelfranken.ansbach
+| mfr-stammtisch-ansbach@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=241 Forum]
+| pirates.de.region.by.ag.newsletter
+| by-ag-newsletter@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=243 Forum]
+| pirates.de.region.ni.gifhorn
+| nds-gifhorn@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=244 Forum]
+| pirates.de.region.by.mittelfranken.fuerth.vorstand
+| by-mfr-kv-fuerth-vorstand@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=245 Forum]
+| pirates.de.region.by.ig.piratenwerk
+| by-ig-piratenwerk@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=246 Forum]
+| pirates.de.region.by.fg.aussen
+| by-fg-aussen@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=247 Forum]
+| pirates.de.region.sn.chemnitz
+| mailing@piraten-chemnitz.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=248 Forum]
+| pirates.de.region.by.sg.programm
+| sg-programm@lists.piratenpartei-bayern.de
+|  
+| 180
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=249 Forum]
+| pirates.de.region.by.fg.sonstiges
+| by-fg-sonstiges@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=250 Forum]
+| pirates.de.orga.ag.koordinatoren
+| orga-koordinatoren@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=251 Forum]
+| pirates.de.region.sn.zwickau
+| zwickau@lists.piraten-sachsen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=252 Forum]
+| pirates.de.talk.politik.acta
+| int-acta@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=253 Forum]
+| pirates.de.region.ni.wolfenbuettel
+| nds-wolfenbuettel@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=254 Forum]
+| pirates.de.region.by.fg.digitales
+| by-fg-digitales@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=255 Forum]
+| pirates.de.region.by.fg.umwelt
+| by-fg-umwelt@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=256 Forum]
+| pirates.de.region.by.fg.wirtschaft
+| by-fg-wirtschaft@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=257 Forum]
+| pirates.de.region.by.fg.familie
+| by-fg-familie@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=258 Forum]
+| pirates.de.talk.politik.indect
+| ag-indect@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=259 Forum]
+| pirates.de.region.bw.gruppe.stuttgart
+| bw-stuttgart@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=261 Forum]
+| pirates.de.region.by.fg.gesundheit
+| by-fg-gesundheit@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=263 Forum]
+| pirates.de.region.ni.delmenhorst
+| nds-delmenhorst@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=264 Forum]
+| pirates.de.region.bw.gruppe.ettlingen
+| bw-ettlingen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=290 Forum]
+| pirates.de.talk.misc
+| aktive@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=265 Forum]
+| pirates.de.talk.politik.de-mail
+| de-mail@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=266 Forum]
+| pirates.de.region.sn.programm
+| programm@lists.piraten-sachsen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=267 Forum]
+| pirates.de.region.sn.dresden
+| dresden@lists.piraten-sachsen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=268 Forum]
+| pirates.de.region.hh.harburg
+| harburg@piratenpartei-hamburg.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=269 Forum]
+| pirates.de.region.by.sg.lqfb
+| by-sg-lf@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=270 Forum]
+| pirates.de.region.sn.freiberg
+| freiberg@lists.piraten-sachsen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=271 Forum]
+| pirates.de.region.sn.leipzig
+| leipzig@lists.piraten-sachsen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=272 Forum]
+| pirates.de.region.sn.goerlitz
+| goerlitz@lists.piraten-sachsen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=273 Forum]
+| pirates.de.region.sn.pirna
+| pirna@lists.piraten-sachsen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=274 Forum]
+| pirates.de.region.sn.plauen
+| plauen@lists.piraten-sachsen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=278 Forum]
+| pirates.de.region.by.ig.lichtverschmutzung
+| by-ig-lichtverschmutzung@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=279 Forum]
+| pirates.de.region.by.ig.hartz4-daten
+| ig-hartz4-daten@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=280 Forum]
+| pirates.de.region.hh.altona
+| altona@piratenpartei-hamburg.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=282 Forum]
+| pirates.de.public.talk
+| 
+| X
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=283 Forum]
+| pirates.de.public.partei
+| 
+| X
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=284 Forum]
+| pirates.de.public.misc
+| 
+| X
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=286 Forum]
+| pirates.de.region.hh.lqfb
+| lf-talk@piratenpartei-hamburg.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=320 Forum]
+| pirates.de.region.nw.duesseldorf.misc
+| nrw-duesseldorf-talk@lists.piratenpartei.de
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=291 Forum]
+| pirates.de.talk.politik.lqfb.innenpolitik
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=285 Forum]
+| pirates.de.announce.misc
+| ankuendigungen@lists.piratenpartei.de
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=287 Forum]
+| pirates.de.region.bw.gruppe.waldshut
+| bw-bzv-freiburg-waldshut@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=315 Forum]
+| pirates.de.region.bw.gruppe.ka-land-nord
+| bw-ka-land-nord@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=318 Forum]
+| pirates.de.region.sh.ostholstein
+| ostholstein@lists.piratenpartei-sh.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=292 Forum]
+| pirates.de.talk.politik.lqfb.urheberrecht
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=293 Forum]
+| pirates.de.talk.politik.lqfb.umwelt
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=294 Forum]
+| pirates.de.talk.politik.lqfb.bildung
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=295 Forum]
+| pirates.de.talk.politik.lqfb.wirtschaft
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=296 Forum]
+| pirates.de.talk.politik.lqfb.liquidfeedback
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=297 Forum]
+| pirates.de.talk.politik.lqfb.aussenpolitik
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=298 Forum]
+| pirates.de.talk.politik.lqfb.satzung
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=299 Forum]
+| pirates.de.talk.politik.lqfb.gesundheit
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=300 Forum]
+| pirates.de.talk.politik.lqfb.sonstiges
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=301 Forum]
+| pirates.de.talk.politik.lqfb.sonstige-politik
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=302 Forum]
+| pirates.de.talk.politik.lqfb.streitfragen
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=303 Forum]
+| pirates.de.talk.politik.lqfb.lqfb-entwicklung
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=304 Forum]
+| pirates.de.talk.politik.lqfb.veroeffentlichungen
+| 
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=323 Forum]
+| pirates.de.orga.ag.piratenzeitung
+| ag-piratenzeitung@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=316 Forum]
+| pirates.de.orga.ag.basisarbeit
+| ag-basisarbeit@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=313 Forum]
+| pirates.de.region.by.sg.event
+| by-sg-event@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=312 Forum]
+| pirates.de.talk.politik.etc.soziale-marktwirtschaft
+| ag-soziale_marktwirtschaft@lists.piratenpartei.de
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=321 Forum]
+| pirates.de.region.nw.duesseldorf.announce
+| duesseldorf@lists.piratenpartei.de
+|  
+| never
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=308 Forum]
+| pirates.de.region.sl.ag.oeffentlichkeitsarbeit
+| 
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=307 Forum]
+| pirates.de.region.by.mittelfranken.roth
+| mfr-stammtisch-roth@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=310 Forum]
+| pirates.de.region.sl.ag.web
+| ag-web@saar.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=311 Forum]
+| pirates.de.region.sl.vorstand
+| vorstandsliste@saar.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=314 Forum]
+| pirates.de.talk.politik.etc.bedingungsloses-grundeinkommen
+| ag-bedingungsloses-grundeinkommen@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=319 Forum]
+| pirates.de.region.nw.neuss
+| neuss@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=339 Forum]
+| pirates.de.region.nw.koeln
+| koeln@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=330 Forum]
+| pirates.de.announce.partei
+| 
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=329 Forum]
+| pirates.de.region.he.marburg
+| marburg@piratenpartei-hessen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=332 Forum]
+| pirates.de.announce.ngo.umwelt
+| 
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=328 Forum]
+| pirates.de.region.by.mittelfranken.roth-schwabach
+| mfr-stammtisch-rh-sc@lists.piratenpartei-bayern.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=327 Forum]
+| pirates.de.region.bw.gruppe.freudenstadt
+| bw-freudenstadt@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=334 Forum]
+| pirates.de.announce.ngo.netzpolitik
+| 
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=331 Forum]
+| pirates.de.announce.parteinah
+| 
+| X
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=338 Forum]
+| pirates.de.region.ni.northeim
+| nds-northeim@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=335 Forum]
+| pirates.de.region.th.erfurt
+| thueringen_erfurt@lists.piratenpartei.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=337 Forum]
+| pirates.de.region.he.kassel.orga
+| kassel-orga@piratenpartei-hessen.de
+|  
+| 90
+|-
+| [https://news.piratenpartei.de/forumdisplay.php?fid=341 Forum]
+| pirates.de.test.moderated
+| test@lists.piratenpartei.de
+|  
+| 90
+|}

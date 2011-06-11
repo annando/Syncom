@@ -1,0 +1,22 @@
+Prio 1
+======
+- Loeschen mit Lesen der Cancel-Newsgroup
+
+Prio 2
+======
+- Anhaenge (beidseitig)
+- Ausgabe als "format-flowed"
+
+Prio 3
+======
+- Fullquoteentfernung, indem zeilenweise von unten nach oben gegangen wird
+  und geschaut wird, ob diese Zeile im verknüpften Beitrag zu finden ist
+- Zuordnung mehrerer Mailadressen und in Anspruch nehmen von bestehenden
+  Posts anonymer User
+- Pruefung von Usernamen auf Gueltigkeit (Illegale Zeichen)
+
+Bugs
+====
+- Bei einem Supersede aus dem Forum heraus, fuehrt er das Supersede auch mit
+  dem Originalbeitrag im Forum aus. (Ist das noch der Fall?)
+- [hr] erzeugt keinen Umbruch bei BBCode2Plain
