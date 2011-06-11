@@ -11,7 +11,7 @@ $syncom = array('outgoing-spool' => '/var/spool/syncom/outgoing',
 		'mailhostname' => 'mail.domain.tld',
 		'hostname' => 'news.domain.tld',
 		'newsserver' => "news.domain.tld",
-		'user' => "",
-		'password' => ""
+		'user' => "", // User für Newsserver
+		'password' => "" // Passwort für Newsserver
 		);
 ?>
