@@ -1,0 +1,3 @@
+#!/bin/sh
+cd /srv/www/news01/syncom/tools/
+php namegroups.php

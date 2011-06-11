@@ -1,0 +1,8 @@
+#!/bin/sh
+if [ "$(whoami)" != "www-data" ];
+then
+	exec /bin/su www-data -c "$0 $*"
+else
+	cd /srv/www/news01/syncom/
+	flock -n /var/lock/syncom/$(basename $0).lck -c 'php cleanup.php'
+fi
