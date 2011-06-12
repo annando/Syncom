@@ -1,0 +1,12 @@
+Diese Scripte werden von INN verwendet, um Berechtigungsprüfungen 
+durchzuführen. Die notwendige Konfiguration findet direkt in den 
+Scripten statt.
+
+Beispiel:
+
+auth "forum" {
+        hosts: "*"
+        auth: "(...)/login.php"
+        perl_access: "(...)/access.pl"
+}
+
