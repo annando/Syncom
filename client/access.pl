@@ -7,8 +7,6 @@ use Data::Dumper;
 
 # -- Configuration:
 #
-#my $ACCESS_URI   = 'http://news.piratenpartei.de/syncom/access/'; # edit to match the URI used for auth requests
-#my $ACCESS_URI   = 'http://news01.piratenpartei.de/syncom/api/access/'; # edit to match the URI used for auth requests
 my $ACCESS_URI   = 'http://10.10.14.50/syncom/api/access/'; # edit to match the URI used for auth requests
 my $DEFAULT_READ = '!*,pirates.de*'; # edit to match the default read: mask
 my $DEFAULT_POST = '!*,pirates.de*'; # edit to match the default post: mask

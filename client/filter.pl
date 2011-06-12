@@ -5,8 +5,6 @@ use LWP::UserAgent;
 # -- Configuration:
 #
 
-#my $ACCESS_URI   = 'http://news.piratenpartei.de/syncom/closed/'; # edit to match the URI used for closed requests
-#my $ACCESS_URI   = 'http://news01.piratenpartei.de/syncom/api/closed/'; # edit to match the URI used for closed requests
 my $ACCESS_URI   = 'http://10.10.14.50/syncom/api/closed/'; # edit to match the URI used for closed requests
 my $DO_LOG       = 1; # set to 0 to disable logging
 # ---------------------------------------------------------------------------

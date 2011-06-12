@@ -1,8 +1,5 @@
 #!/usr/bin/php
 <?php
-//$authurl = 'http://news01.piratenpartei.de/syncom/api/auth/';
-//$authurl = 'http://news.piratenpartei.de/api/auth/';
-//$authurl = 'http://localhost/syncom/api/auth/';
 $authurl = 'http://10.10.14.50/syncom/api/auth/';
 
 $stdin = fread(STDIN, 4096);
