@@ -9,3 +9,8 @@ eine Config-Datei gibt. Das wird hoffentlich in Zukunft geändert.
 
 Damit Syncom auch mit Mailinglisten synchronisieren kann, wird SynFU 
 benötigt: https://github.com/Shirk/SynFU
+
+Zusätzlich zu den Syncom-Sourcen befinden sich in diesem Repository
+auch die Sourcen verschiedenener Dritt-Plugins, die auf dem 
+Piratenparteiserver eingesetzt werden. Diese Plugins wurden gegenüber
+dem Original teilweise massiv angepasst.
