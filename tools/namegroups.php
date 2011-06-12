@@ -21,7 +21,7 @@ function search_ng($item, $key)
 
 	if (is_array($item) and array_key_exists('nntp', $item)) {
 		echo $item['nntp']."\n";
-		$query = $db->simple_select("forums", "syncom_newsgroup, fid, rules", "syncom_newsgroup='".$item['nntp']."'");
+		$query = $db->simple_select("forums", "syncom_newsgroup, fid, rules, modposts", "syncom_newsgroup='".$item['nntp']."'");
 
 		if ($row = $db->fetch_array($query)) {
 			$desc = $row['rules'];
@@ -44,6 +44,10 @@ function search_ng($item, $key)
 				$maillink = $item['from'];
 
 			$desc .= "\r\nMailingliste: ".$maillink;
+
+			if ($row['modposts'])
+				$desc .= "\nDieser Bereich ist moderiert. Schreibberechtigt sind nur Mitglieder der angeschlossenen Mailingliste.";
+
 
 			$foruminfo[$row['fid']]['maillink'] = $maillink;
 			$foruminfo[$row['fid']]['mail'] = $item['from'];
