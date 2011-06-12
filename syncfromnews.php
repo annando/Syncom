@@ -94,7 +94,7 @@ function processarticle($api, $fid, $article, $articlenumber)
 
 		if (!$post['visible']) {
 			echo "Publish thread, update counter\r\n";
-			$query = $db->simple_select("threads", "replies, unapprovedposts", "tid=".$db->escape_string($post['tid']), array('limit' => 1));
+			$query = $db->simple_select("threads", "replies, unapprovedposts, visible", "tid=".$db->escape_string($post['tid']), array('limit' => 1));
 			$thread = $db->fetch_array($query);
 			$replies = $thread['replies'];
 			$unapprovedposts = $thread['unapprovedposts'];
@@ -103,6 +103,22 @@ function processarticle($api, $fid, $article, $articlenumber)
 				$unapprovedposts--;
 			}
 			$db->update_query("threads", array('visible'=>1, 'replies'=>$replies, 'unapprovedposts'=>$unapprovedposts), "tid=".$db->escape_string($post['tid']));
+
+			$query = $db->simple_select("forums", "unapprovedthreads,unapprovedposts,threads,posts", "fid=".$db->escape_string($post['fid']), array('limit' => 1));
+			$forum = $db->fetch_array($query);
+			$threads = $forum['threads'];
+			$posts = $forum['posts'];
+			$unapprovedthreads = $forum['unapprovedthreads'];
+			$unapprovedposts = $forum['unapprovedposts'];
+			if ($unapprovedposts > 0) {
+				$posts++;
+				$unapprovedposts--;
+			}
+			if (!$thread['visible']) {
+				$threads++;
+				$unapprovedthreads--;
+			}
+			$db->update_query("forums", array('threads'=>$threads, 'posts'=>$posts, 'unapprovedposts'=>$unapprovedposts, 'unapprovedthreads'=>$unapprovedthreads), "fid=".$db->escape_string($post['fid']));
 		}
 	}
 
