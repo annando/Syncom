@@ -3,6 +3,8 @@ define("IN_MYBB", 1);
 define('THIS_SCRIPT', 'namegroups.php');
 define("IN_SYNCOM", 1);
 
+// Test
+
 $basepath = dirname($_SERVER["SCRIPT_FILENAME"]);
 
 require_once $basepath."/../../global.php";
