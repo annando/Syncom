@@ -60,6 +60,8 @@ function cleanupgroups()
 	while ($forum = $db->fetch_array($query))
 		$newsgroups[] = $forum['syncom_newsgroup'];
 
+	//$newsgroups = array('pirates.de.region.th.misc');
+
 	foreach ($newsgroups as $newsgroup) {
 
 		echo $newsgroup.' '.html_entity_decode($groups[$newsgroup],ENT_COMPAT,'utf-8')."\n";
@@ -72,7 +74,7 @@ function cleanupgroups()
 			$db->update_query("forums", array('description'=>html_entity_decode($db->escape_string($groups[$newsgroup]),ENT_COMPAT,'utf-8')), "syncom_newsgroup='".$db->escape_string($newsgroup)."'");
 
 			$data = $nntp->getOverview($nntp->first.'-'.$nntp->last);
-
+//print_r($data);
 			$articles = array();
 			foreach ($data as $post)
 				$articles[$post['Number']] = $post['Number'];

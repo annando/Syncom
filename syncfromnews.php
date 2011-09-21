@@ -167,12 +167,46 @@ function processarticle($api, $fid, $article, $articlenumber)
 	if ($supersede) {
 		$old = $api->getidbymessageid($struct['supersedes'], $fid);
 
-		return($api->edit($old['tid'], $old['pid'], $old['replyto'], $struct['subject'], $struct['body'], 
-			$userdata['uid'], $user, $struct['date'], $struct['message-id'], $articlenumber, $email));
-
+		$success = $api->edit($old['tid'], $old['pid'], $old['replyto'], $struct['subject'], $struct['body'], 
+			$userdata['uid'], $user, $struct['date'], $struct['message-id'], $articlenumber, $email);
+		return($success);
 	} else {
-		return($api->post($fid, $post['tid'], $post['pid'], $struct['subject'], $struct['body'], 
-			$userdata['uid'], $user, $struct['date'], $struct['message-id'], $articlenumber, $email));
+		$success = $api->post($fid, $post['tid'], $post['pid'], $struct['subject'], $struct['body'], 
+			$userdata['uid'], $user, $struct['date'], $struct['message-id'], $articlenumber, $email);
+		if ($success) {
+			$postedmsg = $api->getidbymessageid($struct['message-id'], $fid);
+	 		$db->update_query("posts", array('syncom_articlenumber'=>$articlenumber, 'visible'=>1), "pid=".$db->escape_string($postedmsg['pid']));
+
+			if (!$postedmsg['visible']) {
+				echo "Publish thread, update counter\r\n";
+				$query = $db->simple_select("threads", "replies, unapprovedposts, visible", "tid=".$db->escape_string($postedmsg['tid']), array('limit' => 1));
+				$thread = $db->fetch_array($query);
+				$replies = $thread['replies'];
+				$unapprovedposts = $thread['unapprovedposts'];
+				if ($unapprovedposts > 0) {
+					$replies++;
+					$unapprovedposts--;
+				}
+				$db->update_query("threads", array('visible'=>1, 'replies'=>$replies, 'unapprovedposts'=>$unapprovedposts), "tid=".$db->escape_string($postedmsg['tid']));
+
+				$query = $db->simple_select("forums", "unapprovedthreads,unapprovedposts,threads,posts", "fid=".$db->escape_string($postedmsg['fid']), array('limit' => 1));
+				$forum = $db->fetch_array($query);
+				$threads = $forum['threads'];
+				$posts = $forum['posts'];
+				$unapprovedthreads = $forum['unapprovedthreads'];
+				$unapprovedposts = $forum['unapprovedposts'];
+				if ($unapprovedposts > 0) {
+					$posts++;
+					$unapprovedposts--;
+				}
+				if (!$thread['visible']) {
+					$threads++;
+					$unapprovedthreads--;
+				}
+				$db->update_query("forums", array('threads'=>$threads, 'posts'=>$posts, 'unapprovedposts'=>$unapprovedposts, 'unapprovedthreads'=>$unapprovedthreads), "fid=".$db->escape_string($postedmsg['fid']));
+			}
+		}
+		return($success);
 	}
 }
 

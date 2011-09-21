@@ -86,7 +86,7 @@ function getexpire($newsgroup)
 
 $api = new mybbapi;
 
-$query = $db->simple_select("forums", "syncom_newsgroup, fid", "syncom_newsgroup!=''");
+$query = $db->simple_select("forums", "syncom_newsgroup, fid", "syncom_newsgroup!='' order by syncom_newsgroup");
 
 while ($row = $db->fetch_array($query)) {
 
@@ -149,6 +149,6 @@ foreach($foruminfo as $id => $forum) {
 	}
 }
 $info .= "\n|}";
-file_put_contents('/srv/www/news01/syncom/tools/groupinfo.txt', $info);
+file_put_contents('/srv/www/news01/syncom/tools/groupinfo.txt', utf8_decode($info));
 //echo $info;
 ?>
