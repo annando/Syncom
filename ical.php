@@ -1,69 +1,66 @@
 <?php
 define("IN_MYBB", 1);
-define('THIS_SCRIPT', 'fetchnews.php');
-define("IN_SYNCOM", 1);
+//define('THIS_SCRIPT', 'ical.php');
 
 $basepath = dirname($_SERVER["SCRIPT_FILENAME"]);
 
 require_once $basepath."/../global.php";
 
-require MYBB_ROOT.'/syncom/config.php';
-
-require_once "mybbapi.php";
-
 function icaldate($date) {
 	return(date("Ymd", $date)."T".date("His", $date)."Z");
 }
 
-echo "BEGIN:VCALENDAR\n";
-echo "VERSION:2.0\n";
-echo "METHOD:PUBLISH\n";
-echo "X-WR-CALNAME: Piratenkalender\n";
-echo "PRODID:https://news.piratenpartei.de/calendar.php\n";
+header("Content-Type: text/calendar; charset=UTF-8");
 
-echo "BEGIN:VTIMEZONE\n";
-echo "TZID:Europe/Berlin\n";
-echo "X-LIC-LOCATION:Europe/Berlin\n";
-echo "BEGIN:DAYLIGHT\n";
-echo "TZOFFSETFROM:+0100\n";
-echo "TZOFFSETTO:+0200\n";
-echo "TZNAME:CEST\n";
-echo "DTSTART:19700329T020000\n";
-echo "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU\n";
-echo "END:DAYLIGHT\n";
-echo "BEGIN:STANDARD\n";
-echo "TZOFFSETFROM:+0200\n";
-echo "TZOFFSETTO:+0100\n";
-echo "TZNAME:CET\n";
-echo "DTSTART:19701025T030000\n";
-echo "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\n";
-echo "END:STANDARD\n";
-echo "END:VTIMEZONE\n";
+echo "BEGIN:VCALENDAR\r\n";
+echo "VERSION:2.0\r\n";
+echo "METHOD:PUBLISH\r\n";
+echo "X-WR-CALNAME: Piratenkalender\r\n";
+echo "PRODID:https://news.piratenpartei.de/calendar.php\r\n";
+
+echo "BEGIN:VTIMEZONE\r\n";
+echo "TZID:Europe/Berlin\r\n";
+echo "X-LIC-LOCATION:Europe/Berlin\r\n";
+echo "BEGIN:DAYLIGHT\r\n";
+echo "TZOFFSETFROM:+0100\r\n";
+echo "TZOFFSETTO:+0200\r\n";
+echo "TZNAME:CEST\r\n";
+echo "DTSTART:19700329T020000\r\n";
+echo "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU\r\n";
+echo "END:DAYLIGHT\r\n";
+echo "BEGIN:STANDARD\r\n";
+echo "TZOFFSETFROM:+0200\r\n";
+echo "TZOFFSETTO:+0100\r\n";
+echo "TZNAME:CET\r\n";
+echo "DTSTART:19701025T030000\r\n";
+echo "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\r\n";
+echo "END:STANDARD\r\n";
+echo "END:VTIMEZONE\r\n";
 
 $query = $db->simple_select("events", "eid, cid, uid, name, description, ignoretimezone, usingtime, repeats, import_eid, dateline, starttime, endtime, timezone", "visible=1 and private=1");
 while ($event = $db->fetch_array($query)) {
 	if ($event['endtime'] == 0)
 		$event['endtime'] = $event['starttime'];
 
-	echo "BEGIN:VEVENT\n";
-	echo "UID:".$event['eid']."-".$event['cid']."-".$event['uid']."\n";
-	echo "SUMMARY:".$event['name']."\n";
-	echo "DTSTAMP:".icaldate($event['dateline'])."\n";
-	echo "DTSTART:".icaldate($event['starttime'])."\n";
-	echo "DTEND:".icaldate($event['endtime'])."\n";
-	echo "URL;VALUE=URI:https://news.piratenpartei.de/calendar.php?action=event&eid=".$event['eid']."\n";
-	//echo "LOCATION:Neue Str. 58 Eingang Lämmertwiete\n";
-	echo "DESCRIPTION:".$event['description']."\n";
-	//echo "ignoretimezone ".$event['ignoretimezone']."\n";
-	//echo "usingtime ".$event['usingtime']."\n";
-	//echo "repeats ".$event['repeats']."\n";
-	//echo "import_eid ".$event['import_eid']."\n";
-	//echo "timezone ".$event['timezone']."\n";
+	echo "BEGIN:VEVENT\r\n";
+	echo "UID:".$event['eid']."-".$event['cid']."-".$event['uid']."\r\n";
+	echo "SUMMARY:".$event['name']."\r\n";
+	echo "DTSTAMP:".icaldate($event['dateline'])."\r\n";
+	echo "DTSTART:".icaldate($event['starttime'])."\r\n";
+	echo "DTEND:".icaldate($event['endtime'])."\r\n";
+	echo "URL;VALUE=URI:https://news.piratenpartei.de/calendar.php?action=event&eid=".$event['eid']."\r\n";
+	//echo "LOCATION:Neue Str. 58 Eingang Lämmertwiete\r\n";
+	echo "DESCRIPTION:".$event['description']."\r\n";
+	//echo "ignoretimezone ".$event['ignoretimezone']."\r\n";
+	//echo "usingtime ".$event['usingtime']."\r\n";
+	//echo "repeats ".$event['repeats']."\r\n";
+	//echo "import_eid ".$event['import_eid']."\r\n";
+	//echo "timezone ".$event['timezone']."\r\n";
 	//echo "ORGANIZER;CN="Alice Balder, Example Inc.":MAILTO:alice@example.com/n";
-	//echo "CLASS:PUBLIC\n";
-	echo "END:VEVENT\n";
+	//echo "CLASS:PUBLIC\r\n";
+	echo "END:VEVENT\r\n";
 }
-echo "END:VCALENDAR\n";
+echo "END:VCALENDAR\r\n";
 
 // To-Do:
 // - Zeitzone
