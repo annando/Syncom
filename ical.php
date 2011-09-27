@@ -17,16 +17,27 @@ require_once MYBB_ROOT."inc/class_parser.php";
 //die();
 
 function icaldate($date, $strday = '') {
-	if ($strday != '')
-		return($strday."T".date("His", $date)."Z");
-	else
-		return(date("Ymd", $date)."T".date("His", $date)."Z");
+	if ($strday == '')
+		$strday = date("Ymd", $date);
+
+	// To-Do: Richtige Zeitzone raussuchen
+	date_default_timezone_set("Europe/Berlin");
+
+	// To-Do: richtige Zeitzonendifferenz heraussuchen
+	if (date('I', strtotime($strday)) == 1)
+		$date = $date - 3600;
+
+	date_default_timezone_set("UTC");
+
+	return($strday."T".date("His", $date)."Z");
 }
 
 header('Cache-Control: store, no-cache, must-revalidate, post-check=0, pre-check=0');
 header('Expires: Sun, 19 Nov 1978 05:00:00 GMT');
 header('Content-Disposition: attachment; filename="calendar.ics";');
 header("Content-Type: text/calendar; charset=utf-8");
+
+//die(date('IeO'));
 
 echo "BEGIN:VCALENDAR\r\n";
 echo "VERSION:2.0\r\n";
@@ -36,7 +47,7 @@ echo "METHOD:PUBLISH\r\n";
 echo "X-WR-CALNAME: Piratenkalender\r\n";
 //echo "X-WR-TIMEZONE:UTC\r\n";
 
-/*echo "BEGIN:VTIMEZONE\r\n";
+echo "BEGIN:VTIMEZONE\r\n";
 echo "TZID:Europe/Berlin\r\n";
 echo "X-LIC-LOCATION:Europe/Berlin\r\n";
 echo "BEGIN:DAYLIGHT\r\n";
@@ -53,7 +64,7 @@ echo "TZNAME:CET\r\n";
 echo "DTSTART:19701025T030000\r\n";
 echo "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\r\n";
 echo "END:STANDARD\r\n";
-echo "END:VTIMEZONE\r\n";*/
+echo "END:VTIMEZONE\r\n";
 
 // $events_cache = get_events($calendar['cid'], $start_timestamp, $end_timestamp, $calendar_permissions['canmoderateevents']);
 $events = get_events(2, 1, 11111111111, false);
@@ -119,7 +130,7 @@ foreach ($events as $day=>$events2) {
 echo "END:VCALENDAR\r\n";
 
 // To-Do:
-// - Zeitzone
+// - Zeitzone konfigurieren
 // - sinnvoller Zeitraum
 // - Titel - über Kalender?
 // - Parameter für User und Kalender
