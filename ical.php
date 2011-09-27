@@ -1,6 +1,5 @@
 <?php
 define("IN_MYBB", 1);
-//define('THIS_SCRIPT', 'ical.php');
 
 $basepath = dirname($_SERVER["SCRIPT_FILENAME"]);
 
@@ -8,13 +7,6 @@ require_once $basepath."/../global.php";
 
 require_once MYBB_ROOT."inc/functions_calendar.php";
 require_once MYBB_ROOT."inc/class_parser.php";
-
-//$mybb->settings['dstcorrection'] = 0;
-//$mybb->settings['timezoneoffset'] = 0;
-
-// 'dst'
-//print_r($mybb->settings);
-//die();
 
 function icaldate($date, $strday = '') {
 	if ($strday == '')
@@ -37,40 +29,16 @@ header('Expires: Sun, 19 Nov 1978 05:00:00 GMT');
 header('Content-Disposition: attachment; filename="calendar.ics";');
 header("Content-Type: text/calendar; charset=utf-8");
 
-//die(date('IeO'));
-
 echo "BEGIN:VCALENDAR\r\n";
 echo "VERSION:2.0\r\n";
 echo "PRODID:https://news.piratenpartei.de/calendar.php\r\n";
-//echo "CALSCALE:GREGORIAN\r\n";
 echo "METHOD:PUBLISH\r\n";
+// To-Do: Name aus Kalender uebernehmen
 echo "X-WR-CALNAME: Piratenkalender\r\n";
-//echo "X-WR-TIMEZONE:UTC\r\n";
 
-echo "BEGIN:VTIMEZONE\r\n";
-echo "TZID:Europe/Berlin\r\n";
-echo "X-LIC-LOCATION:Europe/Berlin\r\n";
-echo "BEGIN:DAYLIGHT\r\n";
-echo "TZOFFSETFROM:+0100\r\n";
-echo "TZOFFSETTO:+0200\r\n";
-echo "TZNAME:CEST\r\n";
-echo "DTSTART:19700329T020000\r\n";
-echo "RRULE:FREQ=YEARLY;BYMONTH=3;BYDAY=-1SU\r\n";
-echo "END:DAYLIGHT\r\n";
-echo "BEGIN:STANDARD\r\n";
-echo "TZOFFSETFROM:+0200\r\n";
-echo "TZOFFSETTO:+0100\r\n";
-echo "TZNAME:CET\r\n";
-echo "DTSTART:19701025T030000\r\n";
-echo "RRULE:FREQ=YEARLY;BYMONTH=10;BYDAY=-1SU\r\n";
-echo "END:STANDARD\r\n";
-echo "END:VTIMEZONE\r\n";
-
-// $events_cache = get_events($calendar['cid'], $start_timestamp, $end_timestamp, $calendar_permissions['canmoderateevents']);
+// To-Do: Sinnvoller Datumsbereich, Kalender ueber Parameter
 $events = get_events(2, 1, 11111111111, false);
-
-//print_r($events);
-//die();
+// $events_cache = get_events($calendar['cid'], $start_timestamp, $end_timestamp, $calendar_permissions['canmoderateevents']);
 
 foreach ($events as $day=>$events2) {
 	// in $day steht der Wochentag
@@ -108,8 +76,6 @@ foreach ($events as $day=>$events2) {
 		$line .= "DTSTART;VALUE=DATE:".$strdate."\n\r";
 		$line .= "DTEND;VALUE=DATE:".$strnext."\n\r";
 	} else {
-		//$line .= "DTSTART;TZID=Europe/Berlin:".icaldate($event['starttime'], $strdate)."\r\n";
-		//$line .= "DTEND;TZID=Europe/Berlin:".icaldate($event['endtime'], $strdate)."\r\n";
 		$line .= "DTSTART:".icaldate($event['starttime'], $strdate)."\r\n";
 		$line .= "DTEND:".icaldate($event['endtime'], $strdate)."\r\n";
 	}
@@ -129,10 +95,7 @@ foreach ($events as $day=>$events2) {
 }
 echo "END:VCALENDAR\r\n";
 
-// To-Do:
+// To-Do fuer spaeter:
 // - Zeitzone konfigurieren
-// - sinnvoller Zeitraum
-// - Titel - über Kalender?
-// - Parameter für User und Kalender
 // - Location hinzufügen
 ?>
