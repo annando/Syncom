@@ -15,7 +15,6 @@ function icaldate($date, $strday = '') {
 	// To-Do: Richtige Zeitzone raussuchen
 	date_default_timezone_set("Europe/Berlin");
 
-	//        Pruefung auf Sommerzeit muss die Stunde beinhalten
 	if (date('I', strtotime($strday.' '.date("H:i:s", $date))) == 1)
 		$date = $date - 3600;
 
