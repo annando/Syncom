@@ -70,12 +70,10 @@ foreach ($events as $day=>$events2) {
 				);
 	        $parsed = $parser->parse_message($event['description'], $parser_options);
 
-		// To-Do: Zeilenumbrueche muessen noch uebernommen werden
-		$line .= "DESCRIPTION:".addcslashes(trim(str_replace("\n","\n ",html_entity_decode(strip_tags($parsed)))), ",;".'"')."\r\n";
+		$line .= "DESCRIPTION:".addcslashes(trim(html_entity_decode(strip_tags($parsed))), ",;\n")."\r\n";
 
-		// To-Do: Diese Felder fuellen, benotigt aber neue Felder in DB
+		// To-Do: Location fuellen, benotigt aber neues Feld in DB
 		// $line .= "LOCATION:Neue Str. 58 Eingang Lämmertwiete\r\n";
-		// $line .= "CATEGORIES:Stammtisch\r\n";
 
 		if (!$event['usingtime']) {
 			$line .= "DTSTART;VALUE=DATE:".$strdate."\n\r";
