@@ -30,15 +30,22 @@ header("Content-Type: text/calendar; charset=utf-8");
 
 $calendar = (int)$_REQUEST["calendar"];
 
+$query = $db->simple_select("calendars", "name", "cid=".$db->escape_string($calendar), array("limit" => 1));
+if ($calendardata = $db->fetch_array($query))
+	$calendarname = $calendardata["name"];
+else
+	$calendarname = "Kalender";
+
+
 // Zeitzone auf UTC stellen, damit die Kalenderdaten nicht umgerechnet werden
 date_default_timezone_set("UTC");
 
 echo "BEGIN:VCALENDAR\r\n";
 echo "VERSION:2.0\r\n";
-echo "PRODID:https://news.piratenpartei.de/calendar.php\r\n";
+echo "PRODID://annando/mybb-ical//DE\r\n";
 echo "METHOD:PUBLISH\r\n";
-// To-Do: Name aus Kalender uebernehmen
-echo "X-WR-CALNAME: Piratenkalender\r\n";
+echo "X-WR-TIMEZONE:UTC\r\n";
+echo "X-WR-CALNAME:".$calendarname."\r\n";
 
 $events = get_events($calendar, time()-(86400*30), time()+(86400*90), false);
 
@@ -81,10 +88,7 @@ foreach ($events as $day=>$events2) {
 			$line .= "DTEND:".icaldate($event['endtime'], $strdate)."\r\n";
 		}
 		$line .= "DTSTAMP:".icaldate($event['dateline'])."\r\n";
-
-		// To-Do: URL muss noch dynamisch sein
-		$line .= "URL;VALUE=URI:https://news.piratenpartei.de/calendar.php?action=event&eid=".$event['eid']."\r\n";
-
+		$line .= "URL;VALUE=URI:".$mybb->settings["bburl"]."/calendar.php?action=event&eid=".$event['eid']."\r\n";
 		$line .= "END:VEVENT\r\n";
 		$line = str_replace("\r", "", $line);
 		$line = str_replace("\n", "\r\n", $line);
