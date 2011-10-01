@@ -62,11 +62,11 @@ function message2mail($fid, $tid, $message)
 	//$newheader[] = "To: <".$group."@".$syncom["mailhostname"].">";
 	$newheader[] = "Reply-To: <".$group."@".$syncom["mailhostname"].">";
 	$newheader[] = "List-Id: <".$group.">";
-	$newheader[] = "List-Unsubscribe: <".$url."/forumdisplay.php?fid=61>";
-	$newheader[] = "List-Archive: <".$url."/forumdisplay.php?fid=61>";
+	$newheader[] = "List-Unsubscribe: <".$url."/forumdisplay.php?fid=".$fid.">";
+	$newheader[] = "List-Archive: <".$url."/forumdisplay.php?fid=".$fid.">";
 	$newheader[] = "List-Post: <mailto:".$group."@".$syncom["mailhostname"].">";
 	//$newheader[] = "List-Help: <mailto:test-request@lists.piratenpartei.de?subject=help>";
-	$newheader[] = "List-Subscribe: <".$url."/forumdisplay.php?fid=61>";
+	$newheader[] = "List-Subscribe: <".$url."/forumdisplay.php?fid=".$fid.">";
 	$newheader[] = "Sender: ".$group."-bounces@".$syncom["mailhostname"];
 	$newheader[] = "Errors-To: ".$group."-bounces@".$syncom["mailhostname"];
 
@@ -102,14 +102,19 @@ function processmail($fid, $tid, $message) {
 		return(true);
 
 	foreach ($user as $target) {
+
 		// Ist der Empfaenger in der Liste der Mailabonnenten
 		if (array_key_exists($target, $subuser)) {
-			// To-Do:
-			// Nur ueber BCC versenden
-			// Einmal absenden pro Nachricht und nicht pro Empfaenger
-			if (!mail($mail['list'], $mail['subject'], $mail['body'], $mail['header']."\r\nBCC: ".$subuser[$target]))
-				return(false);
-			echo $target."-".$subuser[$target]."\n";
+			// Berechtigungen
+			$fpermissions = forum_permissions($fid, $target);
+			if ($fpermissions['canviewthreads']) {
+				// To-Do:
+				// Nur ueber BCC versenden
+				// Einmal absenden pro Nachricht und nicht pro Empfaenger
+				if (!mail($mail['list'], $mail['subject'], $mail['body'], $mail['header']."\r\nBCC: ".$subuser[$target]))
+					return(false);
+				echo $target."-".$subuser[$target]."\n";
+			}
 		}
 	}
 }

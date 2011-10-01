@@ -115,8 +115,10 @@ $newsgroup = $deliveredto[0]->mailbox;
 $sender = $from[0]->mailbox.'@'.$from[0]->host;
 
 // Mails von Mailinglisten werden nicht weitergeleitet
-if ($structure->headers['Precedence'] == "list")
+if ($structure->headers['precedence'] == "list") {
+	echo "Mailingliste";
 	exit(0);
+}
 
 // Prüfen auf Berechtigung
 $api = new mybbapi;
