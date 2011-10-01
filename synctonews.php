@@ -1,4 +1,5 @@
 <?php
+set_time_limit(60);
 define("IN_MYBB", 1);
 define('THIS_SCRIPT', 'fetchnews.php');
 define("IN_SYNCOM", 1);

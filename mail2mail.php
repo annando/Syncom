@@ -1,5 +1,6 @@
 #!/usr/bin/php
 <?php
+die("Funktion ist in mail2news aufgegangen");
 define("IN_MYBB", 1);
 define('THIS_SCRIPT', 'fetchnews.php');
 define("IN_SYNCOM", 1);

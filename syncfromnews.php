@@ -84,7 +84,6 @@ function processarticle($api, $fid, $article, $articlenumber)
 	}
 
 	// wurde die Nachricht bereits gepostet?
-
 	$post = $api->getidbymessageid($struct['message-id'], $fid);
 
 	// Pruefung, ob der Artikel bereits ohne Nummer existiert
@@ -124,6 +123,11 @@ function processarticle($api, $fid, $article, $articlenumber)
 
 	// wenn ja und kein Supersede => nicht posten
 	if (($post['pid'] != 0) and !$supersede) {
+
+		// Mail-Out - wenn der Artikel aus dem Forum erzeugt wurde
+		$temp = tempnam($syncom['mailout-spool']."/", "mout1");
+		file_put_contents($temp, serialize(array("info"=>$post, "message"=>$article)));
+
 		echo "already posted\r\n";
 		return(true);
 	}
@@ -147,7 +151,7 @@ function processarticle($api, $fid, $article, $articlenumber)
 
 	// Wenn immer noch kein Bezug gefunden wird, wird das "re:" entfernt
 	if ($post['pid'] == 0)
-		if (strtolower(substr($struct['subject'],0,3)) == 're:') 
+		if (strtolower(substr($struct['subject'],0,3)) == 're:')
 			$struct['subject'] = ltrim(substr($struct['subject'], 3));
 
 	$user = $struct['from']['personal'];
@@ -167,11 +171,11 @@ function processarticle($api, $fid, $article, $articlenumber)
 	if ($supersede) {
 		$old = $api->getidbymessageid($struct['supersedes'], $fid);
 
-		$success = $api->edit($old['tid'], $old['pid'], $old['replyto'], $struct['subject'], $struct['body'], 
+		$success = $api->edit($old['tid'], $old['pid'], $old['replyto'], $struct['subject'], $struct['body'],
 			$userdata['uid'], $user, $struct['date'], $struct['message-id'], $articlenumber, $email);
 		return($success);
 	} else {
-		$success = $api->post($fid, $post['tid'], $post['pid'], $struct['subject'], $struct['body'], 
+		$success = $api->post($fid, $post['tid'], $post['pid'], $struct['subject'], $struct['body'],
 			$userdata['uid'], $user, $struct['date'], $struct['message-id'], $articlenumber, $email);
 		if ($success) {
 			$postedmsg = $api->getidbymessageid($struct['message-id'], $fid);
@@ -204,6 +208,13 @@ function processarticle($api, $fid, $article, $articlenumber)
 					$unapprovedthreads--;
 				}
 				$db->update_query("forums", array('threads'=>$threads, 'posts'=>$posts, 'unapprovedposts'=>$unapprovedposts, 'unapprovedthreads'=>$unapprovedthreads), "fid=".$db->escape_string($postedmsg['fid']));
+			}
+
+			$post = $api->getidbymessageid($struct['message-id'], $fid);
+			// Mail-Out - wenn der Artikel aus der Newsgroup kam
+			if ($post['pid'] != 0) {
+				$temp = tempnam($syncom['mailout-spool']."/", "mout2");
+				file_put_contents($temp, serialize(array("info"=>$post, "message"=>$article)));
 			}
 		}
 		return($success);
