@@ -6,6 +6,7 @@
 
 $syncom = array('outgoing-spool' => '/var/spool/syncom/outgoing',
 		'incoming-spool' => '/var/spool/syncom/incoming',
+		'mailout-spool' => '/var/spool/syncom/mailout',
 		'syncuser' => 'syncuser@domain.tld',
 		'newsrc' => '/var/spool/syncom/newsrc',
 		'mailhostname' => 'mail.domain.tld',

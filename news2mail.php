@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 define("IN_MYBB", 1);
 
@@ -60,6 +61,7 @@ function message2mail($fid, $tid, $message)
 
 	$newheader[] = "Precedence: list";
 	//$newheader[] = "To: <".$group."@".$syncom["mailhostname"].">";
+	$newheader[] = "X-BeenThere: ".$group."@".$syncom["mailhostname"];
 	$newheader[] = "Reply-To: <".$group."@".$syncom["mailhostname"].">";
 	$newheader[] = "List-Id: <".$group.">";
 	$newheader[] = "List-Unsubscribe: <".$url."/forumdisplay.php?fid=".$fid.">";
@@ -92,7 +94,7 @@ function processmail($fid, $tid, $message) {
 	}
 
 	// Nach Threadabonnenten suchen
-	$query = $db->simple_select("threadsubscriptions", "uid", "tid=".$db->escape_string($tid));
+	$query = $db->simple_select("threadsubscriptions", "uid", "tid=".$db->escape_string($tid)." and notification=1");
 	while ($forensub = $db->fetch_array($query)) {
 		$user[$forensub["uid"]] = $forensub["uid"];
 	}
@@ -117,6 +119,7 @@ function processmail($fid, $tid, $message) {
 			}
 		}
 	}
+	return(true);
 }
 
 function processmails()
