@@ -53,7 +53,49 @@ $plugins->add_hook('postbit', 'syncom_postbit');
 
 $plugins->add_hook('search_results_thread', 'syncom_search_results_thread');
 
-function syncom_search_results_thread() 
+$plugins->add_hook('send_mail_queue_mail', 'syncom_send_mail_queue_mail');
+
+$plugins->add_hook("usercp_options_end", "syncom_usercp_options");
+$plugins->add_hook("usercp_do_options_end", "syncom_usercp_options");
+
+function syncom_usercp_options()
+{
+	global $db, $mybb, $user, $templates;
+
+	if($mybb->request_method == "post") {
+		$update_array = array("syncom_mailinglist" => intval($mybb->input['syncom_mailinglist']));
+		$db->update_query("users", $update_array, "uid = '".$user['uid']."'");
+	}
+
+	$usercp_option = '</tr><tr>
+<td valign="top" width="1"><input type="checkbox" class="checkbox" name="syncom_mailinglist" id="syncom_mailinglist" value="1" {$GLOBALS[\'$syncom_mailinglistcheck\']} /></td>
+<td><span class="smalltext"><label for="syncom_mailinglist">{$lang->syncom_mailinglist}</label></span></td>';
+
+	$find = '<label for="pmnotify">{$lang->pm_notify}</label></span></td>';
+	$templates->cache['usercp_options'] = str_replace($find, $find.$usercp_option, $templates->cache['usercp_options']);
+
+	$GLOBALS['$syncom_mailinglistcheck'] = '';
+	if($user['syncom_mailinglist'])
+		$GLOBALS['$syncom_mailinglistcheck'] = "checked=\"checked\"";
+}
+
+function syncom_send_mail_queue_mail($query)
+{
+	global $db;
+
+	$subuser = array();
+	$query2 = $db->simple_select("users", "uid, email", "syncom_mailinglist");
+	while ($user = $db->fetch_array($query2))
+		$subuser[$user["uid"]] =$user["email"];
+
+	while($email = $db->fetch_array($query)) {
+		// Delete the message from the queue
+		if (in_array($email['mailto'], $subuser) and ($email['mailfrom'] == ''))
+			$db->delete_query("mailqueue", "mid='{$email['mid']}'");
+	}
+}
+
+function syncom_search_results_thread()
 {
 	global $thread, $mybb, $lastposter, $lastposterlink, $lastposteruid;
 
@@ -263,6 +305,7 @@ function syncom_install()
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'posts ADD syncom_messageid VARCHAR(100) NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_realname VARCHAR(100) NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_realmail VARCHAR(100) NOT NULL');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_mailinglist BOOLEAN NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_newsgroup VARCHAR(100) NOT NULL');
 }
  /*
@@ -294,6 +337,7 @@ function syncom_install()
  	$db->query('ALTER TABLE '.TABLE_PREFIX.'posts DROP COLUMN syncom_messageid');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_realname');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_realmail');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_mailinglist');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums DROP COLUMN syncom_newsgroup');
  }
  /*

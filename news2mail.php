@@ -88,13 +88,13 @@ function processmail($fid, $tid, $message) {
 	// Nach Forenabonnenten suchen
 	$query = $db->simple_select("forumsubscriptions", "uid", "fid=".$db->escape_string($fid));
 	while ($forensub = $db->fetch_array($query)) {
-		$user[] = $forensub["uid"];
+		$user[$forensub["uid"]] = $forensub["uid"];
 	}
 
 	// Nach Threadabonnenten suchen
 	$query = $db->simple_select("threadsubscriptions", "uid", "tid=".$db->escape_string($tid));
 	while ($forensub = $db->fetch_array($query)) {
-		$user[] = $forensub["uid"];
+		$user[$forensub["uid"]] = $forensub["uid"];
 	}
 
 	// Keine Abonnenten, also raus
@@ -121,11 +121,12 @@ function processmail($fid, $tid, $message) {
 
 function processmails()
 {
-	global $syncom, $subuser;
+	global $db, $syncom, $subuser;
 
-	// Testweise
-	// To-Do: Aus Config die UserID und Mailadresse holen
-	$subuser = array("1"=>"ike@piratenpartei.de");
+	$subuser = array();
+	$query = $db->simple_select("users", "uid, email", "syncom_mailinglist");
+	while ($user = $db->fetch_array($query))
+		$subuser[$user["uid"]] =$user["email"];
 
 	$dir = scandir($syncom['mailout-spool'].'/');
 
@@ -133,11 +134,10 @@ function processmails()
 		$file = $syncom['mailout-spool'].'/'.$spoolfile;
 		if (!is_dir($file) and (file_exists($file))) {
 			$message = unserialize(file_get_contents($file));
-			processmail($message["info"]["fid"], $message["info"]["tid"], $message["message"]);
-			/*if (($fid == 0) or processmail($api, $fid, $message['article'], $message['number']))
+			if (processmail($message["info"]["fid"], $message["info"]["tid"], $message["message"]))
 				@unlink($file);
 			else
-				rename($file, $syncom['mailout-spool'].'/error/'.$spoolfile);*/
+				rename($file, $syncom['mailout-spool'].'/error/'.$spoolfile);
 		}
  	}
 }
