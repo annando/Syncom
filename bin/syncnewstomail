@@ -1,0 +1,9 @@
+#!/bin/sh
+#if [ "$(whoami)" != "www-data" ];
+#then
+#	exec /bin/su www-data -c "$0 $*"
+#else
+	cd /srv/www/news01/syncom/
+	./news2mail.php $*
+#	#flock -n /var/lock/syncom/$(basename $0).lck -c 'php news2mail.php $*' 1>/dev/null 2>/dev/null
+#fi
