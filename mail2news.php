@@ -115,8 +115,20 @@ $newsgroup = $deliveredto[0]->mailbox;
 $sender = $from[0]->mailbox.'@'.$from[0]->host;
 
 // Mails von Mailinglisten werden nicht weitergeleitet
-if ($structure->headers['precedence'] == "list") {
+if (strtolower($structure->headers['precedence']) == "list") {
 	echo "Mailingliste";
+	exit(0);
+}
+
+// Gebouncte Mails werden nicht weitergeleitet
+if (($structure->headers['auto-submitted'] != "") and (strtolower($structure->headers['auto-submitted']) != "no")) {
+	echo "Bounce";
+	exit(0);
+}
+
+// Bulk auch nicht
+if (strtolower($structure->headers['precedence']) == "bulk") {
+	echo "Bulk";
 	exit(0);
 }
 
