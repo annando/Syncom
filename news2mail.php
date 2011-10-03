@@ -113,7 +113,8 @@ function processmail($fid, $tid, $message) {
 				// To-Do:
 				// Nur ueber BCC versenden
 				// Einmal absenden pro Nachricht und nicht pro Empfaenger
-				if (!mail($mail['list'], $mail['subject'], $mail['body'], $mail['header']."\r\nBCC: ".$subuser[$target]))
+				//if (!mail($mail['list'], $mail['subject'], $mail['body'], $mail['header']."\r\nBCC: ".$subuser[$target]))
+				if (!imap_mail($mail['list'], $mail['subject'], $mail['body'], $mail['header'], "", $subuser[$target]))
 					return(false);
 				echo $target."-".$subuser[$target]."\n";
 			}
