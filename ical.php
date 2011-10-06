@@ -76,9 +76,7 @@ foreach ($events as $day=>$events2) {
 	        $parsed = $parser->parse_message($event['description'], $parser_options);
 
 		$line .= "DESCRIPTION:".addcslashes(trim(html_entity_decode(strip_tags($parsed))), ",;\n")."\r\n";
-
-		// To-Do: Location fuellen, benotigt aber neues Feld in DB
-		// $line .= "LOCATION:Neue Str. 58 Eingang Lämmertwiete\r\n";
+		$line .= "LOCATION:".addcslashes(trim($event['ical_location']), ",;\n".'')."\r\n";
 
 		if (!$event['usingtime']) {
 			$line .= "DTSTART;VALUE=DATE:".$strdate."\n\r";

@@ -1,21 +1,22 @@
 <?php
-define("IN_MYBB", 1);
+/*define("IN_MYBB", 1);
 define("IN_SYNCOM", 1);
 
 $basepath = dirname($_SERVER["SCRIPT_FILENAME"]);
 
 require_once $basepath."/../global.php";
 require MYBB_ROOT.'/syncom/config.php';
-require_once "mybbapi.php";
-
-function node2bbcode(&$doc, $oldnode, $attributes, $startbb, $endbb)
+require_once "mybbapi.php";*/
+require_once "functions.php";
+/*
+function node2bbcode(&$doc, $oldnode, $attributes, $startbb, $endbb, $reverse = false)
 {
 	do {
-		$done = node2bbcodesub(&$doc, $oldnode, $attributes, $startbb, $endbb);
+		$done = node2bbcodesub(&$doc, $oldnode, $attributes, $startbb, $endbb, $reverse);
 	} while ($done);
 }
 
-function node2bbcodesub(&$doc, $oldnode, $attributes, $startbb, $endbb)
+function node2bbcodesub(&$doc, $oldnode, $attributes, $startbb, $endbb, $reverse)
 {
 	$savestart = str_replace('$', '%', $startbb);
 	$replace = false;
@@ -57,8 +58,13 @@ function node2bbcodesub(&$doc, $oldnode, $attributes, $startbb, $endbb)
 		}
 
 		if ($replace) {
-			$StartCode = $oldNode->ownerDocument->createTextNode($startbb);
-			$EndCode = $oldNode->ownerDocument->createTextNode($endbb);
+			if (!$reverse) {
+				$StartCode = $oldNode->ownerDocument->createTextNode($startbb);
+				$EndCode = $oldNode->ownerDocument->createTextNode($endbb);
+			} else {
+				$StartCode = $oldNode->ownerDocument->createTextNode($endbb);
+				$EndCode = $oldNode->ownerDocument->createTextNode($startbb);
+			}
 
 			$oldNode->parentNode->insertBefore($StartCode, $oldNode);
 
@@ -83,7 +89,7 @@ function deletenode(&$doc, $node)
 	foreach ($list as $child)
 		$child->parentNode->removeChild($child);
 }
-
+*/
 function breaklines($line, $level)
 {
 	$wraplen = 75-$level;
@@ -101,11 +107,11 @@ function breaklines($line, $level)
 			$pos = strpos($line, ' ');
 
 		if (($pos > 0) and strlen($line) > $wraplen) {
-			$newline = substr($line, 0, $pos);
+			$newline = trim(substr($line, 0, $pos));
 			if ($level > 0)
                 		$newline = str_repeat(">", $level).' '.$newline;
 
-			$newlines[] = $newline;
+			$newlines[] = $newline." ";
 			$line = substr($line, $pos+1);
 		}
 
@@ -151,10 +157,9 @@ function quotelevel($message)
 			$newlines[] = breaklines($line, $currlevel);
 	}
 	return(implode($newlines, "\n"));
-//print_r($newlines);
 }
 
-function bbcode2plain($bbcode)
+function bbcode2plain2($bbcode)
 {
 	global $lang;
 
@@ -167,6 +172,7 @@ function bbcode2plain($bbcode)
 			'allow_mycode' => 1,
 			'allow_imgcode' => 0,
 			'allow_smilies' => 0,
+			'shorten_urls' => 0,
 			);
 
 	$html = $parser->parse_message($bbcode, $parser_options);
@@ -196,6 +202,17 @@ function bbcode2plain($bbcode)
 	$message = $doc->saveHTML();
 	$message = str_replace(array("\n<", ">\n", "\r", "\n", "\xC3\x82\xC2\xA0"), array("<", ">", "<br>", " ", ""), $message);
 	$message = preg_replace('= [\s]*=i', " ", $message);
+
+	// nach <a href="...">...</a> suchen, die ... miteinander vergleichen und bei Gleichheit durch ein einzelnes ... ersetzen.
+	$pattern = '/<a.*?href="(.*?)".*?>(.*?)<\/a>/is';
+	preg_match_all($pattern, $message, $result, PREG_SET_ORDER);
+
+	foreach ($result as $treffer) {
+		if ($treffer[1] == $treffer[2]) {
+			$search = '<a href="'.$treffer[1].'" target="_blank">'.$treffer[1].'</a>';
+			$message = str_replace($search, $treffer[1], $message);
+		}
+	}
 	@$doc->loadHTML($message);
 
 	node2bbcode($doc, 'html', array(), '', '');
@@ -214,9 +231,6 @@ function bbcode2plain($bbcode)
 	node2bbcode($doc, 'blockquote', array(), '[quote]', "[/quote]\n");
 
 	node2bbcode($doc, 'br', array(), "\n", '');
-
-	// To-Do: Gibt es diese Header überhaupt?
-	// node2bbcode($doc, 'div', array('class'=>'collapsed'), "[collapsed]", "[/collapsed]");
 
 	node2bbcode($doc, 'span', array(), "", "");
 	node2bbcode($doc, 'pre', array(), "", "");
@@ -239,9 +253,7 @@ function bbcode2plain($bbcode)
 	node2bbcode($doc, 'h5', array(), "\n\n*", "*\n");
 	node2bbcode($doc, 'h6', array(), "\n\n*", "*\n");
 
-	// To-Do: Links und Bilder konvertieren
-	//node2bbcode($doc, 'a', array('href'=>'/(.+)/'), '[url=$1]', '[/url]');
-	node2bbcode($doc, 'a', array('href'=>'/(.+)/'), '<$1> (', ')');
+	node2bbcode($doc, 'a', array('href'=>'/(.+)/'), ' $1', '', true);
 	node2bbcode($doc, 'img', array('alt'=>'/(.+)/'), '$1', '');
 	node2bbcode($doc, 'img', array('title'=>'/(.+)/'), '$1', '');
 	node2bbcode($doc, 'img', array(), '', '');
@@ -271,16 +283,19 @@ function bbcode2plain($bbcode)
 		$message = str_replace("\n\n\n", "\n\n", $message);
 	} while ($oldmessage != $message);
 
-//echo $message."\n";
 	$message = quotelevel(trim($message));
 
 	return(trim($message));
 }
-
+/*
+//$dir = scandir($syncom['outgoing-spool'].'/phperror/');
 $dir = scandir($syncom['outgoing-spool'].'/error/');
 //$dir = array("outlqp0yS");
+//$dir = array("outwMI47A");
+//$dir = array("outzySkpW");
 
 foreach ($dir as $spoolfile) {
+	//$file = $syncom['outgoing-spool'].'/phperror/'.$spoolfile;
 	$file = $syncom['outgoing-spool'].'/error/'.$spoolfile;
 	if (!is_dir($file) and (file_exists($file))) {
 		$message = unserialize(file_get_contents($file));
@@ -291,12 +306,12 @@ foreach ($dir as $spoolfile) {
 		$body = preg_replace($pattern, '[quote=$1]', $body);
 		$body = str_ireplace(array('[collapsed]', '[/collapsed]'), array('[quote]', '[/quote]'), $body);
 
-		$plaintext = bbcode2plain($body);
+		$plaintext = bbcode2plain2($body);
 
-		echo $plaintext;
+		echo $file."\n***********************\n".$plaintext;
 		echo "\n-----------------------------------------------\n";
 
 	}
 }
-
+*/
 ?>

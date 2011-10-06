@@ -58,17 +58,6 @@ $plugins->add_hook('send_mail_queue_mail', 'syncom_send_mail_queue_mail');
 $plugins->add_hook("usercp_options_end", "syncom_usercp_options");
 $plugins->add_hook("usercp_do_options_end", "syncom_usercp_options");
 
-$plugins->add_hook("calendar_end", "syncom_calendar_end");
-
-function syncom_calendar_end()
-{
-	global $templates;
-
-	$find = '{$addevent}';
-	$replace = ' | <a href="/syncom/ical.php?calendar={$calendar[cid]}">iCal-Feed des Kalenders</a>';
-	$templates->cache['calendar'] = str_replace($find, $find.$replace, $templates->cache['calendar']);
-}
-
 function syncom_usercp_options()
 {
 	global $db, $mybb, $user, $templates;

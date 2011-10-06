@@ -8,7 +8,9 @@ Made for the syncom project: http://wiki.piratenpartei.de/Syncom
 License:
 Free to use for noncommercial projects if the header remains intact.
 */
-function node2bbcode(&$doc, $oldnode, $attributes, $startbb, $endbb)
+require_once "functions.php";
+
+/*function node2bbcode(&$doc, $oldnode, $attributes, $startbb, $endbb)
 {
 	do {
 		$done = node2bbcodesub(&$doc, $oldnode, $attributes, $startbb, $endbb);
@@ -85,7 +87,7 @@ function deletenode(&$doc, $node)
 	foreach ($list as $child)
 		$child->parentNode->removeChild($child);
 }
-
+*/
 function htmlconvert($message)
 {
 	$message = str_replace("\r", "", $message);

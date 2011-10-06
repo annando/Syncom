@@ -47,8 +47,8 @@ function sendasmail($stdin) {
 	$query = $db->simple_select("users", "allownotices, hideemail, receivepms, receivefrombuddy, email, username", "username='".$db->escape_string($target)."'", array('limit' => 1));
 	$user = $db->fetch_array($query);
 	if (!$user) {
-		//echo("Unknown Receiver ".$receiver);
-		//bounce($sender, "Das Ziel ist unbekannt.", $receiver);
+		echo("Unknown Receiver ".$receiver);
+		bounce($sender, "Das Ziel ist unbekannt.", $receiver);
 		exit(1);
 	}
 
@@ -140,6 +140,7 @@ $query = $db->simple_select("users", "uid", "email='".$db->escape_string($sender
 $user = $db->fetch_array($query);
 if (!$user) {
 	echo("Unknown User ".$sender);
+	bounce($sender, "Der Absender ist nicht fuer das Versenden zugelassen.", $newsgroup);
 	exit(1);
 }
 
@@ -149,6 +150,7 @@ $group = $db->fetch_array($query);
 if (!$group) {
 	// Vielleicht ist es ein User?
 	sendasmail($stdin);
+	bounce($sender, "Das Ziel ist unbekannt.", $newsgroup);
 	//echo("Unknown Newsgroup ".$newsgroup);
 	exit(2);
 }

@@ -5,8 +5,6 @@ Prio 1
 Prio 2
 ======
 - Anhänge (beidseitig)
-- Ausgabe als "format-flowed"
-- bessere BBCode2Plain-Formatierungsroutine
 
 Prio 3
 ======
@@ -17,6 +15,4 @@ Prio 3
 
 Bugs 
 ==== 
-- In synctonews.php gibt es einen Bug, der gelegentlich den 
-  PHP-Prozess in eine Endlosschleife bringt
 - [hr] erzeugt keinen Umbruch bei BBCode2Plain

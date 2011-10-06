@@ -18,6 +18,7 @@ require_once 'Mail.php';
 require_once 'Mail/mime.php';
 
 require_once 'bbcode_parser.php';
+require_once 'bbcode2plain.php';
 
 require_once "mybbapi.php";
 
@@ -53,26 +54,30 @@ function postarticle($message)
 
 	$body = stripslashes(str_replace(array('\r', '\n'), array("\r", "\n"), $message['body']));
 
-	// Eher temporaer, bis es neue Routinen bbcode2plain gibt
+	// Quotes umstellen
 	$pattern = "/\[quote='(.*?)' pid='(\d+)' dateline='(\d+)'\].*?/is";
 	$body = preg_replace($pattern, '[quote=$1]', $body);
 	$body = str_ireplace(array('[collapsed]', '[/collapsed]'), array('[quote]', '[/quote]'), $body);
 
+	// Eher temporaer, bis es neue Routinen bbcode2plain gibt
 	$pattern = "/\[url=(.*?)\](.*?)\[\/url\].*?/is";
 	$body2 = preg_replace($pattern, '$2[url]$1[/url]', $body);
-
-	$mime->setTXTBody(bbcode2plain($body2));
 
 	if ((substr($message['newsgroups'], 0, 17) == 'pirates.de.public')
 		OR (substr($message['newsgroups'], 0, 19) == 'pirates.de.announce')
 		OR ($message['newsgroups'] == 'pirates.de.test')
-		OR ($message['newsgroups'] == 'pirates.de.region.by.test'))
+		OR ($message['newsgroups'] == 'pirates.de.region.by.test')) {
+
+		$mime->setTXTBody(bbcode2plain2($body));
 		$mime->setHTMLBody(bbcode2html($body));
+	} else
+		$mime->setTXTBody(bbcode2plain2($body));
+		//$mime->setTXTBody(bbcode2plain($body2));
 
 	//do not ever try to call these lines in reverse order
 	$param = array(
 			"head_charset" => 'utf-8',
-			"text_charset" => 'utf-8',
+			"text_charset" => 'utf-8; format=flowed',
 			"html_charset" => 'utf-8'
 			);
 	$body = $mime->get($param);
