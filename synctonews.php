@@ -17,7 +17,7 @@ require_once 'Mail/RFC822.php';
 require_once 'Mail.php';
 require_once 'Mail/mime.php';
 
-require_once 'bbcode_parser.php';
+//require_once 'bbcode_parser.php';
 require_once 'bbcode2plain.php';
 
 require_once "mybbapi.php";
