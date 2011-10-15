@@ -506,6 +506,27 @@ function syncom_insert($data)
 		$message['references'] = syncom_getreferences($data->data['replyto'], $data->data['tid']);
 		$message['body'] = $data->post_insert_data['message'];
 
+		// Testweise, manchmal scheint das Array "post_insert_data" nicht gefüllt zu sein
+		if ($message['subject'].$message['body'] == '') {
+			// Message-ID erzeugen
+			$data->data['syncom_messageid'] = '<'.$data->data['fid'].'$'.
+								      $data->data['tid'].'$'.
+								      $data->data['dateline'].'@'.
+								      $syncom['hostname'].'>';
+			// Und hier müsste das Posten geschehen
+			$message = array();
+			$message['mode'] = 'post';
+			$message['path'] = $syncom['hostname'];
+			$message['from'] = syncom_getnamebyid($data->data['uid'], $data->data['username']);
+			$message['newsgroups'] = syncom_getnewsgroup($data->data['fid']);
+			$message['subject'] = $data->data['subject'];
+			$message['date'] = date('r',$data->data['dateline']);
+			$message['sender'] = urlencode($data->data['username']).'@'.$syncom['mailhostname'];
+			$message['message-id'] = $data->data['syncom_messageid'];
+			$message['references'] = syncom_getreferences($data->data['replyto'], $data->data['tid']);
+			$message['body'] = $data->data['message'];
+		}
+
 		if ($message['newsgroups'] == '')
 			return;
 

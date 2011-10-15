@@ -111,8 +111,7 @@ function processmail($fid, $tid, $message) {
 			$fpermissions = forum_permissions($fid, $target);
 			if ($fpermissions['canviewthreads']) {
 				// To-Do:
-				// Nur ueber BCC versenden
-				// Einmal absenden pro Nachricht und nicht pro Empfaenger
+				// Mit proc_open das Mailprogramm direkt öffnen, um den Empfänger per Envelope zu übergeben
 				//if (!mail($mail['list'], $mail['subject'], $mail['body'], $mail['header']."\r\nBCC: ".$subuser[$target]))
 				if (!imap_mail($mail['list'], $mail['subject'], $mail['body'], $mail['header'], "", $subuser[$target]))
 					return(false);
