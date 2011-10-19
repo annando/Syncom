@@ -38,10 +38,6 @@ function postarticle($article, $newsgroup) {
 		$return_value = proc_close($process);
 	}
 
-	// echo("OUT:\n".$out);
-	// echo("ERROR:\n".$error);
-	// echo("RETVAL: ".$return_value."\n");
-
 	return($error == '');
 }
 
@@ -77,6 +73,10 @@ $newsgroup = $deliveredto[0]->mailbox;
 $pos = strpos($stdin, "\n\n");
 $header = substr($stdin, 0, $pos);
 $body = substr($stdin, $pos+1);
+
+// To-Do:
+// - subscribe und unsubscribe per Mail
+// - bounce-Erkennung
 
 // Prüfung, ob Mail an Newsgroup oder Mail an User
 
@@ -115,6 +115,7 @@ if ($isgroup) {
 	// Ist der User schreibberechtigt?
 	// To-Do:
 	// - Prüfen ob der User moderiert ist (der User, das Forum, ...)
+	// - Listeneinstellung ermöglichen, dieSschreiben von beliebigen Adressen erlaubt
 	$fpermissions = forum_permissions($group['fid'], $user['uid']);
 	if (!$fpermissions['canpostreplys']) {
 		bounce($sender, "Keine Schreibberechtigung.", $newsgroup);

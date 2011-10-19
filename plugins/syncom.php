@@ -62,6 +62,9 @@ function syncom_usercp_options()
 {
 	global $db, $mybb, $user, $templates;
 
+	// To-Do
+	// Schalter für das das temporäre Deaktivieren des Abos (Ferienschalter)
+
 	if($mybb->request_method == "post") {
 		$update_array = array("syncom_mailinglist" => intval($mybb->input['syncom_mailinglist']));
 		$db->update_query("users", $update_array, "uid = '".$user['uid']."'");

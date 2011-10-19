@@ -72,6 +72,10 @@ function message2mail($fid, $tid, $message)
 	$newheader[] = "Sender: ".$group."-bounces@".$syncom["mailhostname"];
 	$newheader[] = "Errors-To: ".$group."-bounces@".$syncom["mailhostname"];
 
+	// To-Do:
+	// - Tag im Subject
+	// - Footertext
+
 	return(array("list"=>$group."@".$syncom["mailhostname"], "subject"=>$subject, "header"=>implode("\r\n", $newheader), "body"=>$body));
 }
 
