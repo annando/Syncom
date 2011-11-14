@@ -19,6 +19,7 @@ function message2mail($fid, $tid, $message)
 	$header = substr($message, 0, $pos);
 	$body = substr($message, $pos+4);
 	$subject = "";
+	$newsgroups = "";
 
 	$lines = explode("\r\n", $header);
 
@@ -44,8 +45,12 @@ function message2mail($fid, $tid, $message)
 		}
 
 		// Header abaendern
-		if (strtoupper(substr($line, 0, 11)) == "NEWSGROUPS:") $line = "X-".$line;
-		if (strtoupper(substr($line, 0, 7)) == "SENDER:") $line = "X-".$line;
+		if (strtoupper(substr($line, 0, 11)) == "NEWSGROUPS:") {
+			$newsgroups = trim(substr($line, 11));
+			$line = "X-".$line;
+		}
+		if (strtoupper(substr($line, 0, 7)) == "SENDER:")
+			$line = "X-".$line;
 
 		if (!$ignore)
 			$newheader[] = $line;
@@ -72,11 +77,28 @@ function message2mail($fid, $tid, $message)
 	$newheader[] = "Sender: ".$group."-bounces@".$syncom["mailhostname"];
 	$newheader[] = "Errors-To: ".$group."-bounces@".$syncom["mailhostname"];
 
+	// Crossposts ermitteln
+	$newgrouplist = array();
+	$grouplist = explode(",", $newsgroups);
+
+	if ($grouplist[0] != $group)
+		return("@");
+
+	foreach ($grouplist as $id=>$groupname) {
+		if ($group != $groupname)
+			$newgrouplist[] = $groupname."@".$syncom["mailhostname"];
+	}
+
+	$list = $group."@".$syncom["mailhostname"];
+
+	if (sizeof($newgrouplist)>0)
+		$newheader[] = "CC: ".implode(", ", $newgrouplist);
+		//$list .= ", ".implode(", ", $newgrouplist);
+
 	// To-Do:
 	// - Tag im Subject
 	// - Footertext
-
-	return(array("list"=>$group."@".$syncom["mailhostname"], "subject"=>$subject, "header"=>implode("\r\n", $newheader), "body"=>$body));
+	return(array("list"=>$list, "subject"=>$subject, "header"=>implode("\r\n", $newheader), "body"=>$body));
 }
 
 function processmail($fid, $tid, $message) {
@@ -85,6 +107,9 @@ function processmail($fid, $tid, $message) {
 	$mail = message2mail($fid, $tid, $message);
 
 	if ($mail == "")
+		return(false);
+
+	if ($mail == "@")
 		return(false);
 
 	//echo $mail."\n";
@@ -148,6 +173,10 @@ function processmails()
 		}
  	}
 }
+
+//$file = "/srv/www/news01/syncom/sample/crosspost2-1.msg";
+//$message = unserialize(file_get_contents($file));
+//processmail($message["info"]["fid"], $message["info"]["tid"], $message["message"]);
 
 processmails();
 ?>

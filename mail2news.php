@@ -22,7 +22,7 @@ function postarticle($article, $newsgroup) {
 	$descriptorspec = array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("pipe", "w"));
 
 	$newsgroup = escapeshellarg($newsgroup);
-	$command = "/usr/lib/news/bin/mailpost -b /tmp -x In-Reply-To:User-Agent:Expires ".$newsgroup;
+	$command = "/usr/lib/news/bin/mailpost -b /tmp -c 60 -x In-Reply-To:User-Agent:Expires ".$newsgroup;
 	$process = proc_open($command, $descriptorspec, $pipes);
 
 	if (is_resource($process)) {

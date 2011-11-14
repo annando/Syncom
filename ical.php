@@ -22,10 +22,10 @@ function icaldate($date, $strday = '') {
 
 	return($strday."T".date("His", $date)."Z");
 }
-
 header('Cache-Control: store, no-cache, must-revalidate, post-check=0, pre-check=0');
-header('Expires: Sun, 19 Nov 1978 05:00:00 GMT');
 header('Content-Disposition: attachment; filename="calendar.ics";');
+header("Expires: Sun, 19 Nov 1978 05:00:00 GMT");
+header("Last-Modified: Sun, 06 Nov 2011 23:27:46 GMT");
 header("Content-Type: text/calendar; charset=utf-8");
 
 $calendar = (int)$_REQUEST["calendar"];
@@ -58,6 +58,7 @@ foreach ($events as $day=>$events2) {
 	$nextday = $dateday + 86500;
 	$strnext = date("Ymd", $nextday);
 
+	if ($dateday>time())
 	foreach ($events2 as $event) {
 		$line = "BEGIN:VEVENT\r\n";
 		$line .= "CLASS:PUBLIC\n\r";

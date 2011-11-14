@@ -82,6 +82,43 @@ function syncom_usercp_options()
 		$GLOBALS['$syncom_mailinglistcheck'] = "checked=\"checked\"";
 }
 
+function syncom_match_subject($searchsubject) {
+	$subjects = array();
+
+	$languages = array("deutsch_du", "english");
+
+	foreach ($languages as $language) {
+		$userlang = new MyLanguage;
+		$userlang->set_path(MYBB_ROOT."inc/languages");
+		$userlang->set_language($language);
+		$userlang->load("messages");
+
+		// Bugfix: Wieso wird die Sprache nicht geladen?
+		if ($userlang->emailsubject_subscription == '')
+			$userlang->emailsubject_subscription = "Neues Thema bei {1}";
+
+		if ($userlang->emailsubject_forumsubscription == '')
+			$userlang->emailsubject_forumsubscription = "Neue Antwort zu {1}";
+
+		$subjects[] = $userlang->emailsubject_subscription;
+		$subjects[] = $userlang->emailsubject_forumsubscription;
+
+		unset($userlang);
+	}
+
+	foreach ($subjects as $index=>$subject) {
+		$pos = strpos($subject, '{');
+		if ($pos > 0) {
+			$base = substr($subject, 0, $pos);
+			$search = substr($searchsubject, 0, $pos);
+
+			if ($search == $base)
+				return(true);
+		}
+	}
+	return(false);
+}
+
 function syncom_send_mail_queue_mail($query)
 {
 	global $db;
@@ -93,7 +130,9 @@ function syncom_send_mail_queue_mail($query)
 
 	while($email = $db->fetch_array($query)) {
 		// Delete the message from the queue
-		if (in_array($email['mailto'], $subuser) and ($email['mailfrom'] == ''))
+		//if (in_array($email['mailto'], $subuser) and ($email['mailfrom'] == ''))
+		//if (in_array($email['mailto'], $subuser) and ((syncom_match_subject($email['subject'])) or ($email['mailfrom'] == '')))
+		if (in_array($email['mailto'], $subuser) and (syncom_match_subject($email['subject'])))
 			$db->delete_query("mailqueue", "mid='{$email['mid']}'");
 	}
 }
