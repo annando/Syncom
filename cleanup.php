@@ -53,7 +53,7 @@ function cleanupgroups()
 
 	$groups = $nntp->getDescriptions();
 
-	$query = $db->simple_select("forums", "syncom_newsgroup", "syncom_newsgroup!=''");
+	$query = $db->simple_select("forums", "syncom_newsgroup", "syncom_newsgroup!=''", array("order_by" => "syncom_newsgroup"));
 
 	$newsgroups = array();
 

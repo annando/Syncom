@@ -65,6 +65,8 @@ function postarticle($message)
 
 	if ((substr($message['newsgroups'], 0, 17) == 'pirates.de.public')
 		OR (substr($message['newsgroups'], 0, 19) == 'pirates.de.announce')
+		OR (substr($message['newsgroups'], 0, 21) == 'pirates.de.etc.syncom')
+		OR ($message['newsgroups'] == 'pirates.de.talk.technik')
 		OR ($message['newsgroups'] == 'pirates.de.test')
 		OR ($message['newsgroups'] == 'pirates.de.region.by.test')) {
 

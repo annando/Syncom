@@ -53,7 +53,9 @@ $plugins->add_hook('postbit', 'syncom_postbit');
 
 $plugins->add_hook('search_results_thread', 'syncom_search_results_thread');
 
-$plugins->add_hook('send_mail_queue_mail', 'syncom_send_mail_queue_mail');
+// Derzeit deaktiviert, da dieser Hook nicht zuverlaessig laeuft
+// $plugins->add_hook('send_mail_queue_mail', 'syncom_send_mail_queue_mail');
+// $plugins->add_hook('send_mail_queue_start', 'syncom_send_mail_queue_start');
 
 $plugins->add_hook("usercp_options_end", "syncom_usercp_options");
 $plugins->add_hook("usercp_do_options_end", "syncom_usercp_options");
@@ -119,22 +121,72 @@ function syncom_match_subject($searchsubject) {
 	return(false);
 }
 
+function syncom_send_mail_queue_start()
+{
+	global $db;
+
+	//$date = date("Y.m.d G:i:s");
+	//$file = fopen("/tmp/mailqueue", "a+");
+	//fwrite($file, $date." 1-Start\n");
+
+	$subuser = array();
+	$query = $db->simple_select("users", "uid, email", "syncom_mailinglist");
+	while ($user = $db->fetch_array($query))
+		$subuser[$user["uid"]] = $user["email"];
+
+	//fwrite($file, $date." 1-User ".sizeof($subuser)."\n");
+
+	$query = $db->simple_select("mailqueue", "*", "", array("order_by" => "mid", "order_dir" => "asc"));
+
+	while($email = $db->fetch_array($query)) {
+		$date = date("Y.m.d G:i:s");
+		$file = fopen("/tmp/mailqueue", "a+");
+		fwrite($file, $date." 1-Queue ".$email['mid']." - ".$email['mailto']." - ".$email['subject']." - ".$email['mailfrom']."\n");
+
+		// Delete the message from the queue
+		//if (in_array($email['mailto'], $subuser) and ($email['mailfrom'] == ''))
+		//if (in_array($email['mailto'], $subuser) and ((syncom_match_subject($email['subject'])) or ($email['mailfrom'] == ''))) {
+		if (in_array($email['mailto'], $subuser) and (syncom_match_subject($email['subject']))) {
+			$db->delete_query("mailqueue", "mid='{$email['mid']}'");
+			fwrite($file, $date." 1-Delete ".$email['mid']."\n");
+		}
+		fclose($file);
+	}
+	//fwrite($file, $date." 1-Stop\n");
+	//fclose($file);
+}
+
 function syncom_send_mail_queue_mail($query)
 {
 	global $db;
+
+	$date = date("Y.m.d G:i:s");
+	$file = fopen("/tmp/mailqueue", "a+");
+	fwrite($file, $date." 2-Mark\n");
 
 	$subuser = array();
 	$query2 = $db->simple_select("users", "uid, email", "syncom_mailinglist");
 	while ($user = $db->fetch_array($query2))
 		$subuser[$user["uid"]] =$user["email"];
 
+	//fwrite($file, "2-User ".sizeof($subuser)."\n");
+
 	while($email = $db->fetch_array($query)) {
+		//$date = date("Y.m.d G:i:s");
+		//$file = fopen("/tmp/mailqueue", "a+");
+		fwrite($file, $date." 2-Queue ".$email['mid']." - ".$email['mailto']." - ".$email['subject']." - ".$email['mailfrom']."\n");
+
 		// Delete the message from the queue
 		//if (in_array($email['mailto'], $subuser) and ($email['mailfrom'] == ''))
-		//if (in_array($email['mailto'], $subuser) and ((syncom_match_subject($email['subject'])) or ($email['mailfrom'] == '')))
-		if (in_array($email['mailto'], $subuser) and (syncom_match_subject($email['subject'])))
+		//if (in_array($email['mailto'], $subuser) and (syncom_match_subject($email['subject'])))
+		if (in_array($email['mailto'], $subuser) and ((syncom_match_subject($email['subject'])) or ($email['mailfrom'] == ''))) {
 			$db->delete_query("mailqueue", "mid='{$email['mid']}'");
+			fwrite($file, $date." 2-Delete ".$email['mid']."\n");
+		}
+		//fclose($file);
 	}
+	//fwrite($file, $date." 2-Stop\n");
+	fclose($file);
 }
 
 function syncom_search_results_thread()

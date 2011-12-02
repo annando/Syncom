@@ -74,22 +74,24 @@ function message2mail($fid, $tid, $message)
 	$newheader[] = "List-Post: <mailto:".$group."@".$syncom["mailhostname"].">";
 	//$newheader[] = "List-Help: <mailto:test-request@lists.piratenpartei.de?subject=help>";
 	$newheader[] = "List-Subscribe: <".$url."/forumdisplay.php?fid=".$fid.">";
-	$newheader[] = "Sender: ".$group."-bounces@".$syncom["mailhostname"];
+	$newheader[] = "Sender: ".$group." <".$group."-bounces@".$syncom["mailhostname"].">";
 	$newheader[] = "Errors-To: ".$group."-bounces@".$syncom["mailhostname"];
 
 	// Crossposts ermitteln
 	$newgrouplist = array();
 	$grouplist = explode(",", $newsgroups);
 
-	if ($grouplist[0] != $group)
-		return("@");
+	// Nur den ersten Post verarbeiten
+	if (sizeof($grouplist)>0)
+		if (trim($grouplist[0]) != $group)
+			return("@");
 
 	foreach ($grouplist as $id=>$groupname) {
 		if ($group != $groupname)
 			$newgrouplist[] = $groupname."@".$syncom["mailhostname"];
 	}
 
-	$list = $group."@".$syncom["mailhostname"];
+	$list = $group." <".$group."@".$syncom["mailhostname"].">";
 
 	if (sizeof($newgrouplist)>0)
 		$newheader[] = "CC: ".implode(", ", $newgrouplist);
@@ -110,7 +112,7 @@ function processmail($fid, $tid, $message) {
 		return(false);
 
 	if ($mail == "@")
-		return(false);
+		return(true);
 
 	//echo $mail."\n";
 	//echo "----------------------------------------------------\n";
@@ -174,9 +176,10 @@ function processmails()
  	}
 }
 
-//$file = "/srv/www/news01/syncom/sample/crosspost2-1.msg";
-//$message = unserialize(file_get_contents($file));
-//processmail($message["info"]["fid"], $message["info"]["tid"], $message["message"]);
+/*$file = "/srv/www/news01/syncom/sample/crosspost2-3.msg";
+$message = unserialize(file_get_contents($file));
+processmail($message["info"]["fid"], $message["info"]["tid"], $message["message"]);
+*/
 
 processmails();
 ?>
