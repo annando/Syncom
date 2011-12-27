@@ -42,20 +42,21 @@ function gcvt_archive_start()
 function gcvt_build_forumbits($forum)
 {
 	global $mybb;
-
-	if($mybb->user['uid'] == 0) {
+	if(gcvt_nopostvisivle($forum['fid'])) {
 		//lastpost
 		//$forum['lastpostsubject'] = substr($forum['lastpostsubject'], 0, 1).'...';
 		$forum['lastposteruid'] = 0;
 		$forum['lastposter'] = substr($forum['lastposter'], 0, 1).'...';
+		//print_r($forum);
 	}
+	return($forum);
 }
 
 function gcvt_displaythread()
 {
 	global $thread, $mybb;
 
-	if($mybb->user['uid'] == 0) {
+	if(gcvt_nopostvisivle($thread['fid'])) {
 		//dateline
 		//$thread['subject'] = substr($thread['subject'], 0, 1).'...';
 		$thread['uid'] = 0;
@@ -69,12 +70,31 @@ function gcvt_displaythread()
 
 function gcvt_thread()
 {
-	global $mybb,$lang;
+	global $mybb, $lang, $thread;
 
-	if($mybb->user['uid'] == 0) {
+	if(gcvt_nopostvisivle($thread['fid'])) {
 		error("Beiträge können nach Anmeldung gelesen werden.","Hinweis");
 	}
 
 	$lang->send_thread = "";
+}
+
+function gcvt_nopostvisivle($fid)
+{
+        global $mybb, $db;
+
+	if ($mybb->user['uid'] != 0)
+		return(false);
+
+	//if ($fid == 61)
+	//	return(true);
+	//if ($fid == 341)
+	//	return(true);
+	//if ($fid == 71)
+	//	return(true);
+
+	$query = $db->simple_select("forums", "syncom_threadsvisible", "fid = '{$fid}'", array('limit' => 1));
+        $threadsvisible = $db->fetch_array($query);
+	return($threadsvisible['syncom_threadsvisible']);
 }
 ?>
