@@ -401,6 +401,7 @@ function syncom_install()
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_realmail VARCHAR(100) NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_mailinglist BOOLEAN NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_newsgroup VARCHAR(100) NOT NULL');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_threadsvisible BOOLEAN NOT NULL');
 }
  /*
  * _is_installed():
@@ -433,6 +434,7 @@ function syncom_install()
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_realmail');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_mailinglist');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums DROP COLUMN syncom_newsgroup');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums DROP COLUMN syncom_threadsvisible');
  }
  /*
  * _activate():
@@ -442,7 +444,7 @@ function syncom_install()
 function syncom_activate()
 {
 	require MYBB_ROOT.'/inc/adminfunctions_templates.php';
-        
+
 	find_replace_templatesets('usercp_profile',
 		preg_quote('#{$user[\'yahoo\']}" /></td>#is'),
 		'{$user[\'yahoo\']}" /></td></tr>

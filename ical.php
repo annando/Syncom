@@ -44,7 +44,8 @@ echo "BEGIN:VCALENDAR\r\n";
 echo "VERSION:2.0\r\n";
 echo "PRODID://annando/mybb-ical//DE\r\n";
 echo "METHOD:PUBLISH\r\n";
-echo "X-WR-TIMEZONE:UTC\r\n";
+//echo "X-WR-TIMEZONE:UTC\r\n";
+echo "X-WR-TIMEZONE:Europe/Berlin\r\n";
 echo "X-WR-CALNAME:".$calendarname."\r\n";
 
 $events = get_events($calendar, time()-(86400*30), time()+(86400*90), false);
@@ -58,10 +59,10 @@ foreach ($events as $day=>$events2) {
 	$nextday = $dateday + 86500;
 	$strnext = date("Ymd", $nextday);
 
-	if ($dateday>time())
+	//if ($dateday>time())
 	foreach ($events2 as $event) {
 		$line = "BEGIN:VEVENT\r\n";
-		$line .= "CLASS:PUBLIC\n\r";
+		$line .= "CLASS:PUBLIC\r\n";
 		$line .= "UID:".$day."-".$event['eid']."-".$event['cid']."-".$event['uid']."\r\n";
 		$line .= "SUMMARY:".addcslashes(trim($event['name']), ",;\n".'')."\r\n";
 
@@ -80,8 +81,8 @@ foreach ($events as $day=>$events2) {
 		$line .= "LOCATION:".addcslashes(trim($event['ical_location']), ",;\n".'')."\r\n";
 
 		if (!$event['usingtime']) {
-			$line .= "DTSTART;VALUE=DATE:".$strdate."\n\r";
-			$line .= "DTEND;VALUE=DATE:".$strnext."\n\r";
+			$line .= "DTSTART;VALUE=DATE:".$strdate."\r\n";
+			$line .= "DTEND;VALUE=DATE:".$strnext."\r\n";
 		} else {
 			$line .= "DTSTART:".icaldate($event['starttime'], $strdate)."\r\n";
 			$line .= "DTEND:".icaldate($event['endtime'], $strdate)."\r\n";

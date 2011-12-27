@@ -111,6 +111,7 @@ function postarticle($message)
 	}
 
 	$additional .= "User-Agent: SynCom2 - 0.1\r\n";
+	$additional .= "X-Sync-Path: forum2news\r\n";
 	$additional .= "X-Path: ".$syncom['hostname']."\r\n";
 
 	$subject = "=?UTF-8?B?".base64_encode(stripslashes($message['subject']))."?=";

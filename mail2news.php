@@ -22,7 +22,7 @@ function postarticle($article, $newsgroup) {
 	$descriptorspec = array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("pipe", "w"));
 
 	$newsgroup = escapeshellarg($newsgroup);
-	$command = "/usr/lib/news/bin/mailpost -b /tmp -c 60 -x In-Reply-To:User-Agent:Expires ".$newsgroup;
+	$command = "/usr/lib/news/bin/mailpost -b /tmp -c 60 -x In-Reply-To:User-Agent:Expires -r mail2news.piratenpartei.de ".$newsgroup;
 	$process = proc_open($command, $descriptorspec, $pipes);
 
 	if (is_resource($process)) {
@@ -126,12 +126,15 @@ if ($isgroup) {
 	// Den Header aufräumen
 	$pattern = array("/\nReceived:.*/i",
 			"/X-Original-To:.*/i",
+			//"/\nX.*/i",
 			"/\nTo:.*/i",
 			"/\nCC:.*/i",
 			//"/\nSubject:.*/i",
 			"/^From\s.*/i",
 			"/\nDelivered-To:.*/i");
-	$header = trim(preg_replace($pattern, "", $header));
+
+	// Baustelle: Anscheinend wird der Header manchmal zerstückelt
+	$header = trim(preg_replace($pattern, "", $header))."\r\nX-Sync-Path: mail2news";
 
 	// To-Do: Headermagie durchführen, die ansonsten SynFU macht
 
@@ -172,7 +175,8 @@ if ($isgroup) {
 
 	// Möchte er Mails empfangen?
 	//if (!$user['allownotices'] or $user['receivefrombuddy'] or !$user['receivepms']) {
-	if ($user['receivefrombuddy'] or !$user['receivepms']) {
+	//if ($user['receivefrombuddy'] or !$user['receivepms']) {
+	if ($user['hideemail']) {
 		echo("Mail not allowed");
 		bounce($sender, "Mailempfang dieser Person ist nicht erlaubt.", $receiver);
 		exit(7);

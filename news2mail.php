@@ -67,7 +67,7 @@ function message2mail($fid, $tid, $message)
 	$newheader[] = "Precedence: list";
 	//$newheader[] = "To: <".$group."@".$syncom["mailhostname"].">";
 	$newheader[] = "X-BeenThere: ".$group."@".$syncom["mailhostname"];
-	$newheader[] = "Reply-To: <".$group."@".$syncom["mailhostname"].">";
+	$newheader[] = "Reply-To: ".$group." <".$group."@".$syncom["mailhostname"].">";
 	$newheader[] = "List-Id: <".$group.">";
 	$newheader[] = "List-Unsubscribe: <".$url."/forumdisplay.php?fid=".$fid.">";
 	$newheader[] = "List-Archive: <".$url."/forumdisplay.php?fid=".$fid.">";
