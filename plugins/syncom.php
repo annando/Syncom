@@ -54,8 +54,8 @@ $plugins->add_hook('postbit', 'syncom_postbit');
 $plugins->add_hook('search_results_thread', 'syncom_search_results_thread');
 
 // Derzeit deaktiviert, da dieser Hook nicht zuverlaessig laeuft
-// $plugins->add_hook('send_mail_queue_mail', 'syncom_send_mail_queue_mail');
-// $plugins->add_hook('send_mail_queue_start', 'syncom_send_mail_queue_start');
+$plugins->add_hook('send_mail_queue_mail', 'syncom_send_mail_queue_mail');
+$plugins->add_hook('send_mail_queue_start', 'syncom_send_mail_queue_start');
 
 $plugins->add_hook("usercp_options_end", "syncom_usercp_options");
 $plugins->add_hook("usercp_do_options_end", "syncom_usercp_options");
@@ -329,7 +329,9 @@ function syncom_admin_forum_management_edit_commit()
 global $mybb, $db;
 
 if (array_key_exists('syncom_newsgroup', $mybb->input) and ($mybb->input['fid'] != '')) {
-	$sql_array = array("syncom_newsgroup" => $mybb->input['syncom_newsgroup']);
+	$sql_array = array("syncom_newsgroup" => $mybb->input['syncom_newsgroup'],
+				"syncom_threadsvisible" => $mybb->input['syncom_threadsvisible'],
+				"syncom_html" => $mybb->input['syncom_html']);
 	$db->update_query("forums", $sql_array, "fid=".$db->escape_string($mybb->input['fid']), 1);
 }
 }
@@ -345,11 +347,26 @@ global $mybb, $db;
 if (($mybb->input['module'] == 'forum-management') and (($mybb->input['action'] == 'edit') or ($mybb->input['action'] == 'add'))
 	and ($pluginargs['label_for'] == 'title') and ($mybb->input['fid'] != '')) {
 
-	$query = $db->simple_select("forums", "syncom_newsgroup", "fid=".$db->escape_string($mybb->input['fid']), array('limit' => 1));
+	$query = $db->simple_select("forums", "syncom_newsgroup, syncom_threadsvisible, syncom_html", "fid=".$db->escape_string($mybb->input['fid']), array('limit' => 1));
 	$forum = $db->fetch_array($query);
+
+	$visiblechecked = '';
+	$htmlchecked = '';
+
+	if ($forum["syncom_threadsvisible"])
+		$visiblechecked = ' checked="checked"';
+	if ($forum["syncom_html"])
+		$htmlchecked = ' checked="checked"';
+
 	$pluginargs['content'] .= 
 '</tr><td class="first"><label for="syncom_newsgroup">Newsgroup</label>
  <div class="form_row"><input type="text" name="syncom_newsgroup" value="'.$forum['syncom_newsgroup'].'" class="text_input" id="syncom_newsgroup" /></div> 
+ </td></tr>'.
+'</tr><td class="first">Synceinstellungen
+ <div class="form_row">
+<div class="forum_settings_bit"><label for="syncom_threadsvisible"><input type="checkbox" name="syncom_threadsvisible" value="1" class="checkbox_input" id="syncom_threadsvisible"'.$visiblechecked.'/>Nur Threadtitel sichtbar<br /></div>
+<div class="forum_settings_bit"><label for="syncom_html"><input type="checkbox" name="syncom_html" value="1" class="checkbox_input" id="syncom_html"'.$htmlchecked.'/>Forenbeitr&auml;ge als HTML posten<br /></div>
+</div> 
  </td></tr>';
 }
 }
@@ -402,6 +419,7 @@ function syncom_install()
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_mailinglist BOOLEAN NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_newsgroup VARCHAR(100) NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_threadsvisible BOOLEAN NOT NULL');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_html BOOLEAN NOT NULL');
 }
  /*
  * _is_installed():
@@ -435,6 +453,7 @@ function syncom_install()
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_mailinglist');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums DROP COLUMN syncom_newsgroup');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums DROP COLUMN syncom_threadsvisible');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums DROP COLUMN syncom_html');
  }
  /*
  * _activate():
@@ -532,6 +551,7 @@ function syncom_update($data)
 	$message['path'] = $syncom['hostname'];
 	$message['from'] = $from;
 	$message['newsgroups'] = syncom_getnewsgroup($post['fid']);
+	$message['html'] = syncom_gethtml($post['fid']);
 	$message['subject'] = $subject;
 	$message['date'] = date('r',$data->post_update_data['edittime']);
 	// Der User als Sender, der die Aenderung durchgefuehrt hat?
@@ -595,6 +615,7 @@ function syncom_insert($data)
 		$message['path'] = $syncom['hostname'];
 		$message['from'] = syncom_getnamebyid($data->data['uid'], $data->post_insert_data['username']);
 		$message['newsgroups'] = syncom_getnewsgroup($data->data['fid']);
+		$message['html'] = syncom_gethtml($data->data['fid']);
 		$message['subject'] = $data->post_insert_data['subject'];
 		$message['date'] = date('r',$data->post_insert_data['dateline']);
 		$message['sender'] = urlencode($data->post_insert_data['username']).'@'.$syncom['mailhostname'];
@@ -615,6 +636,7 @@ function syncom_insert($data)
 			$message['path'] = $syncom['hostname'];
 			$message['from'] = syncom_getnamebyid($data->data['uid'], $data->data['username']);
 			$message['newsgroups'] = syncom_getnewsgroup($data->data['fid']);
+			$message['html'] = syncom_gethtml($data->data['fid']);
 			$message['subject'] = $data->data['subject'];
 			$message['date'] = date('r',$data->data['dateline']);
 			$message['sender'] = urlencode($data->data['username']).'@'.$syncom['mailhostname'];
@@ -712,6 +734,16 @@ function syncom_getnewsgroup($fid)
 	$forum = $db->fetch_array($query);
 
 	return($forum['syncom_newsgroup']);
+}
+
+function syncom_gethtml($fid)
+{
+	global $mybb, $db;
+
+	$query = $db->simple_select("forums", "syncom_html", "fid=".$db->escape_string($fid), array('limit' => 1));
+	$forum = $db->fetch_array($query);
+
+	return($forum['syncom_html']);
 }
 
 function syncom_getmessageid($pid)

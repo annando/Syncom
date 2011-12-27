@@ -27,7 +27,7 @@ function postarticle($message)
 	global $syncom;
 
 	if ($message['newsgroups'] == '')
-		$message['newsgroups'] = 'pirates.de.test';
+		return(false);
 
 	$nntp = new Net_NNTP_Client();
 	$ret = $nntp->connect($syncom['newsserver'], false, '119', 3);
@@ -49,7 +49,6 @@ function postarticle($message)
 		'Date' => $message['date']
 			);
 
-
 	$mime = new Mail_mime("\n");
 
 	$body = stripslashes(str_replace(array('\r', '\n'), array("\r", "\n"), $message['body']));
@@ -63,18 +62,11 @@ function postarticle($message)
 	$pattern = "/\[url=(.*?)\](.*?)\[\/url\].*?/is";
 	$body2 = preg_replace($pattern, '$2[url]$1[/url]', $body);
 
-	if ((substr($message['newsgroups'], 0, 17) == 'pirates.de.public')
-		OR (substr($message['newsgroups'], 0, 19) == 'pirates.de.announce')
-		OR (substr($message['newsgroups'], 0, 21) == 'pirates.de.etc.syncom')
-		OR ($message['newsgroups'] == 'pirates.de.talk.technik')
-		OR ($message['newsgroups'] == 'pirates.de.test')
-		OR ($message['newsgroups'] == 'pirates.de.region.by.test')) {
-
+	if ($message['html']) {
 		$mime->setTXTBody(bbcode2plain2($body));
 		$mime->setHTMLBody(bbcode2html($body));
 	} else
 		$mime->setTXTBody(bbcode2plain2($body));
-		//$mime->setTXTBody(bbcode2plain($body2));
 
 	//do not ever try to call these lines in reverse order
 	$param = array(
@@ -139,6 +131,7 @@ function postarticles()
 
 			echo $message['newsgroup']." - ".$message['subject']."\r\n";
 
+			//	rename($file, $syncom['outgoing-spool'].'/test/'.$spoolfile);
 			if (postarticle($message))
 				@unlink($file);
 			else
