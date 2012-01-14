@@ -142,6 +142,8 @@ function collapsiblethreads_postbit($post)
 	$newmsg .= substr($message, $start);
 
 	$post['message'] = str_replace('</blockquote>', '</div></blockquote>', $newmsg);
+
+	return($post);
 }
 
 function collapsiblethreads_parse_message($message)

@@ -390,10 +390,10 @@ function syncom_info()
 	return array(
 		"name"			=> "SynCom",
 		"description"	=> "Synchronisation zwischen Forum und Newsserver",
-		"website"		=> "http://www.dabo.de/software/software.html",
+		"website"		=> "github.com/annando/Syncom",
 		"author"		=> "Michael Vogel",
 		"authorsite"	=> "http://www.dabo.de",
-		"version"		=> "0.1",
+		"version"		=> "0.9",
 		"guid" 			=> "",
 		"compatibility" => "*"
 	);
@@ -517,6 +517,12 @@ function syncom_update($data)
 
 	require MYBB_ROOT.'/syncom/config.php';
 
+	$pattern = "/\[quote=\"'(.*?)' pid='(\d+)' dateline='(\d+)'\"\].*?/is";
+	$data->post_insert_data['message'] = preg_replace($pattern, "[quote='$1' pid='$2' dateline='$3']", $data->post_insert_data['message']);
+	$data->data['message'] = preg_replace($pattern, "[quote='$1' pid='$2' dateline='$3']", $data->data['message']);
+	//$data->post_insert_data['message'] = preg_replace($pattern, "[quote='$1']", $data->post_insert_data['message']);
+	//$data->data['message'] = preg_replace($pattern, "[quote='$1']", $data->data['message']);
+
 	// Wenn der Post aus der API erzeugt wird, wird kein Export durchgefuehrt
 	if (IN_SYNCOM == 1)
 		return;
@@ -593,6 +599,12 @@ function syncom_insert($data)
 		$data->data['subject'] = str_replace(array('RE: ', 'RE:  ', 'RE:   '),
 								array('Re: ', 'Re: ', 'Re: '),
 								$data->data['subject']);
+
+		$pattern = "/\[quote=\"'(.*?)' pid='(\d+)' dateline='(\d+)'\"\].*?/is";
+		$data->post_insert_data['message'] = preg_replace($pattern, "[quote='$1' pid='$2' dateline='$3']", $data->post_insert_data['message']);
+		$data->data['message'] = preg_replace($pattern, "[quote='$1' pid='$2' dateline='$3']", $data->data['message']);
+		//$data->post_insert_data['message'] = preg_replace($pattern, "[quote='$1']", $data->post_insert_data['message']);
+		//$data->data['message'] = preg_replace($pattern, "[quote='$1']", $data->data['message']);
 
 		// Wenn der Post aus der API erzeugt wird, wird kein Export durchgefuehrt
 		if (IN_SYNCOM == 1)

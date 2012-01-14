@@ -67,14 +67,16 @@ function message2mail($fid, $tid, $message)
 	$newheader[] = "Precedence: list";
 	//$newheader[] = "To: <".$group."@".$syncom["mailhostname"].">";
 	$newheader[] = "X-BeenThere: ".$group."@".$syncom["mailhostname"];
-	$newheader[] = "Reply-To: ".$group." <".$group."@".$syncom["mailhostname"].">";
+	//$newheader[] = "Reply-To: ".$group." <".$group."@".$syncom["mailhostname"].">";
+	$newheader[] = "Reply-To: ".$group."@".$syncom["mailhostname"];
 	$newheader[] = "List-Id: <".$group.">";
 	$newheader[] = "List-Unsubscribe: <".$url."/forumdisplay.php?fid=".$fid.">";
 	$newheader[] = "List-Archive: <".$url."/forumdisplay.php?fid=".$fid.">";
 	$newheader[] = "List-Post: <mailto:".$group."@".$syncom["mailhostname"].">";
 	//$newheader[] = "List-Help: <mailto:test-request@lists.piratenpartei.de?subject=help>";
 	$newheader[] = "List-Subscribe: <".$url."/forumdisplay.php?fid=".$fid.">";
-	$newheader[] = "Sender: ".$group." <".$group."-bounces@".$syncom["mailhostname"].">";
+	//$newheader[] = "Sender: ".$group." <".$group."-bounces@".$syncom["mailhostname"].">";
+	$newheader[] = "Sender: ".$group."-bounces@".$syncom["mailhostname"];
 	$newheader[] = "Errors-To: ".$group."-bounces@".$syncom["mailhostname"];
 
 	// Crossposts ermitteln
@@ -91,7 +93,8 @@ function message2mail($fid, $tid, $message)
 			$newgrouplist[] = $groupname."@".$syncom["mailhostname"];
 	}
 
-	$list = $group." <".$group."@".$syncom["mailhostname"].">";
+	//$list = $group." <".$group."@".$syncom["mailhostname"].">";
+	$list = $group."@".$syncom["mailhostname"];
 
 	if (sizeof($newgrouplist)>0)
 		$newheader[] = "CC: ".implode(", ", $newgrouplist);

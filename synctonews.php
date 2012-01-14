@@ -54,6 +54,9 @@ function postarticle($message)
 	$body = stripslashes(str_replace(array('\r', '\n'), array("\r", "\n"), $message['body']));
 
 	// Quotes umstellen
+	//$pattern = "/\[quote=\"'(.*?)' pid='(\d+)' dateline='(\d+)'\"\].*?/is";
+	//$body = preg_replace($pattern, '[quote=$1]', $body);
+
 	$pattern = "/\[quote='(.*?)' pid='(\d+)' dateline='(\d+)'\].*?/is";
 	$body = preg_replace($pattern, '[quote=$1]', $body);
 	$body = str_ireplace(array('[collapsed]', '[/collapsed]'), array('[quote]', '[/quote]'), $body);

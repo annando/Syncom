@@ -22,7 +22,8 @@ function postarticle($article, $newsgroup) {
 	$descriptorspec = array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("pipe", "w"));
 
 	$newsgroup = escapeshellarg($newsgroup);
-	$command = "/usr/lib/news/bin/mailpost -b /tmp -c 60 -x In-Reply-To:User-Agent:Expires -r mail2news.piratenpartei.de ".$newsgroup;
+	//$command = "/usr/local/bin/synfu-reactor -F -K X-Sync-Path | ";
+	$command .= "/usr/lib/news/bin/mailpost -b /tmp -c 60 -x In-Reply-To:User-Agent:Expires -r mail2news.piratenpartei.de ".$newsgroup;
 	$process = proc_open($command, $descriptorspec, $pipes);
 
 	if (is_resource($process)) {
@@ -77,6 +78,13 @@ $body = substr($stdin, $pos+1);
 // To-Do:
 // - subscribe und unsubscribe per Mail
 // - bounce-Erkennung
+
+// Wenn es an den Sync-User geht, wird es nicht weiter behandelt
+// Erstmal hart kodiert (Zum Test)
+if ($deliveredto[0]->mailbox == "syncom") {
+	echo "Mailingliste";
+	exit(8);
+}
 
 // Prüfung, ob Mail an Newsgroup oder Mail an User
 
@@ -136,7 +144,8 @@ if ($isgroup) {
 	// Baustelle: Anscheinend wird der Header manchmal zerstückelt
 	$header = trim(preg_replace($pattern, "", $header))."\r\nX-Sync-Path: mail2news";
 
-	// To-Do: Headermagie durchführen, die ansonsten SynFU macht
+	$temp = tempnam("/var/spool/syncom/mailin/", "min");
+	file_put_contents($temp, $stdin);
 
 	// Und nun die Uebergabe an den Newsserver
 	$message = $header."\n".$body;
