@@ -88,15 +88,15 @@ class ICalExporter {
 		if (substr($tz, 0, 5) == 'TZID=') {
 			$tz = substr($tz, 5);
 			date_default_timezone_set($tz);
-
 		} else if ($tz == 'VALUE=DATE') {
 			$y = substr($str, 0, 4);
 			$mn = substr($str, 4, 2);
 			$d = substr($str, 6, 2);
 			return($y."-".$mn."-".$d);
-		} else {
+		} else if (substr(trim($str), -1) != "Z")
+			date_default_timezone_set("Europe/Berlin");
+		else
 			date_default_timezone_set("UTC");
-		}
 
 		$date = strtotime($sqldate);
 
@@ -152,7 +152,7 @@ class ICalExporter {
 						break;
 
 					case "RRULE":
-							$rrule = explode(";", $mas[1]);
+						$rrule = explode(";", $mas[1]);
 						for($z=0;$z<sizeof($rrule);$z++) {
 							$rrule_n = explode("=", $rrule[$z]);
 							switch($rrule_n[0]) {
@@ -228,6 +228,7 @@ class ICalExporter {
 
 					case "LOCATION":
 						$arr_n[$x]['location'] = trim($mas[1]);
+						$addfield = 'location';
 						break;
 
 					case "LAST-MODIFIED":
@@ -463,7 +464,30 @@ class ICalExporter {
 						}
 					}
 					else {
-						$arr_n[$i]['end_date'] = "9999-02-01 00:00:00";
+						if ($extra == "no") {
+							//$arr_n[$i]['end_date'] = "9999-02-01 00:00:00";
+							$arr_n[$i]['end_date'] = "2099-12-31".substr($arr_p[$i]['end_date'], 10);
+						} else {
+							$date = strtotime($arr_p[$i]['start_date']);
+
+							// To-Do:
+							// Regel fuer mengenmaeßig begrenzte Termine (count)
+							// erstmal nur sehr billig gemacht
+							switch ($repeats["repeats"]) {
+								case 1: $date = $date + ($count*--$extra*86400);
+									break;
+								case 3: $date = $date + ($count*--$extra*86400*7);
+									break;
+								case 4: $date = $date + ($count*--$extra*86400*31);
+									break;
+								case 5: $date = $date + ($count*--$extra*86400*366);
+									break;
+							}
+							$end_date = gmdate("Y-m-d H:i:s", $date);
+
+							$arr_n[$i]['end_date'] = $end_date;
+							//$arr_n[$i]['end_date'] = $arr_p[$i]['end_date'];
+						}
 					}
 				}
 				//text

@@ -98,9 +98,9 @@ while ($row = $db->fetch_array($query)) {
 	//print_r($fpermissions);
 
 	if ($fpermissions['canviewthreads'])
-		$desc .= "\nDie Beiträge sind auch ohne Anmeldung sichtbar. ";
+		$desc .= "\nDie Beiträge im Forum sind auch ohne Anmeldung sichtbar. ";
 	else
-		$desc .= "\nDie Beiträge sind erst nach Anmeldung sichtbar. ";
+		$desc .= "\nDie Beiträge im Forum sind erst nach Anmeldung sichtbar. ";
 
 	$foruminfo[$row['fid']]['open'] = $fpermissions['canview'];
 	$foruminfo[$row['fid']]['public'] = $fpermissions['canviewthreads'];
@@ -110,9 +110,9 @@ while ($row = $db->fetch_array($query)) {
 	$foruminfo[$row['fid']]['expire'] = $expiretime;
 
 	if ($expiretime == "never")
-		$desc .= "Sie werden dauerhaft vorgehalten";
+		$desc .= "Sie werden im Forum und auf dem Newsserver dauerhaft vorgehalten";
 	else
-		$desc .= "Sie werden nach etwa ".$expiretime." Tagen automatisiert entfernt";
+		$desc .= "Sie werden im Forum und auf dem Newsserver nach etwa ".$expiretime." Tagen automatisiert entfernt (die Haltezeit auf anderen Medien kann davon abweichen)";
 
 	$desc .= " und stehen ebenfalls auf den folgenden Medien zur Verfügung:";
 	$desc .= "\nNewsgroup: <a href='news://news.piratenpartei.de/".$row['syncom_newsgroup']."'>".$row['syncom_newsgroup']."</a>";

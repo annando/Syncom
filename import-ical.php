@@ -9,6 +9,12 @@ require MYBB_ROOT.'/syncom/config.php';
 
 require_once("ical-class.php");
 
+function mystripslashes($string) {
+	$unstripped = str_replace(array('\n'), array("\n"), $string);
+	$unstripped = stripslashes($unstripped);
+	return($unstripped);
+}
+
 function importical($importid, $feed, $cid, $uid) {
 	global $db;
 
@@ -26,15 +32,11 @@ function importical($importid, $feed, $cid, $uid) {
 	//print_r($events);
 	//die();
 
-	/* To-Do
-	- Adresse teilweise in Beschreibung
-	*/
-
 	foreach ($events as $event) {
 		$fields['cid'] = $cid;
 		$fields['uid'] = $uid;
-		$fields['name'] = $event['text'];
-		$fields['description'] = strip_tags($event['description']);
+		$fields['name'] = $db->escape_string(mystripslashes($event['text']));
+		$fields['description'] = $db->escape_string(mystripslashes(strip_tags($event['description'])));
 		$fields['visible'] = 1;
 		$fields['private'] = 0;
 		$fields['dateline'] = strtotime($event['dtstamp']); // created, last-modified
@@ -64,7 +66,7 @@ function importical($importid, $feed, $cid, $uid) {
 		$fields['ignoretimezone'] = 0;
 		$fields['repeats'] = $event['repeats'];
 		$fields['import_eid'] = 0;
-		$fields['ical_location'] = $event['location'];
+		$fields['ical_location'] = $db->escape_string(mystripslashes($event['location']));
 		$fields['ical_uid'] = $event['uid'];
 		$fields['ical_importid'] = $importid;
 
@@ -94,7 +96,8 @@ function importical($importid, $feed, $cid, $uid) {
 
 $feeds = array();
 
-// $feeds[2] = array("cid"=>3, "uid"=>1, "feed"=>"");
+//$feeds[200] = array("cid"=>7, "uid"=>1, "feed"=>"test.vcs");
+//$feeds[2] = array("cid"=>3, "uid"=>1, "feed"=>"");
 
 // Hamburg-Kalender
 // 5 - Gesamt
@@ -105,7 +108,7 @@ $feeds = array();
 // Hamburg - Allgemein
 $feeds[100] = array("cid"=>3, "uid"=>1, "feed"=>"http://www.google.com/calendar/ical/qpelofketavglst5ee8l6v8h0c%40group.calendar.google.com/public/basic.ics");
 $feeds[101] = array("cid"=>5, "uid"=>1, "feed"=>"http://www.google.com/calendar/ical/qpelofketavglst5ee8l6v8h0c%40group.calendar.google.com/public/basic.ics");
-$feeds[102] = array("cid"=>3, "uid"=>1, "feed"=>"https://www.piratenpartei-hamburg.de/calendar/ical");
+//$feeds[102] = array("cid"=>3, "uid"=>1, "feed"=>"https://www.piratenpartei-hamburg.de/calendar/ical");
 $feeds[103] = array("cid"=>5, "uid"=>1, "feed"=>"https://www.piratenpartei-hamburg.de/calendar/ical");
 
 // Hamburg - Mitte
@@ -116,14 +119,18 @@ $feeds[105] = array("cid"=>5, "uid"=>1, "feed"=>"http://hamburg-mitte.bezirkspir
 $feeds[106] = array("cid"=>4, "uid"=>1, "feed"=>"https://www.google.com/calendar/ical/k5g53hm21i5fk8u18q13evlhl0@group.calendar.google.com/public/basic.ics");
 $feeds[107] = array("cid"=>5, "uid"=>1, "feed"=>"https://www.google.com/calendar/ical/k5g53hm21i5fk8u18q13evlhl0@group.calendar.google.com/public/basic.ics");
 
-/*$feeds[1] = array("cid"=>3, "uid"=>1, "feed"=>"");
-$feeds[6] = array("cid"=>5, "uid"=>1, "feed"=>"");
-$feeds[2] = array("cid"=>3, "uid"=>1, "feed"=>"");
-$feeds[7] = array("cid"=>5, "uid"=>1, "feed"=>"");
-$feeds[4] = array("cid"=>6, "uid"=>1, "feed"=>"");
-$feeds[5] = array("cid"=>5, "uid"=>1, "feed"=>"");
-$feeds[3] = array("cid"=>4, "uid"=>1, "feed"=>"");
-$feeds[8] = array("cid"=>6, "uid"=>1, "feed"=>"");*/
+// Baden-Wuerttemberg
+$feeds[200] = array("cid"=>7, "uid"=>1, "feed"=>"http://www.google.com/calendar/ical/zusammenkunft.net_pvml7h19o94i47kmn9sjsu7ufg%40group.calendar.google.com/public/basic.ics");
+
+// Berlin
+//$feeds[300] = array("cid"=>8, "uid"=>1, "feed"=>"http://events.piratenpartei-bayern.de/events/ical?gid=&gid[]=63&cid=&subgroups=0&start=&end=");
+$feeds[300] = array("cid"=>8, "uid"=>1, "feed"=>"http://events.piratenpartei-bayern.de/events/ical?gid=&gid[]=63&gid[]=97&gid[]=98&gid[]=64&gid[]=65&gid[]=66&gid[]=67&gid[]=68&gid[]=69&gid[]=70&gid[]=71&gid[]=72&gid[]=73&gid[]=74&gid[]=75&cid=&subgroups=0&start=&end=");
+$feeds[302] = array("cid"=>8, "uid"=>1, "feed"=>"www.google.com/calendar/ical/29gtc6mqliqu631akfuqhap8to@group.calendar.google.com/public/basic.ics");
+
+// Berlin Tempelhof-Schoeneberg
+$feeds[301] = array("cid"=>9, "uid"=>1, "feed"=>"http://events.piratenpartei-bayern.de/events/ical?gid=&gid[]=74&cid=&subgroups=0&start=&end=");
+
+// $feeds[102] = array("cid"=>3, "uid"=>1, "feed"=>"");
 
 foreach ($feeds as $importid=>$feed)
 	importical($importid, $feed["feed"], $feed["cid"], $feed["uid"]);
