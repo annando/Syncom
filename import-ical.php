@@ -123,13 +123,16 @@ $feeds[107] = array("cid"=>5, "uid"=>1, "feed"=>"https://www.google.com/calendar
 $feeds[200] = array("cid"=>7, "uid"=>1, "feed"=>"http://www.google.com/calendar/ical/zusammenkunft.net_pvml7h19o94i47kmn9sjsu7ufg%40group.calendar.google.com/public/basic.ics");
 
 // Berlin
-//$feeds[300] = array("cid"=>8, "uid"=>1, "feed"=>"http://events.piratenpartei-bayern.de/events/ical?gid=&gid[]=63&cid=&subgroups=0&start=&end=");
-$feeds[300] = array("cid"=>8, "uid"=>1, "feed"=>"http://events.piratenpartei-bayern.de/events/ical?gid=&gid[]=63&gid[]=97&gid[]=98&gid[]=64&gid[]=65&gid[]=66&gid[]=67&gid[]=68&gid[]=69&gid[]=70&gid[]=71&gid[]=72&gid[]=73&gid[]=74&gid[]=75&cid=&subgroups=0&start=&end=");
-$feeds[302] = array("cid"=>8, "uid"=>1, "feed"=>"www.google.com/calendar/ical/29gtc6mqliqu631akfuqhap8to@group.calendar.google.com/public/basic.ics");
+$feeds[300] = array("cid"=>8, "uid"=>1, "feed"=>"http://events.piratenpartei-bayern.de/events/ical?gid=&gid[]=63&cid=&subgroups=0&start=&end=");
+//$feeds[300] = array("cid"=>8, "uid"=>1, "feed"=>"http://events.piratenpartei-bayern.de/events/ical?gid=&gid[]=63&gid[]=97&gid[]=98&gid[]=64&gid[]=65&gid[]=66&gid[]=67&gid[]=68&gid[]=69&gid[]=70&gid[]=71&gid[]=72&gid[]=73&gid[]=74&gid[]=75&cid=&subgroups=0&start=&end=");
+$feeds[302] = array("cid"=>8, "uid"=>1, "feed"=>"http://www.google.com/calendar/ical/e3vsebo7abbhu0j7hsrvij2uao@group.calendar.google.com/public/basic.ics");
+$feeds[303] = array("cid"=>10, "uid"=>1, "feed"=>"http://www.google.com/calendar/ical/29gtc6mqliqu631akfuqhap8to@group.calendar.google.com/public/basic.ics");
 
 // Berlin Tempelhof-Schoeneberg
 $feeds[301] = array("cid"=>9, "uid"=>1, "feed"=>"http://events.piratenpartei-bayern.de/events/ical?gid=&gid[]=74&cid=&subgroups=0&start=&end=");
 
+// Hessen
+$feeds[401] = array("cid"=>11, "uid"=>1, "feed"=>"http://www.google.com/calendar/ical/jura0ppf5au7qsec874k8orqsk%40group.calendar.google.com/public/basic.ics");
 // $feeds[102] = array("cid"=>3, "uid"=>1, "feed"=>"");
 
 foreach ($feeds as $importid=>$feed)
