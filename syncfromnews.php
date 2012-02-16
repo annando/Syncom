@@ -54,8 +54,15 @@ function processarticle($api, $fid, $article, $articlenumber)
 {
 	global $db, $syncom;
 
+	// Sonderbehandlung fuer einen einzelnen Fall
+	// schneller Bugfix - die Ursache des Fehlers muss
+	// noch ergründet werden
+	if (($articlenumber == 21730) and ($fid == 49))
+		return(false);
+
 	// Zerlegen der Nachricht
 	$struct = convertpost($article);
+
 
 	// x-no-archive wird nicht uebertragen
 	if (strtolower($struct['x-no-archive']) == 'yes') {
@@ -85,6 +92,8 @@ function processarticle($api, $fid, $article, $articlenumber)
 
 	// wurde die Nachricht bereits gepostet?
 	$post = $api->getidbymessageid($struct['message-id'], $fid);
+
+	$isnewmessage = ($post['syncom_articlenumber'] != $articlenumber);
 
 	// Pruefung, ob der Artikel bereits ohne Nummer existiert
 	if (($post['syncom_articlenumber'] != $articlenumber) and ($post['pid'] != 0)) {
@@ -125,8 +134,11 @@ function processarticle($api, $fid, $article, $articlenumber)
 	if (($post['pid'] != 0) and !$supersede) {
 
 		// Mail-Out - wenn der Artikel aus dem Forum erzeugt wurde
-		$temp = tempnam($syncom['mailout-spool']."/", "mout1");
-		file_put_contents($temp, serialize(array("info"=>$post, "message"=>$article)));
+		// Aber nur, wenn der Artikel nicht bereits ins Forum zurueckkam
+		if ($isnewmessage) {
+			$temp = tempnam($syncom['mailout-spool']."/", "mout1");
+			file_put_contents($temp, serialize(array("info"=>$post, "message"=>$article)));
+		}
 
 		echo "already posted\r\n";
 		return(true);
@@ -250,7 +262,7 @@ function fetchgroups()
 {
 	global $db, $syncom;
 
-	$query = $db->simple_select("forums", "syncom_newsgroup", "syncom_newsgroup!=''");
+	$query = $db->simple_select("forums", "syncom_newsgroup", "syncom_newsgroup!=''", array("order_by" => "syncom_newsgroup"));
 
 	$newsgroups = array();
 	while ($forum = $db->fetch_array($query))

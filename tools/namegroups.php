@@ -88,7 +88,7 @@ function getexpire($newsgroup)
 
 $api = new mybbapi;
 
-$query = $db->simple_select("forums", "syncom_newsgroup, fid", "syncom_newsgroup!='' order by syncom_newsgroup");
+$query = $db->simple_select("forums", "syncom_newsgroup, fid, syncom_threadsvisible", "syncom_newsgroup!='' order by syncom_newsgroup");
 
 while ($row = $db->fetch_array($query)) {
 
@@ -97,7 +97,9 @@ while ($row = $db->fetch_array($query)) {
 	$fpermissions = forum_permissions($row['fid'], 0);
 	//print_r($fpermissions);
 
-	if ($fpermissions['canviewthreads'])
+	if ($fpermissions['canviewthreads'] and $row["syncom_threadsvisible"])
+		$desc .= "\nDie Threadtitel sind ohne Anmeldung sichtbar, die Beiträge im Forum sind erst nach Anmeldung sichtbar. ";
+	elseif ($fpermissions['canviewthreads'])
 		$desc .= "\nDie Beiträge im Forum sind auch ohne Anmeldung sichtbar. ";
 	else
 		$desc .= "\nDie Beiträge im Forum sind erst nach Anmeldung sichtbar. ";
@@ -151,6 +153,7 @@ foreach($foruminfo as $id => $forum) {
 	}
 }
 $info .= "\n|}";
+$info .= "\n[[Kategorie:Syncom]]";
 file_put_contents('/srv/www/news01/syncom/tools/groupinfo.txt', utf8_decode($info));
 //echo $info;
 ?>
