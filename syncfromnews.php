@@ -228,7 +228,10 @@ function processarticle($api, $fid, $article, $articlenumber)
 				$temp = tempnam($syncom['mailout-spool']."/", "mout2");
 				file_put_contents($temp, serialize(array("info"=>$post, "message"=>$article)));
 			}
-		}
+		} else
+			if ($struct['body'] == '')
+				return(true);
+
 		return($success);
 	}
 }
@@ -262,11 +265,11 @@ function fetchgroups()
 {
 	global $db, $syncom;
 
-	$query = $db->simple_select("forums", "syncom_newsgroup", "syncom_newsgroup!=''", array("order_by" => "syncom_newsgroup"));
+	$query = $db->simple_select("forums", "fid, syncom_newsgroup", "syncom_newsgroup!=''", array("order_by" => "syncom_newsgroup"));
 
 	$newsgroups = array();
 	while ($forum = $db->fetch_array($query))
-		$newsgroups[] = $forum['syncom_newsgroup'];
+		$newsgroups[$forum['fid']] = $forum['syncom_newsgroup'];
 
 	$nntp = new Net_NNTP_Client();
 	$ret = $nntp->connect($syncom['newsserver'], false, '119', 3);
@@ -283,10 +286,19 @@ function fetchgroups()
 		}
 	}
 
-	foreach ($newsgroups as $newsgroup) {
+	foreach ($newsgroups as $fid => $newsgroup) {
+		$query = $db->simple_select("posts", "syncom_articlenumber", "fid=".$fid, array("order_by" => "syncom_articlenumber desc", "limit"=>1));
+
+		if ($posts = $db->fetch_array($query))
+			$lastpost = $posts["syncom_articlenumber"];
+		else
+			$lastpost = -1;
 
 		if (file_exists($syncom['newsrc']))
 			$newsrc = unserialize(file_get_contents($syncom['newsrc']));
+
+		if ($newsrc[$newsgroup] < $lastpost)
+			$newsrc[$newsgroup] = $lastpost;
 
 		$ret = fetcharticles($nntp, $newsgroup, $newsrc[$newsgroup] + 1);
 		if(PEAR::isError($ret)) {

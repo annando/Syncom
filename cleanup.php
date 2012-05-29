@@ -13,6 +13,44 @@ require_once 'Net/NNTP/Client.php';
 
 require_once "mybbapi.php";
 
+//repostunpostedmessages(107);
+//repostunpostedmessages(61);
+
+//die();
+
+function repostunpostedmessages($fid)
+{
+	global $db, $syncom;
+
+	// Limit ist 2 Tage
+	$datelimit = time()-(86400*2);
+
+	$query = $db->simple_select("posts", "tid, pid, subject, dateline, uid, username, syncom_messageid, replyto, tid, message", 
+					"visible=1 and syncom_articlenumber=0 and syncom_messageid != '' and fid=".$fid." and dateline>".$datelimit);
+
+	while ($post = $db->fetch_array($query)) {
+		echo "Repost post ".$post["pid"]."\n";
+		$message = array();
+                $message['mode'] = 'post';
+                $message['path'] = $syncom['hostname'];
+                $message['from'] = syncom_getnamebyid($post['uid'], $post['username']);
+                //$message['moderated'] = $user["moderateposts"];
+                $message['moderated'] = false;
+                $message['newsgroups'] = syncom_getnewsgroup($fid);
+                $message['html'] = syncom_gethtml($fid);
+                $message['mailinglist'] = syncom_getmailinglist($fid);
+                $message['subject'] = $post['subject'];
+                $message['date'] = date('r',$post['dateline']);
+                $message['sender'] = urlencode($post['username']).'@'.$syncom['mailhostname'];
+                $message['message-id'] = $post['syncom_messageid'];
+                $message['references'] = syncom_getreferences($post['replyto'], $post['tid']);
+                $message['body'] = $post['message'];
+
+		$temp = tempnam($syncom['outgoing-spool']."/", "out");
+		file_put_contents($temp, serialize($message));
+	}
+}
+
 function deleteinvisibleposts()
 {
 	global $db, $syncom;
@@ -107,6 +145,9 @@ function cleanupgroups()
 					}
 				}
 			}
+
+			// Schauen, ob es Posts gibt, die nur im Forum sichtbar sind.
+			repostunpostedmessages($fid);
 		}
 }
 

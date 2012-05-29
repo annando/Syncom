@@ -27,7 +27,8 @@ function postarticle($message)
 	global $syncom;
 
 	if ($message['newsgroups'] == '')
-		return(false);
+		return(true);
+	//	return(false);
 
 	$nntp = new Net_NNTP_Client();
 	$ret = $nntp->connect($syncom['newsserver'], false, '119', 3);
@@ -43,6 +44,11 @@ function postarticle($message)
 			return(false);
 		}
 	}
+
+	if (!strpos($message['from'], "@") and ($message['sender'] !=""))
+		$message['from'] = $message['sender'];
+	if (!strpos($message['from'], ".") and ($message['sender'] !=""))
+		$message['from'] = $message['sender'];
 
 	$hdrs = array(
 		'From' => $message['from'],
@@ -89,6 +95,14 @@ function postarticle($message)
 		$additional .= 'X-Sender: '.$message['sender']."\r\n";
 	}
 
+	if ($message['mailinglist'] != '')
+		$additional .= 'X-Syncom-Mailinglist: '.$message['mailinglist']."\r\n";
+
+	if ($message['moderated'])
+		$additional .= "X-Syncom-Moderated: Yes\r\n";
+	else
+		$additional .= "X-Syncom-Moderated: No\r\n";
+
 	if ($message['message-id'] != '')
 		$additional .= 'Message-ID: '.$message['message-id']."\r\n";
 
@@ -111,10 +125,21 @@ function postarticle($message)
 
 	$subject = "=?UTF-8?B?".base64_encode(stripslashes($message['subject']))."?=";
 
-	$ret = $nntp->mail($message['newsgroups'], $subject, $body, $additional);
-	if(PEAR::isError($ret)) {
-		echo $ret->message."\r\n".$ret->userinfo."\r\n";
-		return(false);
+	if (!$message['moderated']) {
+		$ret = $nntp->mail($message['newsgroups'], $subject, $body, $additional);
+		if(PEAR::isError($ret)) {
+			echo $ret->message."\r\n".$ret->userinfo."\r\n";
+			if (substr($ret->userinfo, 0, 3) == "435") // Doppelt
+				return(true);
+			if (substr($ret->userinfo, 0, 3) == "437") // Zu alt
+				return(true);
+			if ($ret->userinfo == "From: address not in Internet syntax")
+				echo $message['from']."\n";
+			return(false);
+		}
+	} else if ($message['mailinglist'] != '') {
+		if (!mail($message['mailinglist'], $subject, $body, $additional))
+			return(false);
 	}
 
 	return(true);

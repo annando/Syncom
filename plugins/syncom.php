@@ -77,11 +77,17 @@ function syncom_usercp_options()
 <td><span class="smalltext"><label for="syncom_mailinglist">{$lang->syncom_mailinglist}</label></span></td>';
 
 	$find = '<label for="pmnotify">{$lang->pm_notify}</label></span></td>';
+
+	//if ($user['uid'] == 3)  $usercp_option .= "<pre>".print_r($user, true)."</pre>";
+	//if ($user['uid'] == 1)  $usercp_option .= "<pre>".print_r($mybb, true)."</pre>";
+
 	$templates->cache['usercp_options'] = str_replace($find, $find.$usercp_option, $templates->cache['usercp_options']);
 
 	$GLOBALS['$syncom_mailinglistcheck'] = '';
 	if($user['syncom_mailinglist'])
 		$GLOBALS['$syncom_mailinglistcheck'] = "checked=\"checked\"";
+
+
 }
 
 function syncom_match_subject($searchsubject) {
@@ -420,6 +426,7 @@ function syncom_install()
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_newsgroup VARCHAR(100) NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_threadsvisible BOOLEAN NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_html BOOLEAN NOT NULL');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_listname VARCHAR(100) NOT NULL');
 }
  /*
  * _is_installed():
@@ -513,7 +520,7 @@ function syncom_datahandler_user_update($it) {
 
 function syncom_update($data)
 {
-	global $db;
+	global $db, $user;
 
 	require MYBB_ROOT.'/syncom/config.php';
 
@@ -556,8 +563,11 @@ function syncom_update($data)
 	$message['mode'] = 'update';
 	$message['path'] = $syncom['hostname'];
 	$message['from'] = $from;
+	//$message['moderated'] = $user["moderateposts"];
+	$message['moderated'] = !$data->post_update_data['visible'];
 	$message['newsgroups'] = syncom_getnewsgroup($post['fid']);
 	$message['html'] = syncom_gethtml($post['fid']);
+	$message['mailinglist'] = syncom_getmailinglist($post['fid']);
 	$message['subject'] = $subject;
 	$message['date'] = date('r',$data->post_update_data['edittime']);
 	// Der User als Sender, der die Aenderung durchgefuehrt hat?
@@ -583,6 +593,7 @@ function syncom_update($data)
 
 function syncom_insert($data)
 {
+	global $user;
 
 	require MYBB_ROOT.'/syncom/config.php';
 
@@ -626,8 +637,11 @@ function syncom_insert($data)
 		$message['mode'] = 'post';
 		$message['path'] = $syncom['hostname'];
 		$message['from'] = syncom_getnamebyid($data->data['uid'], $data->post_insert_data['username']);
+		//$message['moderated'] = $user["moderateposts"];
+		$message['moderated'] = !$data->post_insert_data['visible'];
 		$message['newsgroups'] = syncom_getnewsgroup($data->data['fid']);
 		$message['html'] = syncom_gethtml($data->data['fid']);
+		$message['mailinglist'] = syncom_getmailinglist($data->data['fid']);
 		$message['subject'] = $data->post_insert_data['subject'];
 		$message['date'] = date('r',$data->post_insert_data['dateline']);
 		$message['sender'] = urlencode($data->post_insert_data['username']).'@'.$syncom['mailhostname'];
@@ -647,8 +661,12 @@ function syncom_insert($data)
 			$message['mode'] = 'post';
 			$message['path'] = $syncom['hostname'];
 			$message['from'] = syncom_getnamebyid($data->data['uid'], $data->data['username']);
+			//$message['moderated'] = $user["moderateposts"];
+			//$message['moderated'] = !$data->data['visible'];
+			$message['moderated'] = false;
 			$message['newsgroups'] = syncom_getnewsgroup($data->data['fid']);
 			$message['html'] = syncom_gethtml($data->data['fid']);
+			$message['mailinglist'] = syncom_getmailinglist($data->data['fid']);
 			$message['subject'] = $data->data['subject'];
 			$message['date'] = date('r',$data->data['dateline']);
 			$message['sender'] = urlencode($data->data['username']).'@'.$syncom['mailhostname'];
@@ -756,6 +774,16 @@ function syncom_gethtml($fid)
 	$forum = $db->fetch_array($query);
 
 	return($forum['syncom_html']);
+}
+
+function syncom_getmailinglist($fid)
+{
+	global $mybb, $db;
+
+	$query = $db->simple_select("forums", "syncom_listname", "fid=".$db->escape_string($fid), array('limit' => 1));
+	$forum = $db->fetch_array($query);
+
+	return($forum['syncom_listname']);
 }
 
 function syncom_getmessageid($pid)

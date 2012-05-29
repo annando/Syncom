@@ -42,6 +42,8 @@ function search_ng($item, $key)
 				$maillink = "<a href='https://lists.piraten-sachsen.de/cgi-bin/mailman/listinfo/".$list[0]."'>".$item['from']."</a>";
 			else if ($list[1] == 'saar.piratenpartei.de')
 				$maillink = "<a href='https://intern.saar.piratenpartei.de/mailman/listinfo/".$list[0]."'>".$item['from']."</a>";
+			else if ($list[1] == 'lists.piratenpartei-bremen.de')
+				$maillink = "<a href='http://lists.piratenpartei-bremen.de/listinfo/".$list[0]."'>".$item['from']."</a>";
 			else
 				$maillink = $item['from'];
 
@@ -57,6 +59,7 @@ function search_ng($item, $key)
 			//echo $desc."\r\n\r\n";
 
 			$db->update_query("forums", array('rules' => $db->escape_string($desc),
+							'syncom_listname' => $item['from'],
 							'rulestitle' => 'Foreninformation',
 							'rulestype' => 1),
 						"fid=".$row['fid']);
@@ -88,7 +91,8 @@ function getexpire($newsgroup)
 
 $api = new mybbapi;
 
-$query = $db->simple_select("forums", "syncom_newsgroup, fid, syncom_threadsvisible", "syncom_newsgroup!='' order by syncom_newsgroup");
+//$query = $db->simple_select("forums", "syncom_newsgroup, fid, syncom_threadsvisible", "syncom_newsgroup!='' order by syncom_newsgroup");
+$query = $db->simple_select("forums", "*", "syncom_newsgroup!='' order by syncom_newsgroup");
 
 while ($row = $db->fetch_array($query)) {
 
@@ -105,13 +109,36 @@ while ($row = $db->fetch_array($query)) {
 		$desc .= "\nDie Beiträge im Forum sind erst nach Anmeldung sichtbar. ";
 
 	$foruminfo[$row['fid']]['open'] = $fpermissions['canview'];
+	if (!$row['open'])
+		$foruminfo[$row['fid']]['open'] = $row['open'];
+	if (!$row['active'])
+		$foruminfo[$row['fid']]['open'] = $row['active'];
+
 	$foruminfo[$row['fid']]['public'] = $fpermissions['canviewthreads'];
+	$foruminfo[$row['fid']]['moderated'] = $row['modthreads'];
+
+	if ($row['modposts'])
+		$foruminfo[$row['fid']]['moderated'] = $row['modposts'];
+
+	$foruminfo[$row['fid']]['partly'] = ($foruminfo[$row['fid']]['public'] and $row['syncom_threadsvisible']);
+
+	//if ($row['fid'] == 28) die(print_r($fpermissions, true));
+	//if ($row['fid'] == 284) die(print_r($row, true));
 
 	$expiretime = getexpire($row['syncom_newsgroup']);
 
 	$foruminfo[$row['fid']]['expire'] = $expiretime;
 
-	if ($expiretime == "never")
+	//$query2 = $db->simple_select("posts", "count(*) as posts", "fid='".$row['fid']."'");
+	//if ($rows = $db->fetch_array($query2))
+	//	$foruminfo[$row['fid']]['posts'] = $rows['posts'];
+
+	$query2 = $db->simple_select("posts", "fid", "fid='".$row['fid']."'", array("limit"=>1));
+	$foruminfo[$row['fid']]['posts'] = (int)($rows = $db->fetch_array($query2));
+
+	//if ($row['fid'] == 284) die(print_r($foruminfo[$row['fid']], true));
+
+	if ($expiretime == "wnever")
 		$desc .= "Sie werden im Forum und auf dem Newsserver dauerhaft vorgehalten";
 	else
 		$desc .= "Sie werden im Forum und auf dem Newsserver nach etwa ".$expiretime." Tagen automatisiert entfernt (die Haltezeit auf anderen Medien kann davon abweichen)";
@@ -135,7 +162,7 @@ $yaml = Spyc::YAMLLoad('/usr/local/etc/synfu.conf');
 array_walk($yaml, 'search_ng');
 
 $info  = '{| class="wikitable sortable"';
-$info .= "\n! Forum !! Newsgroup !! Mailingliste !! Öffentlich !! Haltezeit";
+$info .= "\n! Forum !! Newsgroup !! Mailingliste !! Öffentlich !! Haltezeit !! Moderiert !! Inaktiv";
 //$info .= "\n|-";
 
 //print_r($foruminfo);
@@ -145,11 +172,28 @@ foreach($foruminfo as $id => $forum) {
 		$info .= "\n| [https://news.piratenpartei.de/forumdisplay.php?fid=".$id." Forum]";
 		$info .= "\n| ".$forum['newsgroup'];
 		$info .= "\n| ".$forum['mail'];
-		if ($forum['public'])
-			$info .= "\n| X";
+		if ($forum['partly'])
+			$info .= "\n| nur Titel";
+		elseif ($forum['public'])
+			$info .= "\n| komplett";
 		else
 			$info .= "\n|  ";
-		$info .= "\n| ".$forum['expire'];
+
+		if (trim($forum['expire']) != "never")
+			$info .= "\n| ".$forum['expire'];
+		else
+			$info .= "\n| dauerhaft";
+
+		if ($forum['moderated'])
+			$info .= "\n| moderiert";
+		else
+			$info .= "\n|  ";
+
+		if ($forum['posts'])
+			$info .= "\n|  ";
+		else
+			$info .= "\n| X";
+
 	}
 }
 $info .= "\n|}";
