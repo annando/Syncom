@@ -78,9 +78,6 @@ function syncom_usercp_options()
 
 	$find = '<label for="pmnotify">{$lang->pm_notify}</label></span></td>';
 
-	//if ($user['uid'] == 3)  $usercp_option .= "<pre>".print_r($user, true)."</pre>";
-	//if ($user['uid'] == 1)  $usercp_option .= "<pre>".print_r($mybb, true)."</pre>";
-
 	$templates->cache['usercp_options'] = str_replace($find, $find.$usercp_option, $templates->cache['usercp_options']);
 
 	$GLOBALS['$syncom_mailinglistcheck'] = '';
@@ -558,6 +555,7 @@ function syncom_update($data)
 						      $post['tid'].'$'.
 						      $data->post_update_data['edittime'].'@'.
 						      $syncom['hostname'].'>';
+
 	// Und hier müsste das Posten geschehen
 	$message = array();
 	$message['mode'] = 'update';
@@ -632,6 +630,7 @@ function syncom_insert($data)
 							      $data->post_insert_data['tid'].'$'.
 							      $data->post_insert_data['dateline'].'@'.
 							      $syncom['hostname'].'>';
+
 		// Und hier müsste das Posten geschehen
 		$message = array();
 		$message['mode'] = 'post';

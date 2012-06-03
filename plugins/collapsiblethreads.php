@@ -150,12 +150,12 @@ function collapsiblethreads_parse_message($message)
 {
 	global $lang;
 
-	if (IN_SYNCOM != 1) {
+	/*if (IN_SYNCOM != 1) {
 		//$anon = 'http://dontknow.me/at/?';
 		$anon = 'http://news.piratenpartei.de/anonto.php?';
 
 		$message = str_replace(array('href="http://', 'href="https://'), array('href="'.$anon.'http://', 'href="'.$anon.'https://'), $message);
-	}
+	}*/
 
 	//$pattern = "/([\w\.-]{1,})@([\w\.-]{2,}\.\w{2,3})/is";
 	//$message = preg_replace($pattern, '$1 (ät) $2', $message);
