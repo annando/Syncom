@@ -73,7 +73,7 @@ function gcvt_thread()
 	global $mybb, $lang, $thread;
 
 	if(gcvt_nopostvisivle($thread['fid'])) {
-		error("Beiträge können nach Anmeldung gelesen werden.","Hinweis");
+		error("Beitrag kann nach Anmeldung gelesen werden.","Hinweis");
 	}
 
 	$lang->send_thread = "";

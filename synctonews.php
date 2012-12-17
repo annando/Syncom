@@ -65,6 +65,7 @@ function postarticle($message)
 
 	$pattern = "/\[quote='(.*?)' pid='(\d+)' dateline='(\d+)'\].*?/is";
 	$body = preg_replace($pattern, '[quote=$1]', $body);
+	$body = preg_replace("/\[collapsed\=(.*?)\](.*?)\[\/collapsed\]/ism", '[quote=$1]$2[/quote]', $body);
 	$body = str_ireplace(array('[collapsed]', '[/collapsed]'), array('[quote]', '[/quote]'), $body);
 
 	// Eher temporaer, bis es neue Routinen bbcode2plain gibt

@@ -75,6 +75,22 @@ $pos = strpos($stdin, "\n\n");
 $header = substr($stdin, 0, $pos);
 $body = substr($stdin, $pos+1);
 
+// Mehrzeilige Header auf eine Zeile zusammenziehen
+$headerlines = explode("\n", $header);
+$newheader = "";
+
+foreach($headerlines as $line) {
+	$firstchar = ord(substr($line, 0, 1));
+	if (($newheader != "") and ($firstchar != 9))
+		$newheader .= "\n";
+
+	if ($firstchar == 9)
+		$line = " ".trim($line);
+
+	$newheader .= $line;
+}
+$header = $newheader;
+
 // To-Do:
 // - subscribe und unsubscribe per Mail
 // - bounce-Erkennung

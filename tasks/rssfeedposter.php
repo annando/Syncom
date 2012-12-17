@@ -165,14 +165,16 @@ function UpdateRSSFeedBots($task)
 					$posthandler = new PostDataHandler("insert");
 					$posthandler->action = "thread";
 
-					if (strlen($msg_title) > 120)
-						$msg_title = substr($msg_title,0,115);
+					$msg_title = $feed['topicprefix'].$msg_title;
+
+					if (strlen($msg_title) > 85)
+						$msg_title = substr($msg_title,0,85);
 
 					$msg_title = trim($msg_title);
 
 					$new_thread = array(
 							"fid" => $feed['fid'],
-							"subject" => $feed['topicprefix'] . $msg_title,
+							"subject" => $msg_title,
 							"icon" => '',
 							"uid" => $feed['uid'],
 							"username" => $feed['postername'],

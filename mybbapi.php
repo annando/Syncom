@@ -54,7 +54,10 @@ class mybbapi
 
 	function post($forum, $topic, $reply, $subject, $text, $uid, $username, $date, $messageid, $articlenumber, $email)
 	{
-		global $db;
+		global $db, $mybb;
+
+		// deactivate post flooding detection
+		$mybb->settings['postfloodsecs'];
 
 		$newthread = (($topic == 0) and ($reply == 0));
 
@@ -68,7 +71,7 @@ class mybbapi
 	        $data = array(
 			"syncom" => true,
 	                "fid" => $forum,
-	                "subject" => substr($subject, 0, 120),
+	                "subject" => substr($subject, 0, 85),
 	                "prefix" => '', //$mybb->input['threadprefix'],
 	                "icon" => '', //$mybb->input['icon'],
 	                "syncom_messageid" => $messageid,
@@ -198,6 +201,48 @@ class mybbapi
 			mark_reports($pid, "post");
 		}
 		return(true);
+	}
+
+	//require_once MYBB_ROOT."inc/functions.php";
+
+	function ban_user($uid) {
+		global $mybb, $user, $db, $cache;
+
+		// Zunaechst immer dauerhaft sperren
+		$lifted = 0;
+
+		$insert_array = array(
+					'uid' => $user['uid'],
+					'gid' => intval($mybb->input['usergroup']),
+					'oldgroup' => $user['usergroup'],
+					'oldadditionalgroups' => $user['additionalgroups'],
+					'olddisplaygroup' => $user['displaygroup'],
+					'admin' => intval($mybb->user['uid']),
+					'dateline' => TIME_NOW,
+					'bantime' => $db->escape_string($mybb->input['bantime']),
+					'lifted' => $db->escape_string($lifted),
+					'reason' => $db->escape_string($mybb->input['reason'])
+					);
+		$db->insert_query('banned', $insert_array);
+
+		// Move the user to the banned group
+		$update_array = array(
+					'usergroup' => intval($mybb->input['usergroup']),
+					'displaygroup' => 0,
+					'additionalgroups' => '',
+					);
+
+		$db->update_query('users', $update_array, "uid = '{$user['uid']}'");
+
+		$db->delete_query("forumsubscriptions", "uid = '{$user['uid']}'");
+		$db->delete_query("threadsubscriptions", "uid = '{$user['uid']}'");
+
+		$cache->update_banned();
+
+		//$plugins->run_hooks("admin_user_banning_start_commit");
+
+		// Log admin action
+		log_admin_action($user['uid'], $user['username'], $lifted);
 	}
 
 	function getforumid($group)

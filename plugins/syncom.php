@@ -60,6 +60,24 @@ $plugins->add_hook('send_mail_queue_start', 'syncom_send_mail_queue_start');
 $plugins->add_hook("usercp_options_end", "syncom_usercp_options");
 $plugins->add_hook("usercp_do_options_end", "syncom_usercp_options");
 
+$plugins->add_hook("parse_message_end", "syncom_parse_message_end");
+
+function syncom_parse_message_end($message) {
+	global $post, $user, $db, $mybb;
+	//$message = $message."\n".$post["fid"];
+	//$message = $message."\n".$mybb->user["uid"];
+
+	if ($mybb->user["uid"] == 0) {
+		$fid = $post["fid"];
+		$query = $db->simple_select("forums", "syncom_threadsvisible", "fid = '{$fid}'", array('limit' => 1));
+		$threadsvisible = $db->fetch_array($query);
+		if ($threadsvisible['syncom_threadsvisible'])
+			$message = "Beitrag kann nach Anmeldung gelesen werden.";
+	}
+
+	return($message);
+}
+
 function syncom_usercp_options()
 {
 	global $db, $mybb, $user, $templates;
@@ -620,6 +638,9 @@ function syncom_insert($data)
 			return;
 
 		if ($data->data['syncom'])
+			return;
+
+		if ($data->post_insert_data['savedraft'] == 1)
 			return;
 
 		if ($data->data['savedraft'] == 1)

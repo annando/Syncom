@@ -138,7 +138,7 @@ while ($row = $db->fetch_array($query)) {
 
 	//if ($row['fid'] == 284) die(print_r($foruminfo[$row['fid']], true));
 
-	if ($expiretime == "wnever")
+	if ($expiretime == "never")
 		$desc .= "Sie werden im Forum und auf dem Newsserver dauerhaft vorgehalten";
 	else
 		$desc .= "Sie werden im Forum und auf dem Newsserver nach etwa ".$expiretime." Tagen automatisiert entfernt (die Haltezeit auf anderen Medien kann davon abweichen)";

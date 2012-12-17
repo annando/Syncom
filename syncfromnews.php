@@ -57,7 +57,12 @@ function processarticle($api, $fid, $article, $articlenumber)
 	// Sonderbehandlung fuer einen einzelnen Fall
 	// schneller Bugfix - die Ursache des Fehlers muss
 	// noch ergründet werden
+
+	$article = str_replace('From: '."'".'/" <goxy@piratenpartei-nrw.de ("90>)', 'From: goxy@piratenpartei.de (Goxy)', $article);
+
 	if (($articlenumber == 21730) and ($fid == 49))
+		return(false);
+	if (($articlenumber == 6273) and ($fid == 464))
 		return(false);
 
 	// Zerlegen der Nachricht

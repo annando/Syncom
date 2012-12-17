@@ -16,7 +16,192 @@ if(!defined("IN_MYBB"))
 }
 
 $plugins->add_hook("pre_output_page", "disclaimer_world");
+$plugins->add_hook("index_end", "disclaimer_index_end");
+$plugins->add_hook('member_do_register_end', 'disclaimer_member_do_register_end');
+
 //$plugins->add_hook("postbit", "disclaimer_world_postbit");
+
+function disclaimer_index_end() {
+	global $mybb, $session, $db;
+
+	if ($mybb->user['uid'] != 0) {
+		setcookie("utemp", $mybb->user['uid'], time()+60*60*24*30);
+
+		$query = $db->simple_select("banned", "uid", "uid=".intval($mybb->user['uid']));
+		if ($db->fetch_array($query))
+			setcookie("ubtemp", $mybb->user['uid'], time()+60*60*24*30);
+	}
+}
+
+function disclaimer_member_do_register_end() {
+	global $mybb, $session, $db;
+
+	$query = $db->simple_select("users", "uid", "username='".$db->escape_string($mybb->input['username'])."'", array('limit' => 1));
+	$user = $db->fetch_array($query);
+
+	if ($user)
+		$id = $user['uid'];
+	else
+		$id = 0;
+
+	if ($user["regip"] == "")
+		$user["regip"] = $session->ipaddress;
+
+	$query2 = $db->simple_select("users", "count(*) as count", "regip='".$db->escape_string($user["regip"])."' and regip != ''");
+	$user2 = $db->fetch_array($query2);
+	$ipcount = $user2["count"];
+
+	$sameip = "";
+	$startdate = 0;
+	$enddate = 0;
+	$banned = 0;
+
+	//$query = $db->simple_select("users", "username", "regip='".$db->escape_string($session->ipaddress)."'".
+	//			" and username !='".$db->escape_string($mybb->input['username'])."'");
+	//$query = $db->simple_select("users", "uid, username, regdate", "regip='".$db->escape_string($user["regip"])."' and regip != ''",
+	$query = $db->simple_select("users", "uid, username, regdate",
+				"regip='".$db->escape_string($user["regip"])."' and regip != ''".
+				" and username !='".$db->escape_string($mybb->input['username'])."'",
+				array("order_by" => "regdate desc", "limit" => 4));
+
+	while ($user = $db->fetch_array($query)) {
+
+		if ($startdate == 0)
+			$startdate = $user["regdate"];
+
+		$enddate = $user["regdate"];
+
+		if ($sameip != "")
+			$sameip .= ", ";
+
+		$sameip .= $user["username"];
+
+		$query3 = $db->simple_select("banned", "uid", "uid=".intval($user["uid"]));
+		if ($db->fetch_array($query3))
+			++$banned;
+	}
+
+	if ($ipcount == 1)
+		$sameip = '';
+
+	$subject = "Neuer Forenuser '".$mybb->input['username']."' - ".$mybb->input['email'];
+
+	$message = "Ein neuer User hat sich im Forum registriert:\n\n".
+			"User: ".$mybb->input['username']."\n".
+			"Mailadresse: ".$mybb->input['email']."\n".
+			"IP: ".$session->ipaddress."\n".
+			"User-ID: ".$id."\n".
+			"Administration https://news.piratenpartei.de/admin/index.php?module=user\n".
+			"Sperre: https://news.piratenpartei.de/admin/index.php?module=user-banning&uid=".$id."#username\n";
+
+	if ($sameip != "")
+		$message .= "User mit gleicher IP: ".$sameip;
+
+	if (($_COOKIE["utemp"] != "") or ($_COOKIE["ubtemp"] != "")) {
+
+		$cookieuid = $_COOKIE["utemp"];
+
+		if ($_COOKIE["ubtemp"] != "")
+			$cookieuid = $_COOKIE["ubtemp"];
+
+		$query = $db->simple_select("users", "username", "uid=".intval($cookieuid), array('limit' => 1));
+		$user = $db->fetch_array($query);
+
+		if ($user)
+			$username = $user["username"];
+		else
+			$username = "...".$cookieuid."...";
+
+		$query = $db->simple_select("banned", "uid", "uid=".intval($cookieuid));
+		$cookiebanned = ($db->fetch_array($query));
+
+		$message .= "\nVorhandenes User-Cookie fuer User: ".$username;
+
+		if ($cookiebanned)
+			$message .= "\nDer Cookie-User ist gesperrt (".$_COOKIE["utemp"]."/".$_COOKIE["ubtemp"].")";
+	}
+
+	if ((($ipcount > 3) and ($startdate-$enddate < 5000000) and ($banned > 2)) or (($ipcount > 9) and ($banned > 2)) or ($banned == 4) or $cookiebanned) {
+		disclaimer_ban_user($id);
+		$message .= "\n\nUser wurde automatisch gesperrt.";
+	}
+
+	$message .= "\n\nDaten: ".$ipcount."/".$banned."/".(int)($startdate-$enddate);
+
+	$tags = get_meta_tags('http://www.geobytes.com/IpLocator.htm?GetLocation&template=php3.txt&IpAddress='.$session->ipaddress);
+
+	$message .= "\n------------------------\n".print_r($tags, true);
+
+	$server="whois.ripe.net";
+
+	$fp=@fsockopen($server,43,&$errno,&$errstr,15);
+	if($fp) {
+		$message .= "\n------------------------\n";
+
+		fputs($fp,$session->ipaddress."\r\n");
+		while(!feof($fp))
+			$message .= fgets($fp,256);
+
+		fclose($fp);
+	}
+
+	my_mail("icarus@dabo.de", $subject, $message);
+}
+
+//require_once MYBB_ROOT."inc/functions.php";
+
+function disclaimer_ban_user($uid) {
+	global $mybb, $db, $cache;
+
+	$query = $db->simple_select("users", "uid, usergroup, additionalgroups, displaygroup", "uid=".intval($uid), array('limit' => 1));
+	$user = $db->fetch_array($query);
+	if (!$user)
+		return;
+
+	$query = $db->simple_select("usergroups", "gid", "isbannedgroup=1", array('order_by' => 'title'),  array('limit' => 1));
+	$group = $db->fetch_array($query);
+	if (!$group)
+		return;
+
+	// Zunaechst immer dauerhaft sperren
+	$lifted = 0;
+	$mybb->input['bantime'] = "---";
+	$mybb->input['reason'] = "";
+	$mybb->input['usergroup'] = $group["gid"];
+
+	$insert_array = array(
+				'uid' => $user['uid'],
+				'gid' => intval($mybb->input['usergroup']),
+				'oldgroup' => $user['usergroup'],
+				'oldadditionalgroups' => $user['additionalgroups'],
+				'olddisplaygroup' => $user['displaygroup'],
+				'admin' => intval($mybb->user['uid']),
+				'dateline' => TIME_NOW,
+				'bantime' => $db->escape_string($mybb->input['bantime']),
+				'lifted' => $db->escape_string($lifted),
+				'reason' => $db->escape_string($mybb->input['reason'])
+				);
+	$db->insert_query('banned', $insert_array);
+
+	// Move the user to the banned group
+	$update_array = array(
+				'usergroup' => intval($mybb->input['usergroup']),
+				'displaygroup' => 0,
+				'additionalgroups' => '',
+				);
+
+	$db->update_query('users', $update_array, "uid = '{$user['uid']}'");
+
+	$db->delete_query("forumsubscriptions", "uid = '{$user['uid']}'");
+	$db->delete_query("threadsubscriptions", "uid = '{$user['uid']}'");
+
+	$cache->update_banned();
+
+	//$plugins->run_hooks("admin_user_banning_start_commit");
+
+	// Log admin action
+	//log_admin_action($user['uid'], $user['username'], $lifted);
+}
 
 function disclaimer_info()
 {
