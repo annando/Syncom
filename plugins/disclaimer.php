@@ -55,11 +55,14 @@ function disclaimer_member_do_register_end() {
 	$startdate = 0;
 	$enddate = 0;
 	$banned = 0;
+	$moderated = 0;
+	$suspended = 0;
+	$usernotes = 0;
 
 	//$query = $db->simple_select("users", "username", "regip='".$db->escape_string($session->ipaddress)."'".
 	//			" and username !='".$db->escape_string($mybb->input['username'])."'");
 	//$query = $db->simple_select("users", "uid, username, regdate", "regip='".$db->escape_string($user["regip"])."' and regip != ''",
-	$query = $db->simple_select("users", "uid, username, regdate",
+	$query = $db->simple_select("users", "uid, username, regdate, usernotes, moderateposts, suspendposting",
 				"regip='".$db->escape_string($user["regip"])."' and regip != ''".
 				" and username !='".$db->escape_string($mybb->input['username'])."'",
 				array("order_by" => "regdate desc", "limit" => 4));
@@ -75,6 +78,15 @@ function disclaimer_member_do_register_end() {
 			$sameip .= ", ";
 
 		$sameip .= $user["username"];
+
+		if ($user["moderateposts"])
+			++$moderated;
+
+		if ($user["suspendposting"])
+			++$suspended;
+
+		if ($user["usernotes"] != "")
+			++$usernotes;
 
 		$query3 = $db->simple_select("banned", "uid", "uid=".intval($user["uid"]));
 		if ($db->fetch_array($query3))
@@ -94,8 +106,13 @@ function disclaimer_member_do_register_end() {
 			"Administration https://news.piratenpartei.de/admin/index.php?module=user\n".
 			"Sperre: https://news.piratenpartei.de/admin/index.php?module=user-banning&uid=".$id."#username\n";
 
-	if ($sameip != "")
+	if ($sameip != "") {
 		$message .= "User mit gleicher IP: ".$sameip;
+		$message .= "\nVerbannt: ".$banned;
+		$message .= "\nGesperrt: ".$suspended;
+		$message .= "\nModeriert: ".$moderated;
+		$message .= "\nNotizen: ".$usernotes;
+	}
 
 	if (($_COOKIE["utemp"] != "") or ($_COOKIE["ubtemp"] != "")) {
 
@@ -104,7 +121,7 @@ function disclaimer_member_do_register_end() {
 		if ($_COOKIE["ubtemp"] != "")
 			$cookieuid = $_COOKIE["ubtemp"];
 
-		$query = $db->simple_select("users", "username", "uid=".intval($cookieuid), array('limit' => 1));
+		$query = $db->simple_select("users", "username, usernotes, moderateposts, suspendposting", "uid=".intval($cookieuid), array('limit' => 1));
 		$user = $db->fetch_array($query);
 
 		if ($user)
@@ -115,13 +132,18 @@ function disclaimer_member_do_register_end() {
 		$query = $db->simple_select("banned", "uid", "uid=".intval($cookieuid));
 		$cookiebanned = ($db->fetch_array($query));
 
+		$cookiemoderated = ($user["moderateposts"] or $user["suspendposting"] or($user["usernotes"] != ""));
+
 		$message .= "\nVorhandenes User-Cookie fuer User: ".$username;
 
 		if ($cookiebanned)
 			$message .= "\nDer Cookie-User ist gesperrt (".$_COOKIE["utemp"]."/".$_COOKIE["ubtemp"].")";
+
+		if ($cookiemoderated)
+			$message .= "\nDer Cookie-User ist moderiert (M: ".$user["moderateposts"]."/S: ".$user["suspendposting"]."/U: ".$user["usernotes"].")";
 	}
 
-	if ((($ipcount > 3) and ($startdate-$enddate < 5000000) and ($banned > 2)) or (($ipcount > 9) and ($banned > 2)) or ($banned == 4) or $cookiebanned) {
+	if ((($ipcount > 3) and ($startdate-$enddate < 5000000) and ($banned > 2)) or (($ipcount > 9) and ($banned > 2)) or ($banned == 4) or $cookiebanned or $cookiemoderated) {
 		disclaimer_ban_user($id);
 		$message .= "\n\nUser wurde automatisch gesperrt.";
 	}
@@ -145,10 +167,24 @@ function disclaimer_member_do_register_end() {
 		fclose($fp);
 	}
 
+	$fid = 795;
+	$tid = 0;
+	$pid = 0;
+	$uid = 0;
+	$username = "Anmeldeinformation";
+	$date = "";
+	$messageid = "";
+	$articlenumber = 0;
+	$email = "";
+
+	require_once MYBB_ROOT."syncom/mybbapi.php";
+
+	$api = new mybbapi;
+	$api->post($fid, $tid, $pid, $subject, $message, $uid, $username, $date, $messageid, $articlenumber, $email);
+
 	my_mail("icarus@dabo.de", $subject, $message);
 }
 
-//require_once MYBB_ROOT."inc/functions.php";
 
 function disclaimer_ban_user($uid) {
 	global $mybb, $db, $cache;

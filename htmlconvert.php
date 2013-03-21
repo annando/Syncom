@@ -105,6 +105,7 @@ function htmlconvert($message)
 
 	//$doc->normalizeDocument();
 
+	deletenode($doc, 'script');
 	deletenode($doc, 'style');
 	deletenode($doc, 'head');
 	deletenode($doc, 'title');
