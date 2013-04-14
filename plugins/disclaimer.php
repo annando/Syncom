@@ -103,8 +103,12 @@ function disclaimer_member_do_register_end() {
 			"Mailadresse: ".$mybb->input['email']."\n".
 			"IP: ".$session->ipaddress."\n".
 			"User-ID: ".$id."\n".
+			"Profil: https://news.piratenpartei.de/member.php?action=profile&uid=".$id."\n".
+			"Beitraege: https://news.piratenpartei.de/search.php?action=finduser&uid=".$id."\n".
+			"Threads: https://news.piratenpartei.de/search.php?action=finduserthreads&uid=".$id."\n".
+			"Mod-Sperre: https://news.piratenpartei.de/modcp.php?action=banuser&uid=".$id."\n".
 			"Administration https://news.piratenpartei.de/admin/index.php?module=user\n".
-			"Sperre: https://news.piratenpartei.de/admin/index.php?module=user-banning&uid=".$id."#username\n";
+			"Admin-Sperre: https://news.piratenpartei.de/admin/index.php?module=user-banning&uid=".$id."#username\n";
 
 	if ($sameip != "") {
 		$message .= "User mit gleicher IP: ".$sameip;
@@ -182,7 +186,7 @@ function disclaimer_member_do_register_end() {
 	$api = new mybbapi;
 	$api->post($fid, $tid, $pid, $subject, $message, $uid, $username, $date, $messageid, $articlenumber, $email);
 
-	my_mail("icarus@dabo.de", $subject, $message);
+	//my_mail("admin@user.tld", $subject, $message);
 }
 
 

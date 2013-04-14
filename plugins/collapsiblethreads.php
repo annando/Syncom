@@ -120,6 +120,23 @@ function collapsiblethreads_binnenibegone($text) {
         $text = preg_replace("/\b(von |für |mit |als )?(((zu )?d|jed|ein|ihr|zur|sein)(e|er|ie) )?(([a-zäöüß]{4,20}[en]) )?([a-zäöüß]{2,})(en?|in)( und | oder | & | bzw.? |\/)(\1|vom )?((((zu )?d|jed|ein|ihr|zum|sein)(e[nrms])? )?(\7[nrms]? )?(\8(e?(s|n|r)?)))\b/i", "$1$12", $text);
         $text = preg_replace("/\b((von |für |mit |als )?((d|jed|ein|ihr|zum|sein)(e[rnms]?|ie) )?([a-zäöüß]{4,20}[en] )?([a-zäöüß]{2,})(e?(n|s|r)?))( und | oder | & | bzw.? |\/)(\2|von der )?(((von |zu )?d|jed|ein|ihr|zur|sein)(e[rn]?|ie) )?\6?\7(in(nen)?|en?)\b/i", "$1", $text);
 
+	// MV
+	$text = preg_replace("/\b(.*?)\*e\b/i", "$1", $text);
+	$text = preg_replace("/\b(.*?)e\*r\b/i", "$1er", $text);
+	$text = preg_replace("/\b(.*?)r\*in\b/i", "$1r", $text);
+
+	$text = str_replace("den*die", "den", $text);
+	$text = str_replace("Den*die", "Den", $text);
+	$text = str_replace("der*die", "der", $text);
+	$text = str_replace("Der*die", "Der", $text);
+	$text = str_replace("der*des", "des", $text);
+	$text = str_replace("Der*des", "Des", $text);
+	$text = str_replace("sie*ihn", "ihn", $text);
+	$text = str_replace("ihren*seinen", "seinen", $text);
+	$text = str_replace("ihre*seine", "seine", $text);
+
+	$text = str_replace("er*innen", "er", $text);
+
         if (preg_match("/[a-zäöüß]{2}((\/-?|_|\*| und -)?In|(\/-?|_|\*| und -)in(n\*en)?|\([Ii]n*(en\)|\)en)?)(?!(\w{1,2}\b)|[cf]o|stance|te[gr]|dex|dia|dia|put|vent|vit)|[A-ZÄÖÜß]{3}(\/-?|_|\*)IN\b|der\/|die\/|den\/|dem\/|ein[Ee]?\/|zur\/|zum\/|sie|eR |em?\/e?r |em?\(e?r\) |frau\/m|man+\/frau/", $text)) {
                 //Prüfung auf Ersetzung
                 if (preg_match("/[a-zäöüß](\/-?|_|\*| und -)in(n(\*|\))en)?\b/i", $text) !== FALSE || preg_match("/[a-zäöüß]\(in/i", $text) !== FALSE) {
@@ -196,6 +213,8 @@ function collapsiblethreads_binnenibegone($text) {
 
 function collapsiblethreads_postbit($post)
 {
+	global $mybb, $db;
+
 	$message = $post['message'];
 	preg_match_all('/<blockquote><cite>(.*?)<\/cite>/is', $message, $result);
 
@@ -231,12 +250,50 @@ function collapsiblethreads_postbit($post)
 
 	$post['message'] = str_replace('</blockquote>', '</div></blockquote>', $newmsg);
 
+
+	if ($mybb->user['uid'] != 0) {
+	        $query = $db->simple_select("users", "syncom_degendering", "uid=".$db->escape_string($mybb->user['uid']));
+		$degender = $db->fetch_array($query);
+		$dodegender = $degender["syncom_degendering"];
+	} //elseif (IN_SYNCOM == 1)
+	//	$dodegender = false;
+	else
+		$dodegender = false;
+
+	$dodegender = false;
+
+	if ($dodegender) {
+		$oldmsg = $post['message'];
+
+		$message = collapsiblethreads_binnenibegone($post['message']);
+
+		$author = $post['uid'];
+		$query = $db->simple_select("users", "syncom_no_degendering", "uid=".$db->escape_string($author));
+		$nodegender = $db->fetch_array($query);
+		$nododegender = $nodegender["syncom_no_degendering"];
+
+		if (($oldmsg != $message) AND !$nododegender) {
+
+			$quoteid = 'quote_'.microtime(true).'_'.mt_rand().'_'.$i++;
+
+			$message .= '<br /><hr /><a href="#" onClick="javascript:toggledisplay('."'".$quoteid."'); return false".'">'.
+				'<cite>In diesem Beitrag wurden Genderformen entfernt, hier klicken, um die unveränderte Originalversion zu sehen</cite></a><div id="'.$quoteid.'" style="display: none;"><hr />';
+			$message .= $oldmsg."</div><hr />";
+
+			$post['message'] = $message;
+
+		} elseif (($oldmsg != $message) AND $nododegender) {
+			$post['message'] .= '<br /><hr />'.
+				'<cite>Die Genderformen in diesem Beitrag wurden auf Wunsch der beitragerstellenden Person nicht entfernt.</cite><hr />';
+		}
+	}
+
 	return($post);
 }
 
 function collapsiblethreads_parse_message($message)
 {
-	global $lang;
+	global $lang, $mybb, $db;
 
 	/*if (IN_SYNCOM != 1) {
 		//$anon = 'http://dontknow.me/at/?';
@@ -248,7 +305,32 @@ function collapsiblethreads_parse_message($message)
 	//$pattern = "/([\w\.-]{1,})@([\w\.-]{2,}\.\w{2,3})/is";
 	//$message = preg_replace($pattern, '$1 (ät) $2', $message);
 
-	$message = collapsiblethreads_binnenibegone($message);
+	/*if ($mybb->user['uid'] != 0) {
+	        $query = $db->simple_select("users", "syncom_degendering", "uid=".$db->escape_string($mybb->user['uid']));
+		$degender = $db->fetch_array($query);
+		$dodegender = $degender["syncom_degendering"];
+	} //elseif (IN_SYNCOM == 1)
+	//	$dodegender = false;
+	else
+		$dodegender = false;
+
+	if ($dodegender) {
+		$oldmsg = $message;
+
+		$message = collapsiblethreads_binnenibegone($message);
+
+		if ($oldmsg != $message) {
+			$quoteid = 'quote_'.microtime(true).'_'.mt_rand().'_'.$i++;
+
+			$message .= '<br /><hr /><a href="#" onClick="javascript:toggledisplay('."'".$quoteid."'); return false".'">'.
+				'<cite>In diesem Beitrag wurden Genderformen entfernt, hier klicken, um die unveränderte Originalversion zu sehen</cite></a><div id="'.$quoteid.'" style="display: none;"><hr />';
+			$message .= $oldmsg."</div><hr />";
+
+		//	$message .= "\n[collapsed='Originalversion']".$oldmsg."[/collapsed]";
+		}
+	}*/
+
+	//$mybb->user['uid'];
 
 	$i = 1;
 	$start = 0;

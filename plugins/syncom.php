@@ -86,11 +86,21 @@ function syncom_usercp_options()
 	// Schalter für das das temporäre Deaktivieren des Abos (Ferienschalter)
 
 	if($mybb->request_method == "post") {
-		$update_array = array("syncom_mailinglist" => intval($mybb->input['syncom_mailinglist']));
+		$update_array = array("syncom_mailinglist" => intval($mybb->input['syncom_mailinglist']),
+					"syncom_no_degendering" => intval($mybb->input['syncom_no_degendering']),
+					"syncom_degendering" => intval($mybb->input['syncom_degendering']));
 		$db->update_query("users", $update_array, "uid = '".$user['uid']."'");
 	}
 
+/*
 	$usercp_option = '</tr><tr>
+<td valign="top" width="1"><input type="checkbox" class="checkbox" name="syncom_degendering" id="syncom_degendering" value="1" {$GLOBALS[\'$syncom_degenderingcheck\']} /></td>
+<td><span class="smalltext"><label for="syncom_degendering">{$lang->syncom_degendering}</label></span></td>';
+	$usercp_option .= '</tr><tr>
+<td valign="top" width="1"><input type="checkbox" class="checkbox" name="syncom_no_degendering" id="syncom_no_degendering" value="1" {$GLOBALS[\'$syncom_no_degenderingcheck\']} /></td>
+<td><span class="smalltext"><label for="syncom_no_degendering">{$lang->syncom_no_degendering}</label></span></td>';
+*/
+	$usercp_option .= '</tr><tr>
 <td valign="top" width="1"><input type="checkbox" class="checkbox" name="syncom_mailinglist" id="syncom_mailinglist" value="1" {$GLOBALS[\'$syncom_mailinglistcheck\']} /></td>
 <td><span class="smalltext"><label for="syncom_mailinglist">{$lang->syncom_mailinglist}</label></span></td>';
 
@@ -101,6 +111,14 @@ function syncom_usercp_options()
 	$GLOBALS['$syncom_mailinglistcheck'] = '';
 	if($user['syncom_mailinglist'])
 		$GLOBALS['$syncom_mailinglistcheck'] = "checked=\"checked\"";
+
+	$GLOBALS['$syncom_degenderingcheck'] = '';
+	if($user['syncom_degendering'])
+		$GLOBALS['$syncom_degenderingcheck'] = "checked=\"checked\"";
+
+	$GLOBALS['$syncom_no_degenderingcheck'] = '';
+	if($user['syncom_no_degendering'])
+		$GLOBALS['$syncom_no_degenderingcheck'] = "checked=\"checked\"";
 
 
 }
@@ -438,6 +456,8 @@ function syncom_install()
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_realname VARCHAR(100) NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_realmail VARCHAR(100) NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_mailinglist BOOLEAN NOT NULL');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_degendering INTEGER NOT NULL');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'users ADD syncom_no_degendering INTEGER NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_newsgroup VARCHAR(100) NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_threadsvisible BOOLEAN NOT NULL');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums ADD syncom_html BOOLEAN NOT NULL');
@@ -473,6 +493,7 @@ function syncom_install()
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_realname');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_realmail');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_mailinglist');
+	$db->query('ALTER TABLE '.TABLE_PREFIX.'users DROP COLUMN syncom_no_degendering');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums DROP COLUMN syncom_newsgroup');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums DROP COLUMN syncom_threadsvisible');
 	$db->query('ALTER TABLE '.TABLE_PREFIX.'forums DROP COLUMN syncom_html');
